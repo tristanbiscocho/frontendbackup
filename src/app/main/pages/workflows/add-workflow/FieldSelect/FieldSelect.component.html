@@ -1,0 +1,38 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-primary m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Select Field</span>
+            <button mat-button class="mat-icon-button"
+                    (click)="dialogRef.close()"
+                    aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="m-0" fusePerfectScrollbar>
+        <form  name="resourceForm" [formGroup]="resourceForm" class="event-form w-100-p" fxLayout="column" fxFlex>
+
+            <mat-selection-list #shoes formControlName="field"  >
+                <mat-list-option *ngFor="let email of emailsdata" [value]="email.FieldID">
+                    {{email.FieldID}}
+                </mat-list-option>
+            </mat-selection-list>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center center">
+
+        <button mat-raised-button
+                (click)="dialogRef.close(resourceForm)"
+                class="save-button mat-primary"
+                 [disabled]="resourceForm.invalid"
+                aria-label="SAVE">
+            SAVE
+        </button>
+
+
+    </div>
+</div>

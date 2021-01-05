@@ -1,0 +1,159 @@
+<div id="supplier-detail" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/supervisor-list/' + partnerOffset">Supervisors</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Supervisor Details</span>
+            </p>
+        </div>
+        <div fxLayout="column" fxLayoutGap="24px">
+            <p-toast position="center"></p-toast>
+
+                <mat-card fxFlex="100" class="credit-card p-12 w-100-p"
+                fxLayout="column">
+                <div class="w-100-p pl-12 content-header" fxLayoutAlign="start
+                    center">
+                    <h3 fxLayoutAlign="start center">
+                        <!-- <mat-icon>keyboard_arrow_right</mat-icon>  -->
+                        Supervisor
+                        Details</h3>
+                </div>
+                <div class="w-100-p p-12">
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">ID</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!supervisorDetail">{{supervisorDetail.ID}}</p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Name</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!supervisorDetail">
+                                    <span *ngIf="supervisorDetail.Title == 1">Mr</span>
+                                    <span *ngIf="supervisorDetail.Title == 2">Miss</span>
+                                    <span *ngIf="supervisorDetail.Title == 3">Mrs</span>
+                                    <span *ngIf="supervisorDetail.Title == 4">Ms</span>
+                                    <span *ngIf="supervisorDetail.Title == 5">Dr</span>&nbsp;{{supervisorDetail.FirstName}}&nbsp;{{supervisorDetail.LastName}}</p>
+
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Email address</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!supervisorDetail">
+                                {{supervisorDetail.EmailId}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Phone No.</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!supervisorDetail">
+                                {{supervisorDetail.PhoneNo}}
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Commission</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!supervisorDetail">£{{supervisorDetail.Comission}} </p>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </mat-card>
+            <div class="content p-12">
+
+                <div class="w-100-p pl-12 content-header mb-12"
+                    fxLayoutAlign="space-between center">
+                    <h3 fxLayoutAlign="start center">
+                        <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                       Invoice Details
+                    </h3>
+
+                    <button mat-fab color="white-bg" (click)="addSupervisorDetail()">
+                        <mat-icon class="accent-fg">add</mat-icon>
+                    </button>
+
+                   
+                </div>
+              
+                           
+                          
+                   
+                   
+                            <div *ngIf="invoices?.length > 0">
+                                <ngx-datatable class="material striped w-100-p"  
+                                [selectAllRowsOnPage]="false" [rows]="invoices" [columnMode]="'force'" [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+                    
+                                    <ngx-datatable-column [sortable]="true" prop="TransactionDate" name="Date">
+                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                            {{row.TransactionDate | date : 'dd / MM / yyyy'}}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column [sortable]="true" prop="TransactionId" name="Transaction ID">
+                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                            {{row.TransactionId}}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column [sortable]="true" prop="TotalCommission" name="Total Commission">
+                                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                            {{row.TotalCommission}} GBP
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                    <ngx-datatable-column [sortable]="true" prop="Status" name="Status">
+                                        <ng-template let-row="row" let-value="city" ngx-datatable-cell-template>
+                                                <span *ngIf="row.Status == 1">Pending</span>
+                                                <span *ngIf="row.Status == 2">Completed</span>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                
+                                    <ngx-datatable-column [sortable]="true" prop="creditUsed" name="View Invoice">
+                                        <ng-template let-row="row" let-value="city" ngx-datatable-cell-template>
+                                           <button mat-icon-button *ngIf="!!supervisorDetail" [routerLink]="'/invoices/' + partnerOffset + '/' + row.ID + '/' + supervisorDetail.ID + '/' + 12 ">
+                                                <mat-icon>
+                                                    list_alt
+                                                </mat-icon>
+                                           </button>
+                                           <button *ngIf="row.Status == 1" (click)="editInvoice(row)"
+                                           mat-icon-button>
+                                           <mat-icon>
+                                               edit
+                                           </mat-icon>
+                                       </button>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                    
+                                </ngx-datatable>
+                            </div>
+                            <div fxLayoutAlign="center center" *ngIf="invoices?.length == 0">
+                                <h1 style="text-align:center;font-size: medium;
+                                top: 50%;">No Data Found</h1>
+                            </div>
+                           
+                 
+            
+            </div>
+        </div>
+    </div>
+</div>

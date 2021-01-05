@@ -1,0 +1,59 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span *ngIf="tariffTypeDetail == undefined" class="title
+                dialog-title">Add New Tariff Type</span>
+            <span *ngIf="!!tariffTypeDetail" class="title dialog-title">Edit
+                Tariff Type</span>
+            <button mat-button class="mat-icon-button"
+                (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <p-toast position="center"></p-toast>
+        <div *ngIf="showLoader">
+            <div class="loader1">
+                <div>
+                    <div class="lds-ripple">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form name="tariffTypeForm" [formGroup]="tariffTypeForm" class="event-form
+            w-100-p" fxLayout="column" fxFlex>
+           
+                <div>
+                    <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="100" appearance="outline">
+                            <mat-label>Tariff Type</mat-label>
+                            <input matInput placeholder="Supplier Name"
+                                formControlName="Name" required>
+                            <mat-error
+                                *ngIf="tariffTypeForm.get('Name').hasError('required')">
+                                Tariff Type is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                   
+                <div>
+                    <button *ngIf="tariffTypeDetail == undefined" mat-flat-button
+                        [disabled]="tariffTypeForm.invalid" class="c-p-btn"
+                        (click)="saveTariffType()" color="accent">Add Tariff Type</button>
+                    &nbsp; &nbsp;
+                    <button *ngIf="!!tariffTypeDetail" mat-flat-button
+                        [disabled]="tariffTypeForm.invalid" class="c-p-btn"
+                        (click)="editTariffType()" color="accent">Update Tariff Type</button>
+                    &nbsp; &nbsp;
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>

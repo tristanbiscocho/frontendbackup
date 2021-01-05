@@ -1,0 +1,270 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Add customer</span>
+            <button
+                mat-button
+                class="mat-icon-button"
+                (click)="dialogRef.close()"
+                aria-label="Close dialog"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <form [formGroup]="createUserForm">
+            <div>
+                <div>
+                    <div fxLayoutGap="12px">
+                        <mat-form-field
+                            fxFlex="50"
+                            fxFlex.lt-md="100"
+                            appearance="outline"
+                        >
+                            <mat-label>Title</mat-label>
+                            <mat-select
+                                placeholder="Title"
+                                formControlName="Title"
+                            >
+                                <mat-option value="1">Mr</mat-option>
+                                <mat-option value="3">Mrs</mat-option>
+                                <mat-option value="2">Miss</mat-option>
+                                <mat-option value="4">Ms</mat-option>
+                                <mat-option value="5">Dr</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>First name</mat-label>
+                            <input
+                                formControlName="FirstName"
+                                matInput
+                                placeholder="First name"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Last name</mat-label>
+                            <input
+                                formControlName="LastName"
+                                matInput
+                                placeholder="Last name"
+                                required
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Email address</mat-label>
+                            <input
+                                formControlName="EmailAddress"
+                                matInput
+                                placeholder="Email address"
+                                required
+                            />
+                            <!-- <mat-error *ngIf="!loginFormErrors.email.required && loginForm.get('email').hasError('pattern')">
+                                    Please enter a valid Email address
+                                </mat-error> -->
+                        </mat-form-field>
+
+                        <div fxLayoutAlign="start start" fxFlex="50">
+                            <international-phone-number
+                                fxLayoutAlign="start start"
+                                class="input-field"
+                                [(ngModel)]="phone_number"
+                                placeholder="Enter Phone Number"
+                                [maxlength]="20"
+                                [required]="true"
+                                #phoneNumber="ngModel"
+                                name="phone_number"
+                                [allowedCountries]="['in', 'ca', 'us']"
+                            ></international-phone-number>
+                        </div>
+                    </div>
+                    <div fxLayoutGap="12px">
+                        <mat-form-field
+                            fxFlex="50"
+                            fxFlex.lt-md="100"
+                            appearance="outline"
+                        >
+                            <mat-label>Date of birth</mat-label>
+                            <input
+                                (click)="picker.open()"
+                                formControlName="DOB"
+                                matInput
+                                [max]="maxDate"
+                                [matDatepicker]="picker"
+                                placeholder="Date of birth"
+                            />
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="picker"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Referral Code</mat-label>
+                            <input
+                                formControlName="control"
+                                matInput
+                                placeholder="Referral Code"
+                                required
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div
+                        fxLayoutGap="12px"
+                        fxLayout.lt-md="column"
+                        fxLayout="row"
+                    >
+                        <div
+                            fxFlex="50"
+                            fxFlex.lt-md="100"
+                            class="mb-16"
+                            fxLayoutGap="12px"
+                        >
+                            <span>Gender:</span>
+
+                            <mat-radio-group
+                                formControlName="Gender"
+                                fxLayoutGap="12px"
+                                aria-label="Select an option"
+                            >
+                                <mat-radio-button value="1"
+                                    >Male</mat-radio-button
+                                >
+                                <mat-radio-button value="2"
+                                    >Female</mat-radio-button
+                                >
+                            </mat-radio-group>
+                        </div>
+                        <div
+                            fxFlex="50"
+                            fxFlex.lt-md="100"
+                            class="mb-16"
+                            fxLayoutGap="12px"
+                        >
+                            <span>Status:</span>
+
+                            <mat-radio-group
+                                formControlName="Status"
+                                fxLayoutGap="12px"
+                                aria-label="Select an option"
+                            >
+                                <mat-radio-button value="1"
+                                    >Active</mat-radio-button
+                                >
+                                <mat-radio-button value="2"
+                                    >Inactive</mat-radio-button
+                                >
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Employment status</mat-label>
+                            <mat-select
+                                formControlName="EmploymentStatusId"
+                                placeholder="Employment status"
+                            >
+                                <mat-option
+                                    *ngFor="let status of epmStatus"
+                                    [value]="status.Id"
+                                    >{{ status.Value }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Residental status</mat-label>
+                            <mat-select
+                                formControlName="ResidentalStatusId"
+                                placeholder="Residental status"
+                            >
+                                <mat-option
+                                    *ngFor="let add of resStatusL"
+                                    [value]="add.Id"
+                                >
+                                    {{ add.Value }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Time at current address</mat-label>
+                            <mat-select
+                                formControlName="TimeOfCurrentAddress"
+                                placeholder="Time at current address"
+                            >
+                                <mat-option
+                                    *ngFor="let add of timeOfCurAdd"
+                                    [value]="add.Id"
+                                >
+                                    {{ add.Value }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Where did you hear about us?</mat-label>
+                            <mat-select
+                                formControlName="WhereDidYouhearaboutUs"
+                                placeholder="No of rooms"
+                            >
+                                <mat-option
+                                    *ngFor="let add of hearAbout"
+                                    [value]="add.Id"
+                                >
+                                    {{ add.Value }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start center" class="title-head">
+                    Payment Details
+                </div>
+                <div fxLayoutGap="12px">
+                    <!-- <mat-form-field fxFlex="50" appearance="outline">
+                    <mat-label>Sort code (6 digits)</mat-label>
+                    <input oninput="validity.valid||(value='');" min="0" maxlength="6" matInput placeholder="Sort code (6 digits)" required>
+                </mat-form-field> -->
+
+                    <div fxLayoutAlign="start start" fxFlex="50">
+                        <p-inputMask
+                            formControlName="PaymentDetails_SortCode"
+                            class="input-field sort-code"
+                            mask="99-99-99"
+                            placeholder="Sort Code (6 Digits)"
+                        ></p-inputMask>
+                    </div>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Account Number (8 Digits)</mat-label>
+                        <input
+                            formControlName="PaymentDetails_AccountNumber"
+                            oninput="validity.valid||(value='');"
+                            min="0"
+                            maxlength="8"
+                            matInput
+                            placeholder="Account number (8 digits)"
+                            required
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <button
+                        mat-flat-button
+                        class="c-p-btn"
+                        color="accent"
+                        (click)="saveUser()"
+                    >
+                        Add profile
+                    </button>
+                    &nbsp; &nbsp;
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

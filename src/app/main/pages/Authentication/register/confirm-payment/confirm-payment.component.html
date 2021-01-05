@@ -1,0 +1,118 @@
+<div class="dialog-content-wrapper">
+    <!-- <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title"> </span> -->
+           
+        <!-- </div>
+    </mat-toolbar> -->
+
+    <div mat-dialog-content class="m-0" fusePerfectScrollbar>
+        <div class="p-24 pt-0">
+            <div fxLayoutAlign="center center">
+                <img
+                    width="160"
+                    class="text-center"
+                    src="assets/images/logos/LowestTeriff.png"
+                />
+            </div>
+           
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <h2 class="mb-0">
+                    Check your details are correct 
+                </h2>
+                <h3>
+                    SEPA Core Direct Debit Mandate 
+                </h3>   
+            </div>
+    
+            <div class="px-24">
+                <div fxLayoutGap="12px">
+                  <div fxFlex="50">
+                      <p><b>Name</b></p>
+                      <p>Lowest Tariff</p>
+
+                  </div>
+                  <div fxFlex="50">
+                    <p><b>Date</b></p>
+                    <p>{{date  | date: 'dd / MM / yyyy'}}</p>
+                </div>
+                </div>
+                <div fxLayoutGap="12px">
+                   <div>
+                       <p><b>Creditor</b></p>
+                       <p>KFJERIHGIEH</p>
+                   </div>
+                </div>
+    
+               <div>
+                <div>
+                    <p><b>Address</b></p>
+                    <p>Kattendijkdok-Westkaai 61/1101, 2000 Antwerp, Belgium</p>
+                </div> 
+               </div>
+    
+                <div fxLayoutGap="12px">
+                    <div  fxFlex="50">
+                        <p><b>Type</b></p>
+                        <p>Recurrent</p>
+                    </div>
+                    <div  fxFlex="50">
+                        <p><b>Reference</b></p>
+                        <p>Available after confirmation</p>
+                    </div>
+                </div>
+            </div>
+                <div class="account-details px-24">
+                    <div>
+                        <p><b>Account holder name</b></p>
+                        <p>{{Data.fName}} {{Data.lname}}</p>
+                    </div>
+                    <!-- <div>
+                        <div>
+                            <p><b>Address</b></p>
+                            <p>{{Data.address}}</p>
+                        </div>
+                    </div> -->
+                    <div *ngIf="!!Data.comName">
+                        <p><b>Customer name or company name</b></p>
+                      <p>{{Data.comName}}</p>
+                    </div>
+                    <div *ngIf="!!Data.IBAN_NUM">
+                        <p><b>IBAN</b></p>
+                        <p>{{Data.IBAN_NUM}}</p>
+                    </div>
+                    <div *ngIf="!!Data.sort_code">
+                        <p><b>Sort code</b></p>
+                        <p>{{Data.sort_code }}</p>
+                    </div>
+                    <div  *ngIf="!!Data.account_num">
+                        <p><b>Account Number</b></p>
+                        <p>{{Data.account_num }}</p>
+                    </div>
+                    <p>
+                        <a style="cursor: pointer;" (click)="dialogRef.close()">Change</a>
+                    </p>
+                </div>
+                <div class="my-8" fxLayoutGap="12px" fxLayoutAlign="center center">
+                    <button mat-flat-button  color="accent" (click)="dialogRef.close({event: 'data'});">
+                        Confirm
+                    </button>
+                </div>
+           
+    
+        </div>
+        
+        <div class="footer px-24 py-12">
+            <div>
+                <div fxLayout="column">
+                    <h3  fxLayoutAlign="center center">View your Direct Debit Instruction</h3>
+                    <p  fxLayoutAlign="center center"><b>Lowest Tariff</b>&nbsp;will appear on your bank statement.</p>
+                    <p>We will notify you via email at least 7 working days in advance of any changes to your payment date, frequency or amount.</p>
+                    <p>By signing this mandate form, you authorise (A) Monti Trade BVBA t/a Lowest Tariff to send instructions to your bank to debit your account and (B) your bank to debit your account in accordance with the instruction from Monti Trade BVBA t/a Lowest Tariff.</p>
+                    <p>As part of your rights, you are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.</p><p>Your rights are explained in a statement that you can obtain from your bank.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+<div
+    id="manage-article"
+    class="page-layout blank p-24 dashboard-w-100"
+    fusePerfectScrollbar
+>
+    <div class="detail">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group btn-group-lg" dropdown>
+                    <button
+                        dropdownToggle
+                        class="btn btn-info dropdown-toggle text-white"
+                    >
+                        Add <span class="caret"></span>
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu" role="menu">
+                        <li role="menuitem">
+                            <a
+                                class="dropdown-item"
+                                routerLink="/knowledge-base-dashboard/manage-articles/create-article"
+                                >Article</a
+                            >
+                        </li>
+                        <li role="menuitem">
+                            <a
+                                class="dropdown-item"
+                                routerLink="/knowledge-base-dashboard/arrange-content/add-section"
+                                >Section</a
+                            >
+                        </li>
+                        <li role="menuitem">
+                            <a
+                                class="dropdown-item"
+                                routerLink="/knowledge-base-dashboard/arrange-content/add-category"
+                                >Category</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div
+            class="my-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between-start"
+        >
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <label [routerLink]="'/knowledge-base-dashboard'"
+                        >Overview</label
+                    >
+                    <span>&nbsp;/&nbsp;</span>
+                    <span>Manage Articles</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="detail">
+            <div
+                class="pb-5"
+                fxLayoutGap="24px"
+                fxLayout="column"
+                fxLayout.lt-sm="column"
+            >
+                <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <mat-card fxFlex="50" class="widget-card p-20">
+                        <div
+                            class="alignment"
+                            [routerLink]="
+                                '/knowledge-base-dashboard/manage-articles/list'
+                            "
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">All Articles</h3>
+                            <p class="count m-0">0</p>
+                        </div>
+                    </mat-card>
+                    <mat-card fxFlex="50" class="widget-card p-20">
+                        <div
+                            class="alignment"
+                            [routerLink]="
+                                '/knowledge-base-dashboard/manage-articles/list'
+                            "
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Published</h3>
+                            <p class="count m-0">0</p>
+                        </div>
+                    </mat-card>
+                    <mat-card fxFlex="50" class="widget-card p-20">
+                        <div
+                            class="alignment"
+                            [routerLink]="
+                                '/knowledge-base-dashboard/manage-articles/list'
+                            "
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Drafts</h3>
+                            <p class="count m-0">0</p>
+                        </div>
+                    </mat-card>
+                    <mat-card fxFlex="50" class="widget-card p-20">
+                        <div
+                            class="alignment"
+                            [routerLink]="
+                                '/knowledge-base-dashboard/manage-articles/list'
+                            "
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Archived</h3>
+                            <p class="count m-0">0</p>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

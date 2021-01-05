@@ -1,0 +1,203 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span *ngIf="supplierDetails == undefined" class="title
+                dialog-title">Add new supplier</span>
+            <span *ngIf="!!supplierDetails" class="title dialog-title">Edit
+                supplier</span>
+            <button mat-button class="mat-icon-button"
+                (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <p-toast position="center"></p-toast>
+        <div *ngIf="showLoader">
+            <div class="loader1">
+                <div>
+                    <div class="lds-ripple">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form name="supplierForm" [formGroup]="supplierForm" class="event-form
+            w-100-p" fxLayout="column" fxFlex>
+            <div>
+                <div>
+                    <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="100" appearance="outline">
+                            <mat-label>Supplier Name</mat-label>
+                            <input matInput placeholder="Supplier Name"
+                                formControlName="Name" required>
+                            <mat-error
+                                *ngIf="supplierForm.get('Name').hasError('required')">
+                                Supplier name is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="mb-16" fxLayoutGap="12px">
+                        <h3>
+                            Energy type *
+                        </h3>
+                        <div class="selection-wrapper">
+                            <mat-radio-group formControlName="EnergyTypeID"
+                                fxLayout="row" fxLayout.lt-md="column"
+                                fxLayoutAlign.lt-md="start center"
+                                fxLayoutAlign="space-between center"
+                                aria-label="Select an option">
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="1">
+                                        <div fxLayoutAlign="start center">
+                                            <img width="25"
+                                                src="assets/images/betterDeal/gas.png"
+                                                />
+                                            <img width="25"
+                                                src="assets/images/betterDeal/electricity-1.png"
+                                                /><span fxHide fxShow.gt-sm
+                                                class="ml-8 alignment">Gas & Electricity</span>
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+                                <div fxLayoutAlign="center center" class="p-12">OR</div>
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="2">
+                                        <div fxLayout.lt-md="column"
+                                            fxLayoutAlign="start center">
+                                            <img width="25"
+                                                src="assets/images/betterDeal/electricity-1.png"
+                                                />
+                                            <span fxHide fxShow.gt-sm
+                                                class="ml-8">Electricity</span>
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+                                <div fxLayoutAlign="center center" class="p-12">OR</div>
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="3">
+                                        <div fxLayout.lt-md="column"
+                                            fxLayoutAlign="start center">
+                                            <img width="25"
+                                            src="assets/images/betterDeal/gas.png"
+                                                />
+                                            <span fxHide fxShow.gt-sm
+                                                class="ml-8">Gas</span>
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+                            </mat-radio-group>
+                        </div>
+
+                    </div>
+                    <!-- <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="100" appearance="outline">
+                            <mat-label>Supplier Name</mat-label>
+                            <input matInput placeholder="Supplier Name"
+                                formControlName="Name" required>
+                            <mat-error
+                                *ngIf="supplierForm.get('Name').hasError('required')">
+                                Supplier name is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div> -->
+                    <div class="mb-20 selection-wrapper" fxLayoutGap="12px">
+                            <div fxFlex="100" class="radio-button">
+                        <mat-checkbox
+                         formControlName="IsCanUsedForSwitch" (change)="IsChecked($event)">
+                                Is applicable for switch
+                    </mat-checkbox>
+                    </div>
+                    </div>
+                    <div fxLayoutGap="12px" *ngIf="isRanked ==  true">
+                        <mat-form-field fxFlex="100" appearance="outline">
+                            <mat-label>Rank *</mat-label>
+                            <input matInput placeholder="Rank *"
+                                oninput="validity.valid||(value='');" min="0"
+                                type="text" formControlName="Rank" >
+                            <mat-error
+                                *ngIf="supplierForm.get('Rank').hasError('required')">
+                                Rank is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <div class="mb-16" fxLayoutGap="12px">
+                        <h3>
+                            Payment type *
+                        </h3>
+                        <div class="selection-wrapper">
+                            <mat-radio-group formControlName="PaymentTypeId" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="start center" fxLayoutAlign="space-between center" aria-label="Select an option">
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="1">
+                                        <div fxLayoutAlign="start center">
+                                            <img width="50" src="assets/images/logos/debit-card.png" />
+                                            <span fxHide fxShow.gt-sm class="ml-8">Debit</span>
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+                                <div fxLayoutAlign="center center" class="p-12">OR</div>
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="2">
+                                        <div fxLayout.lt-md="column" fxLayoutAlign="start center">
+                                            <img width="50" src="assets/images/logos/money.png" />
+                                            <span fxHide fxShow.gt-sm class="ml-8">Direct</span>
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+
+                            </mat-radio-group>
+                        </div>
+                    </div> -->
+                </div>
+
+                <div class="mb-16" fxLayoutGap="12px">
+                    <h3>
+                        Status *
+                    </h3>
+                    <div class="selection-wrapper">
+                        <mat-radio-group formControlName="Status" fxLayout="row"
+                            fxLayout.lt-md="column" fxLayoutAlign.lt-md="start
+                            center" fxLayoutAlign="space-between center"
+                            aria-label="Select an option">
+                            <div fxFlex="50" class="radio-button">
+                                <mat-radio-button [value]="1">
+                                    <div fxLayoutAlign="start center">
+                                       
+                                        <span fxHide fxShow.gt-sm class="ml-8">Active</span>
+                                    </div>
+                                </mat-radio-button>
+                            </div>
+                            <div fxLayoutAlign="center center" class="p-12">OR</div>
+                            <div fxFlex="50" class="radio-button">
+                                <mat-radio-button [value]="0">
+                                    <div fxLayout.lt-md="column"
+                                        fxLayoutAlign="start center">
+                                       
+                                        <span fxHide fxShow.gt-sm class="ml-8">Inactive</span>
+                                    </div>
+                                </mat-radio-button>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+
+                </div>
+                <div>
+                    <button *ngIf="supplierDetails == undefined" mat-flat-button
+                        [disabled]="supplierForm.invalid" class="c-p-btn"
+                        (click)="saveSupplier()" color="accent">Add supplier</button>
+                    &nbsp; &nbsp;
+                    <button *ngIf="!!supplierDetails" mat-flat-button
+                        [disabled]="supplierForm.invalid" class="c-p-btn"
+                        (click)="editSupplier()" color="accent">Update supplier</button>
+                    &nbsp; &nbsp;
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>

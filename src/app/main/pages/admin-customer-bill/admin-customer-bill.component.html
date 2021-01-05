@@ -1,0 +1,430 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div
+            class="my-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between
+            start"
+        >
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <label [routerLink]="'/customer-list/' + customerPageOffset"
+                        >Customers</label
+                    >
+                    <span>&nbsp;/&nbsp;</span>
+                    <span *ngIf="!!customerName"
+                        >Customer bills - {{ customerName }}</span
+                    >
+                </p>
+            </div>
+        </div>
+        <div
+            class="p-12"
+            fxLayoutGap="12px"
+            fxLayout.lt-sm="column"
+            *ngIf="!!otherDetails"
+        >
+            <mat-card
+                fxFlex="50"
+                class="p-8 credit-card"
+                *ngIf="!!otherDetails.ElectricityCurrentPlan_Supplier"
+            >
+                <mat-card class="image-card">
+                    <div class="detail-img">
+                        <img
+                            width="25"
+                            src="assets/images/logos/electricity-1-white.png"
+                        />
+                    </div>
+                </mat-card>
+                <div fxLayoutAlign="start end" fxLayout="column">
+                    <h1 class="credits">
+                        <span>{{
+                            otherDetails.ElectricityCurrentPlan_Supplier
+                        }}</span>
+                    </h1>
+                    <!-- <h3 class="m-0">Referral Credits</h3> -->
+                </div>
+            </mat-card>
+            <mat-card
+                fxFlex="50"
+                class="p-8 credit-card"
+                *ngIf="!!otherDetails.GasCurrentPlan_Supplier"
+            >
+                <mat-card class="image-card">
+                    <div class="detail-img">
+                        <img
+                            width="25"
+                            src="assets/images/logos/gas-white.png"
+                        />
+                    </div>
+                </mat-card>
+                <div fxLayoutAlign="start end" fxLayout="column">
+                    <h1 class="credits">
+                        <span>{{ otherDetails.GasCurrentPlan_Supplier }}</span>
+                    </h1>
+                    <!-- <h3 class="m-0">Referral Credits</h3> -->
+                </div>
+            </mat-card>
+            <mat-card fxFlex="50" class="p-8 credit-card">
+                <mat-card class="image-card">
+                    <div class="detail-img">
+                        <img
+                            width="25"
+                            src="assets/images/logos/plan-white.png"
+                        />
+                    </div>
+                </mat-card>
+                <div fxLayoutAlign="start end" fxLayout="column">
+                    <h1 class="credits">
+                        £<span *ngIf="!!otherDetails.PerQuarter">{{
+                            otherDetails.PerQuarter | number: "1.0-2"
+                        }}</span>
+                        <span *ngIf="!otherDetails.PerQuarter">0</span>
+                    </h1>
+                    <h3 class="m-0">Per Monthly</h3>
+                </div>
+            </mat-card>
+
+            <mat-card fxFlex="50" class="p-8 credit-card">
+                <mat-card class="image-card">
+                    <div class="detail-img">
+                        <img width="25" src="assets/images/logos/creadit.png" />
+                    </div>
+                </mat-card>
+                <div fxLayoutAlign="start end" fxLayout="column">
+                    <h1 class="credits">£{{ otherDetails.ReferralCredit }}</h1>
+                    <h3 class="m-0">Referral Credits</h3>
+                </div>
+            </mat-card>
+        </div>
+        <div class="content">
+            <div class="content-filter" fxLayoutAlign="center center">
+                <div
+                    fxLayoutAlign="center center"
+                    fxFlex="80"
+                    fxLayout.lt-md="column"
+                    fxLayoutGap="15px"
+                    class="p-12"
+                >
+                    <mat-form-field fxFlex="50" class="search-input">
+                        <input
+                            matInput
+                            placeholder="Bill No / Pool Name / Email"
+                            #filter
+                            [formControl]="searchCustomerBill"
+                        />
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="15">
+                        <mat-select placeholder="Status" [(ngModel)]="status">
+                            <mat-option value="1">Pending</mat-option>
+                            <mat-option value="2">Completed</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="15">
+                        <input
+                            (click)="picker.open()"
+                            matInput
+                            [matDatepicker]="picker"
+                            placeholder="From
+                            date"
+                            [(ngModel)]="FromDate"
+                            [max]="ToDate"
+                        />
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="30">
+                        <input
+                            (click)="picker1.open()"
+                            matInput
+                            [matDatepicker]="picker1"
+                            placeholder="To
+                            date"
+                            [(ngModel)]="ToDate"
+                            [min]="FromDate"
+                        />
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker1"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                    <button
+                        *ngIf="IsBlocked == false"
+                        mat-flat-button
+                        style="background: rgba(199, 203, 234, 0.2)"
+                        [routerLink]="
+                            '/add-customer-bills/' +
+                            customerId +
+                            '/' +
+                            customerPageOffset +
+                            '/' +
+                            pageOffset
+                        "
+                    >
+                        <mat-icon class="white-fg mt-8"> add </mat-icon> <br />
+                        Add
+                    </button>
+                    <button
+                        mat-flat-button
+                        style="background: rgba(199, 203, 234, 0.2)"
+                        (click)="filterofBills()"
+                    >
+                        <mat-icon class="white-fg mt-8"> swap_vert </mat-icon>
+                        <br />
+                        Filter
+                    </button>
+                    <button
+                        style="background: rgba(199, 203, 234, 0.2)"
+                        mat-flat-button
+                        (click)="clearBills()"
+                    >
+                        <mat-icon class="white-fg mt-8"> cancel </mat-icon>
+                        <br />
+                        Clear
+                    </button>
+                    <!-- <button *ngIf="IsBlocked == false" mat-fab [routerLink]="'/add-customer-bills/' + customerId + '/' + customerPageOffset + '/' + pageOffset"> 
+                        <mat-icon>add</mat-icon>
+                    </button> -->
+                </div>
+
+                <!-- <button mat-flat-button fxFlex="10" color="accent" (click)="getBills(customerId)">
+                    Filter
+                </button> &nbsp;
+                <button mat-flat-button fxFlex="10" color="accent" (click)="clearBills(customerId)">
+                    Clear
+                </button> -->
+            </div>
+
+            <div></div>
+            <div *ngIf="bills?.length > 0">
+                <ngx-datatable
+                    class="material striped w-100-p"
+                    [rows]="bills"
+                    [columnMode]="'force'"
+                    [headerHeight]="50"
+                    [scrollbarH]="true"
+                    [footerHeight]="50"
+                    [rowHeight]="'auto'"
+                    [limit]="10"
+                    [offset]="pageOffset"
+                    (page)="onChange($event)"
+                >
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="billNo"
+                        name="Bill
+                    no"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.BillNo }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <!-- <ngx-datatable-column [sortable]="true" prop="month" name="Month">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        {{row.CreatedOn | date: 'MMM'}}
+                    </ng-template>
+                </ngx-datatable-column> -->
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="billDate"
+                        name="Bill date"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.CreatedOn | date: "dd - MM - yyy" }}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="charge_date"
+                        name="Payout date"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.BillDate | date: "dd - MM - yyy" }}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="poolName"
+                        name="Pool Name / Email address"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <br />{{ row.PoolName }} <br /><br />
+                            {{ row.PoolEmailAddress }}<br /><br />
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="ammount"
+                        name="Bill amount"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            £{{ row.Amount | number: "1.0-2" }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="creditUsed"
+                        name="Credit used"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <Span *ngIf="!!row.creditUsed"
+                                >£{{ row.creditUsed }}</Span
+                            >
+                            <span *ngIf="!row.creditUsed"> -</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="type"
+                        name="Type"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <span *ngIf="row.BillType == 1">Estimated</span>
+                            <span *ngIf="row.BillType == 2">Actual</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="paymentStatus"
+                        name="Payment Status"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <span
+                                *ngIf="
+                                    row.Status == 1 &&
+                                    row.DirectDebitDetail == null
+                                "
+                            >
+                                Pending
+                            </span>
+                            <span
+                                *ngIf="
+                                    row.Status == 2 &&
+                                    row.DirectDebitDetail == null
+                                "
+                            >
+                                Completed
+                            </span>
+                            <span *ngIf="!!row.DirectDebitDetail">
+                                {{ row.StatusFromDebit }}
+                            </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column [sortable]="false" name="Actions">
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <button
+                                matTooltip="Download"
+                                mat-mini-fab
+                                color="accent"
+                                [routerLink]="
+                                    '/invoices/' +
+                                    row.Id +
+                                    '/' +
+                                    customerPageOffset +
+                                    '/' +
+                                    pageOffset +
+                                    '/' +
+                                    customerId
+                                "
+                            >
+                                <mat-icon>cloud_download</mat-icon>
+                            </button>
+                            <!-- <button mat-icon-button matTooltop="View invoice">
+                            <mat-icon>pageview</mat-icon>
+                        </button> -->
+
+                            <!-- <button mat-icon-button matTooltop="Pay Bill" *ngIf="row.Status==1" (click)="payBill(row.Id)">
+                            <mat-icon>payment</mat-icon>
+                        </button> -->
+
+                            <button
+                                matTooltip="View detail"
+                                *ngIf="
+                                    row.DirectDebitDetail == null &&
+                                    IsBlocked == false &&
+                                    row.Status == 1
+                                "
+                                mat-mini-fab
+                                matTooltop="Pay Bill"
+                                [routerLink]="
+                                    '/customer-payment-request/' +
+                                    row.BillNo +
+                                    '/' +
+                                    customerId +
+                                    '/' +
+                                    customerPageOffset +
+                                    '/' +
+                                    pageOffset
+                                "
+                            >
+                                <mat-icon>list_alt</mat-icon>
+                            </button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+            <div fxLayoutAlign="center center" *ngIf="bills?.length == 0">
+                <h1
+                    style="
+                        text-align: center;
+                        font-size: medium;
+                        position: absolute;
+                        top: 50%;
+                    "
+                >
+                    No Data Found
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>

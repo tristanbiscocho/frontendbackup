@@ -1,0 +1,128 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+  <div class="detail">
+      <div class="my-24"
+          fxLayout.lt-sm="column"
+          fxLayoutAlign="space-between start">
+          <div class="header-title">
+              <p class="m-0">
+                  <label [routerLink]="'/admin-dashboard'">
+                      Dashboard</label>
+                  <span>&nbsp;/&nbsp;</span>
+                  <span>Meter Reading Reason</span>
+              </p>
+          </div>
+      </div>
+  </div>
+
+  <div class="content my-12">
+      <div class="">
+          <div class="detail" fxLayoutGap="12px" fxLayout="column">
+              <div class="credit-card ">
+                  <div fxLayout="row" fxLayoutAlign="center center"   class="p-24 content-filter">
+                      <div fxFlex="80" fxLayout.lt-md="column" fxLayoutGap="15px"
+                      fxLayoutAlign="center center">
+                          
+                      <mat-form-field fxFlex="30" class="search-input">
+                          <input matInput placeholder="Search" [formControl]="searchCategory">
+                          <mat-icon matSuffix>search</mat-icon>
+                      </mat-form-field>
+                      <mat-form-field fxFlex.lt-md="100" fxFlex="20">
+                        <mat-select (selectionChange)="filterbyEnergyType($event)"
+                            placeholder="Meter Type" [(ngModel)]="meterType" >
+                            <mat-option value="2">
+                                Normal Meter
+                            </mat-option>
+                            <mat-option value="1">
+                                Economy 7 or 10 Meter
+                            </mat-option>
+                            <!-- <mat-option value="3">
+                                All
+                            </mat-option> -->
+                        </mat-select>
+                    </mat-form-field>
+                      <button mat-flat-button style="background: rgba(199, 203, 234, 0.2);" (click)="filterCustomer()">
+                          <mat-icon class="white-fg mt-8">
+                              swap_vert
+                          </mat-icon> <br />
+                          Filter
+                      </button>
+                      <button style="background: rgba(199, 203, 234, 0.2);" mat-flat-button  (click)="clearFilter()">
+                          <mat-icon class="white-fg mt-8">
+                              cancel
+                          </mat-icon> <br />
+                          Clear
+                      </button>
+                      </div>
+
+   
+                  </div>
+                  <div>
+                      <div *ngIf="reasons?.length > 0">
+                          <ngx-datatable class="material striped w-100-p" [rows]="reasons" [columnMode]="'force'"  [offset]="tableOffset" (page)="onChange($event)"
+                          [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+
+                          <ngx-datatable-column [sortable]="true" prop="Created Date" name="Created Date">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                               {{row.Date | date: 'dd / MM / yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="name" name="Customer details">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <br /> <a [routerLink]="'/my-profile/' + row.CustomerID + '/' + tableOffset" class="userName">{{row.FirstName}}
+                                    {{row.LastName}}</a><br /><br/>
+                                {{row.EmailAddress}}<br /><br />
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true" prop="Reason" name="Current Reading Value">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                               {{row.ReadingValue}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="Reason" name="Previous Reading Value">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                               {{row.PreviosMeterReading}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                          <!-- <ngx-datatable-column [sortable]="true" prop="Reason" name="Reason">
+                              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                 {{row.AdditionalInfo}}
+                              </ng-template>
+                          </ngx-datatable-column> -->
+
+                      
+
+                        
+
+                          <ngx-datatable-column [sortable]="true" prop="Action" name="Action">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <Div style="text-align: center;">
+                                    <button class="actionBtn" (click)="viewReasons(row)" matTooltip="View Meter Reading Reason"  mat-mini-fab>
+                                        <mat-icon>
+                                            chrome_reader_mode
+                                        </mat-icon>
+                                    </button>
+                                    <button class="actionBtn" [routerLink]="['/meter-reading/' + row.CustomerID + '/' + tableOffset]" [queryParams]="{prop: 'true'}" matTooltip="Customer Meter Reading Reasons" mat-mini-fab>
+                                        <mat-icon>view_list</mat-icon>
+                                    </button>
+                                </Div>
+                            </ng-template>
+
+                            
+                          </ngx-datatable-column>
+                          </ngx-datatable>
+
+                      </div>
+                      <div fxLayoutAlign="center center" *ngIf="reasons?.length == 0">
+                        <h1 style="text-align:center;font-size: medium;position: relative;
+            top: 50%;">No Data Found</h1>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+     
+  </div>
+</div>

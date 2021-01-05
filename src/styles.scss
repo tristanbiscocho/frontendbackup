@@ -1,0 +1,268 @@
+// Import Fuse core library
+@import "@fuse/scss/core";
+@import "~quill/dist/quill.snow.css";
+
+// -----------------------------------------------------------------------------------------------------
+// @ Multiple material themes example
+// -----------------------------------------------------------------------------------------------------
+
+// Define the Material palettes
+$yellow-theme-primary: mat-palette($mat-fusedark);
+$yellow-theme-accent: mat-palette($mat-yellow, 600, 400, 700);
+$yellow-theme-warn: mat-palette($mat-red);
+
+// Create the Material theme object
+$yellow-theme: mat-light-theme(
+    $yellow-theme-primary,
+    $yellow-theme-accent,
+    $yellow-theme-warn
+);
+
+// Add ".yellow-theme" class to the body to activate this theme
+.yellow-theme {
+    // Generate the Angular Material theme
+    @include angular-material-theme($yellow-theme);
+
+    // Generate the fuse color classes with the new colors...
+    @include generateFuseColorClasses(
+        $yellow-theme-primary,
+        $yellow-theme-accent,
+        $yellow-theme-warn
+    );
+}
+
+.ngx-datatable.material .empty-row {
+    font-size: 22px;
+}
+.ngx-datatable.material {
+    box-shadow: none;
+}
+
+.pi {
+    font-family: "primeicons" !important;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: #ffe118 !important;
+    border-left-color: #ffe118 !important;
+    /* border-right: #ffe118; */
+    border-right-color: #ffe118 !important;
+}
+
+// dialogue css
+.add-ticket-form-dialog,
+.ticketing-history-modal {
+    @include media-breakpoint("xs") {
+        width: 100%;
+    }
+    @include media-breakpoint-up("xs") {
+        width: 600px;
+    }
+    .mat-dialog-container {
+        padding: 0px !important;
+    }
+}
+
+.quill-wrapper {
+    margin-bottom: 15px;
+}
+.quill-wrapper .ql-editor {
+    min-height: 200px;
+    -webkit-user-select: text;
+}
+
+.ql-toolbar.ql-snow {
+    background-color: #e8e8e873;
+}
+
+.header-title p label {
+    cursor: pointer !important;
+    color: #ffffff !important;
+    font-size: 18px !important;
+}
+.header-title p label:hover {
+    cursor: pointer !important;
+    text-decoration: underline !important;
+}
+
+@media (max-width: 1280px) {
+    #dashboard .content {
+        min-height: 700px;
+    }
+}
+
+.card {
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+// Mini header for dashboard type pages
+.mini-header {
+    width: fit-content;
+    margin-left: auto;
+}
+.mini-header .menu-wrapper {
+    background-color: #191e45;
+    border-radius: 5px;
+    color: white;
+    padding: 4px 18px;
+}
+.mini-header .menu-wrapper .menu-item {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 4px 0px;
+}
+@media (min-width: 768px) {
+    .mini-header .menu-wrapper .menu-item.after::after {
+        content: "/";
+        position: absolute;
+        right: 0;
+        font-size: 22px;
+    }
+}
+.mini-header .menu-wrapper .icon {
+    color: white;
+    position: relative;
+    top: 5px;
+    width: auto;
+    display: block;
+    min-width: auto;
+    padding-right: 8px;
+}
+
+// breadcrumbs css
+.detail .header-title * {
+    color: #ffe118;
+    font-size: 28px;
+}
+.header-title p label {
+    cursor: pointer !important;
+    color: #ffffff !important;
+    font-size: 18px !important;
+}
+
+// A white space form content
+#space-wrapper {
+    width: 100%;
+    background-size: cover;
+    .content {
+        background: white;
+        @media (min-width: 1280px) {
+            min-height: 700px;
+        }
+    }
+}
+#space-wrapper .detail {
+    max-width: 1200px;
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+#space-wrapper .detail .form-wrapper {
+    width: 60%;
+}
+@media (max-width: 968px) {
+    #space-wrapper .detail .form-wrapper {
+        width: 100%;
+    }
+}
+
+.bg-info-light {
+    background-color: #d9edf7 !important;
+}
+
+.border-info-light {
+    border-color: #d9edf7 !important;
+}
+
+.bg-primary {
+    background-color: #337ab7 !important;
+}
+
+.border-primary {
+    border-color: #337ab7 !important;
+}
+
+.mat-dialog-container {
+    padding: 0px !important;
+}
+
+.mat-flat-button.mat-accent,
+.mat-raised-button.mat-accent,
+.mat-fab.mat-accent,
+.mat-mini-fab.mat-accent {
+    background-color: #ffe118 !important;
+    color: #005a61 !important;
+}
+
+a {
+    color: #005a61 !important;
+    text-decoration: none;
+}
+
+.bg-theme {
+    background-color: #005a61 !important;
+}
+
+.text-yellow {
+    color: #ffe118 !important;
+}
+
+.text-green {
+    color: #005a61 !important;
+}
+
+#reset-password,
+#login,
+#forgot-password {
+    background-color: #005a61 !important;
+}
+
+.navbar-top {
+    min-height: 90px !important;
+}
+
+a.nav-link {
+    color: white !important;
+}
+
+.hint-text {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    font-size: 14px !important;
+}
+
+// change in mat step counter highlighter background color
+.mat-step-header .mat-step-icon {
+    background-color: #005a61 !important;
+}
+
+// changed radio box colors border and bcakground
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #005a61 !important;
+}
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: #005a61 !important;
+}
+
+.language-absolute-class {
+    position: absolute;
+    right: 30px;
+    top: 15px;
+}
+
+.image-card {
+    background-color: white;
+}
+
+.alignment-card-text{
+    text-align: left !important;
+    margin-left: 8px !important;
+    margin-top: 40px !important;
+}
+.pointer{
+    cursor: pointer !important;
+}

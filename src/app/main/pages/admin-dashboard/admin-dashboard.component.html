@@ -1,0 +1,316 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div
+            class="mb-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between
+            start"
+        >
+            <div class="header-title">
+                <h1 class="mt-0">Welcome back, Admin!</h1>
+                <h2>Dashboard</h2>
+            </div>
+        </div>
+    </div>
+    <div class="content" fxLayoutAlign="center center">
+        <div class="detail">
+            <div fxLayoutGap="24px" fxLayout="column" fxLayout.lt-sm="column">
+                <div
+                    fxLayout.lt-sm="column"
+                    fxLayout.lt-md="column"
+                    fxLayoutGap="24px"
+                >
+                    <mat-card
+                        fxFlex="25"
+                        [routerLink]="'/customer-list/' + 0"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/betterDeal/icons/contact.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            fxLayoutAlign=""
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Contacts</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="25"
+                        [routerLink]="'/system-user'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/betterDeal/icons/admin.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Admin</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        [routerLink]="'/system-user/Manager'"
+                        fxFlex="25"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/betterDeal/icons/customer.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Managers</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="25"
+                        [routerLink]="'/admin-tickets-dashboard'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/betterDeal/icons/work-flows.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Work Flow</h3>
+                        </div>
+                    </mat-card>
+                    <!-- <mat-card
+                        [routerLink]="'/partner/ + 0'"
+                        fxFlex="25"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/customer.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Sales</h3>
+                        </div>
+                    </mat-card> -->
+                </div>
+
+                <div
+                    fxLayout.lt-sm="column"
+                    fxLayout.lt-md="column"
+                    fxLayoutGap="24px"
+                >
+                    <mat-card
+                        fxFlex="25"
+                        [routerLink]="'/accounts'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/betterDeal/icons/accounts.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Accounts</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        [routerLink]="'/knowledge-base-dashboard'"
+                        fxFlex="25"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/betterDeal/icons/knowledge-base.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Knowledge  Base</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="25"
+                        [routerLink]="'/supplier-settings'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/betterDeal/icons/supervisor.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">
+                                Supplier 
+                                settings
+                            </h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="25"
+                        [routerLink]="'/pages/configurations/systemenumdata'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/configuration.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">
+                                Sign up 
+                                configuration
+                            </h3>
+                        </div>
+                    </mat-card>
+                </div>
+
+                <div
+                    fxLayout.lt-sm="column"
+                    fxLayout.lt-md="column"
+                    fxLayoutGap="24px"
+                >
+                    <mat-card
+                        fxFlex="25"
+                        [routerLink]="'/email-options'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/betterDeal/icons/email.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Emails</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="25"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/betterDeal/icons/analytics.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Analytics</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="25"
+                        class="credit-card p-12"
+                        [routerLink]="'/ai-bot'"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/betterDeal/icons/analytics.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">AI BOT</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        style="visibility: hidden"
+                        fxFlex="25"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    ></mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

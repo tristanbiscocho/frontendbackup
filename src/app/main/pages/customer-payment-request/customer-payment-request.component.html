@@ -1,0 +1,130 @@
+<div id="add-customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="my-24" fxLayout.lt-sm="column" fxLayoutAlign="space-between
+            start">
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-customer-bill/'+ customerId + '/' + customerPageOffset + '/' + pageOffset">Customer Bills</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span *ngIf="!!bills">Request for Payment - {{bills.CustomerName}}</span>
+                </p>
+            </div>
+        </div>
+        <div>
+            <mat-card fxFlex="100" class="credit-card p-12 w-100-p"
+                fxLayout="column">
+                <div class="w-100-p px-12 content-header" *ngIf="!!bills" fxLayoutAlign="space-between center">
+
+                    <div><h3 *ngIf="!!bills" fxLayoutAlign="start center">
+                        <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                         Request for Payment
+                        for {{bills.CustomerName}}</h3></div>
+                        <div *ngIf="bills.BillInfo.DirectDebitDetail == undefined || bills.BillInfo.DirectDebitDetail == null">
+                            <p *ngIf="bills.BillInfo.Status == 1" fxFlex.lt-sm="100"><b>Pending</b></p>
+                            <p *ngIf="bills.BillInfo.Status == 2" fxFlex.lt-sm="100"><b>Completed</b></p>
+                        </div>
+                        <div *ngIf="!!bills.BillInfo.DirectDebitDetail">
+                                <p  *ngIf="directDebitDetail.CreatedCustomerpayment.status == 'pending_submission'" fxFlex.lt-sm="100">Status from Direct Debit API: <b>pending_submission</b></p>
+                                <p *ngIf="directDebitDetail.CreatedCustomerpayment.status != 'pending_submission'" fxFlex.lt-sm="100">Status from Direct Debit API: <b>pending_submission</b></p>
+                            </div>
+                </div>
+
+                <div class="w-100-p p-12">
+                        <div fxLayout.lt-sm="column">
+                                <div fxFlex="20" fxFlex.lt-sm="100">
+                                    <p class="font-weight-500">Bill No</p>
+                                </div>
+                                <div fxFlex="50" fxFlex.lt-sm="100">
+                                    <p *ngIf="!!bills"><span>{{bills.BillInfo.BillNo}}</span></p>
+                                </div>
+                            </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="20" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Duration</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p fxFlex="20" *ngIf="!!bills" fxFlex.lt-sm="100">{{bills.BillInfo.StartDate | date: 'dd / MM / yyyy'}}&nbsp;to</p>
+                            <p fxFlex="20" *ngIf="!!bills" fxFlex.lt-sm="100">{{bills.BillInfo.EndDate | date: 'dd / MM / yyyy'}}</p>
+                        </div>
+                    </div>
+                    <!-- <div fxLayout.lt-sm="column">
+                            <div fxFlex="20" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Electricity Meter Reading By Customer</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf = "!!bills"><span *ngIf="!!bills.BillInfo.CustomerElectricityMeterReadingId">{{bills.BillInfo.CustomerElectricityMeterReadingId}}</span><span *ngIf="!!bills.BillInfo.LowReadingValue && bills.IsElectricMeterReading == true"> - {{bills.BillInfo.LowReadingValue}}</span></p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column"  *ngIf="!!bills && !!bills.BillInfo.CustomerGasMeterReadingId">
+                                <div fxFlex="20" fxFlex.lt-sm="100">
+                                    <p class="font-weight-500">Gas Meter Reading By Customer</p>
+                                </div>
+                                <div fxFlex="50" fxFlex.lt-sm="100">
+                                    <p *ngIf = "!!bills"><span *ngIf="!!bills.BillInfo.CustomerGasMeterReadingId">{{bills.BillInfo.CustomerGasMeterReadingId}}</span></p>
+                                </div>
+                            </div> -->
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="20" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Amount</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p *ngIf="!!bills"><span>£{{bills.BillInfo.Amount}}</span></p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="start
+                        start" fxLayoutAlign="start center">
+                        <div fxFlex="20" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Estimated bill</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!packageDetails"><span>{{packageDetails}}</span></p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="20" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Type</p>
+                        </div>
+                        <div *ngIf="!!bills" fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="bills.BillInfo.BillType == 1"><span>Estimated</span></p>
+                                <p *ngIf="bills.BillInfo.BillType == 2"><span>Actual</span></p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                            <div fxFlex="20" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Pool Id</p>
+                            </div>
+                            <div *ngIf="!!bills" fxFlex="50" fxFlex.lt-sm="100">
+                                <p><span>{{bills.PoolId}}</span></p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                                <div fxFlex="20" fxFlex.lt-sm="100">
+                                    <p class="font-weight-500">Pool Name</p>
+                                </div>
+                                <div *ngIf="!!bills" fxFlex="50" fxFlex.lt-sm="100">
+                                    <p><span>{{bills.PoolName}}</span></p>
+                                </div>
+                            </div>
+                </div>
+
+                <div fxLayoutAlign="end end" fxLayoutGap="12px" class="p-12">
+                   
+                    <button mat-flat-button color="accent" (click)="reqPayement()">
+                        Request for Payment
+                    </button>
+                </div>
+
+               
+
+                    </mat-card>
+                </div>
+
+            </div>
+        </div>

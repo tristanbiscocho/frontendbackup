@@ -1,0 +1,27 @@
+.language-dropdown {
+    cursor: pointer;
+}
+.language-dropdown a {
+    color: white !important;
+    text-decoration: none !important;
+}
+.language-dropdown .dropdown-menu {
+    min-width: 100%;
+    background: transparent;
+    padding: 0;
+}
+.language-dropdown .dropdown-menu .dropdown-item {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    padding-bottom: 6px !important;
+    cursor: pointer !important;
+}
+.dropdown-item:focus,
+.dropdown-item:hover {
+    color: #ffffff !important;
+    background-color: #026a6e !important;
+}
+.language-dropdown:hover > .dropdown-menu {
+    display: block;
+    transition: 0.5s all;
+}

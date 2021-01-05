@@ -1,0 +1,316 @@
+<div id="create-switch-history" class="page-layout blank p-24"
+    fusePerfectScrollbar>
+    <div class="detail">
+        <div class="my-24" fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="start
+            start" fxLayoutAlign="space-between
+            start">
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <label [routerLink]="'/customer-list/' + customerPageOffset">Customers</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <label [routerLink]="'/admin-switch-history/' + customerId + '/' + customerUId + '/' + customerPageOffset + '/' + pageOffset ">Switch history</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span *ngIf="!!switchDetails">Create switch history - {{switchDetails.CustomerName}}</span>
+                </p>
+            </div>
+        </div>
+
+        <p-toast position="center"></p-toast>
+        <div class="content">
+            <div fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="center center"
+                fxLayoutAlign="space-around start">
+                <h2  *ngIf="!!switchDetails">Customer - {{switchDetails.CustomerName}}</h2>
+                <h2  *ngIf="!!switchDetails">{{switchDetails.EmailAddress}}</h2>
+                <!-- <button class="m-12" mat-flat-button color="accent">
+                    Create New Switch
+                </button> -->
+            </div>
+
+            <!-- 1st lin -->
+            <div class="w-100-p pl-12 content-header" fxLayoutAlign="start
+                center">
+
+                <h3 fxLayoutAlign="start center">
+                    <!-- <mat-icon>keyboard_arrow_right</mat-icon>  -->
+                    Customer details</h3>
+            </div>
+        </div>
+        <!-- box -->
+
+        <div class="p-20 content" fxLayout.lt-sm="column" fxLayoutGap="24px">
+            <!-- 1st box -->
+            <mat-card fxFlex="50" fxFlex.lt-md="100" class="credit-card
+                pricing-table p-12" fxLayout="column" fxLayoutAlign="center
+                center">
+
+                <div class="w-100-p">
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500 m-8">Name</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="m-8" *ngIf="!!pooldata">{{pooldata[1].FirstName}} {{pooldata[1].LastName}}</p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500 m-8">Email address</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="m-8" *ngIf="!!pooldata">{{pooldata[1].Email}}</p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500 m-8">Phone NO.</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="m-8" *ngIf="!!pooldata">{{pooldata[1].PhoneNumber}}</p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500 m-8">Address</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="m-8" *ngIf="!!pooldata">{{pooldata[1].Address}}</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </mat-card>
+
+            <div fxFlex="5" fxLayoutAlign="center center">
+                <img width="80" src="assets/images/logos/arrowblue.png" />
+            </div>
+            <!-- 2nd box -->
+            <mat-card fxFlex="50" fxFlex.lt-md="100" class="credit-card
+                pricing-table
+                p-12" fxLayout="column" fxLayoutAlign="center center">
+
+                <div class="w-100-p">
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500 m-8">Name</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="m-8" *ngIf="!!pooldata">{{pooldata[0].FirstName}} {{pooldata[0].LastName}}</p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500 m-8">Email address</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="m-8" *ngIf="!!pooldata">{{pooldata[0].Email}}</p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500 m-8">Phone NO.</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="m-8"*ngIf="!!pooldata">{{pooldata[0].PhoneNumber}}</p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500 m-8">Address</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="m-8" *ngIf="!!pooldata">{{pooldata[0].Address}}</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </mat-card>
+
+        </div>
+
+        <div class="content">
+            <!-- 2nd line -->
+            <div class="w-100-p pl-12 content-header" fxLayoutAlign="start
+                center">
+                <h3 fxLayoutAlign="start center">
+                    <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                    Current Plan</h3>
+            </div>
+
+            <!-- current plane deatails -->
+            <div class="w-100-p p-12 px-48" fxLayoutAlign="start
+                center" fxLayoutGap="30px">
+                <!-- 1st column -->
+                <div fxFlex="100">
+                    
+                    <div fxLayout.lt-sm="column" fxLayoutGap="12px">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Current Supplier</p>
+                        </div>
+
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p *ngIf="!!elecSupplierId">
+                                Electricity: <br/>
+                                {{elecSupplierName}}
+                            </p>
+                            <p *ngIf="!!gasAndElecSupplierId"> 
+                                Gas & Electricity: <br/>
+                                {{gasAndElecSupplierName}}
+                            </p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">New Supplier</p>
+                        </div>
+                        <!-- <div fxLayoutGap="12px" fxLayoutAlign="start start"> -->
+                        <mat-form-field fxFlex="50" fxFlex.lt-md="100"
+                            appearance="outline">
+                            <mat-label> New supplier</mat-label>
+                            <mat-select placeholder="Supplier"  [(ngModel)]="supplierId" (selectionChange)="getSupplierPlans($event)">
+                                <mat-option *ngFor="let sup of suppliers" [value]="sup.ID">{{sup.Name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout.lt-sm="column"  fxLayoutGap="12px">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Plan</p>
+                        </div>
+
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p *ngIf="!!elecPlanId">
+                                Electricity: <br/>
+                                {{elecPlanName}}
+                            </p>
+                            <p *ngIf="!!gasElecPlanId">
+                                Gas & Electricity: <br/>
+                                {{gasElecPlanName}}
+                            </p>
+                        </div>
+
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Plan</p>
+                        </div>
+                        
+                            <mat-form-field fxFlex="50" style="overflow: hidden;" fxFlex.lt-md="100"
+                            appearance="outline">
+                            <mat-label> Standard - Monthly</mat-label>
+                            <mat-select placeholder="Plans" [(ngModel)]="planId">
+                                <mat-option *ngFor="let sup of supplierPlans" [value]="sup.Id">{{sup.PlanName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        
+                    </div>
+
+                    <div fxLayout.lt-sm="column"  fxLayoutGap="12px">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Estimated Bill</p>
+                        </div>
+
+                       
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!packageName">{{packageName}} (£{{packageAmount}})</p>
+                            </div>
+                        
+
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Estimated Bill</p>
+                        </div>
+                        <mat-form-field fxFlex="50" fxFlex.lt-md="100"
+                            appearance="outline">
+                            <mat-select placeholder="Selected plan"  [(ngModel)]="packageId">
+                                <mat-option *ngFor="let pack of packages" [value]="pack.Id">{{pack.Name}} (£{{pack.Amount}})</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+              
+                    <div class="m-12" fxLayoutAlign="center start">
+                        <button mat-flat-button color="accent" (click)="switchNow()">
+                            Switch Now
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- 2nd column -->
+                <!-- <div fxFlex="50">
+                
+
+                    <div fxLayout.lt-sm="column">
+                       
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                       
+                    </div>
+
+                </div> -->
+            </div>
+
+        
+
+
+            <!-- 1st column -->
+
+            <!-- <div fxLayout.lt-sm="column">
+
+                
+                <mat-card fxFlex="100" fxFlex.lt-md="100" class="credit-card
+                    pricing-table notice-wrapper p-12 m-12" fxLayout="column"
+                    fxLayoutAlign="center center">
+                    <div class="w-100-p p-12">
+                        <div class="notice-content">
+                            <div fxLayout.lt-sm="column">
+                                <div fxFlex="80" fxFlex.lt-sm="100">
+                                    <h3 class="font-weight-500">
+                                        Switch Status from Supplier (First time
+                                        and After 75 Days)
+                                    </h3>
+                                </div>
+
+                            </div>
+
+
+
+                            <h2 class="font-weight-500 light-green-fg">
+                                if Approved, then System Needs to Send Welcome
+                                Email and Meter Reading Email to Client. (First
+                                time and After 75 Days)
+                            </h2>
+
+                            <h3 class="font-weight-500">
+                                If Declined, then need to Apply Next Supplier in
+                                List (As per Order Been set for Supplier) and
+                                Perform Same Process</h3>
+                        </div>
+                    </div>
+                    <div class="button-area">
+                        <div fxLayoutGap="30px" fxFlex.lt-sm="100">
+                            <button mat-flat-button color="accent">
+                                Approved
+                            </button>
+                            <button mat-flat-button color="accent">
+                                Declined
+                            </button>
+                        </div>
+                    </div>
+                </mat-card>
+
+
+            </div> -->
+
+        </div>
+
+
+
+    </div>
+</div>

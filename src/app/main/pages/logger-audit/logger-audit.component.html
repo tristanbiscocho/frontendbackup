@@ -1,0 +1,104 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="my-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between start">
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">
+                        Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span>Log </span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content my-12">
+        <div class="">
+            <div class="detail" fxLayoutGap="12px" fxLayout="column">
+                <div class="credit-card ">
+                    <div fxLayout="row" fxLayoutAlign="center center"   class="p-24 content-filter">
+                        <div fxFlex="80" fxLayout.lt-md="column" fxLayoutGap="15px"
+                        fxLayoutAlign="center center">
+                            
+                        <mat-form-field fxFlex="30" class="search-input">
+                            <input matInput placeholder="Customer Email" [formControl]="searchCategory">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="15">
+                            <input (click)="picker.open()" matInput [matDatepicker]="picker" placeholder="From
+                                Date" [(ngModel)]="fromDate" [max]="toDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+            
+                        <mat-form-field fxFlex="15">
+                            <input (click)="picker1.open()" matInput [(ngModel)]="toDate" [min]="fromDate" [matDatepicker]="picker1" placeholder="To Date">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                        <button mat-flat-button style="background: rgba(199, 203, 234, 0.2);" (click)="filterCustomer()">
+                            <mat-icon class="white-fg mt-8">
+                                swap_vert
+                            </mat-icon> <br />
+                            Filter
+                        </button>
+                        <button style="background: rgba(199, 203, 234, 0.2);" mat-flat-button  (click)="clearFilter()">
+                            <mat-icon class="white-fg mt-8">
+                                cancel
+                            </mat-icon> <br />
+                            Clear
+                        </button>
+                        </div>
+
+     
+                    </div>
+                    <div>
+                        <div *ngIf="loggerList?.length > 0">
+                            <ngx-datatable class="material striped w-100-p" [rows]="loggerList" [columnMode]="'force'"  [offset]="tableOffset" (page)="onChange($event)"
+                            [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+                            <ngx-datatable-column [sortable]="true" prop="uName" name="User Name">
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                   {{row.UserName}}
+                                </ng-template>
+                            </ngx-datatable-column>
+    
+                            <ngx-datatable-column [sortable]="true" prop="Action" name="Action Name">
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                   {{row.Action}}
+                                </ng-template>
+                            </ngx-datatable-column>
+    
+                            <ngx-datatable-column [sortable]="true" prop="CreatedOn" name="Date">
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                   {{row.CreatedOn | date: 'dd / MM / yyyy'}}
+                                </ng-template>
+                            </ngx-datatable-column>
+    
+                            <ngx-datatable-column [sortable]="true" prop="IP" name="IP Address">
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                   {{row.IP}}
+                                </ng-template>
+                            </ngx-datatable-column>
+    
+                            <ngx-datatable-column [sortable]="false"  name="Request">
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                    <button matTooltip="Request"   (click)="requestJSON(row.ActionRQData)" mat-mini-fab>
+                                        <mat-icon class="white-fg">list_alt</mat-icon>
+                                    </button>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                        <div fxLayoutAlign="center center" *ngIf="loggerList?.length == 0">
+                            <h1 style="text-align:center;font-size: medium;position: absolute;
+                            top: 50%;">No Data Found</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>

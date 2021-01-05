@@ -1,0 +1,153 @@
+export class RegisterDetail {
+    EnergyTypeID: number;
+    EnergyUsageID: number;
+    ElectricityConsumption: number;
+    ElectricityConsumptionPeriodID: number;
+    GasConsumption: number;
+    Electricity_Day_Consumption: any;
+    Electricity_Night_Consumption: any;
+    Electricity_Day_ConsumptionPeriodID: any;
+    Electricity_Night_ConsumptionPeriodId: any;
+    GasConsumptionPeriodID: number;
+    ElectricityCurrentPlan_SupplierID: number;
+    ElectricityCurrentPlan_PlanID: number;
+    ElectricityCurrentPlan_PlanPaymentID: number;
+    GasCurrentPlan_SupplierID: number;
+    GasCurrentPlan_PlanID: number;
+    GasCurrentPlan_PlanPaymentID: number;
+    HouseTypeID: number;
+    FamilyMembersId: number;
+    NoOfRoomsId: number;
+    TitleId: number;
+    EmploymentStatusId: number;
+    ResidentalStatusId: number;
+    TimeOfCurrentAddress: number;
+    WhereDidYouhearaboutUs: number;
+    CurrentSupplierID: number;
+    PersonID?: number;
+    Person?: PersonalDetail;
+    // address Information
+    AddressLine1: string;
+    AddressLine2: string;
+    City: string;
+     PostCode: string;
+    Password: any;
+    TypeOfHome: any;
+    ReferralCode: any;
+    GasMPRNnumber: any;
+    ElectricitySupplyNumber: any;
+    Country: any;
+    StreetName: any;
+    HouseName: any;
+    FullAddress: any;
+    IsElectricMeterReading?: any;
+    Economy_Elect_Meter?: any;
+    IBANNumber?: any;
+    BillingAddress1?: any;
+    BillingAddress2?: any;
+    BillingCity?: any;
+    BillingPostcode?: any;
+    CustomerId?: any;
+    PackageId?: any;
+    Gas_OldSupplierID?: any;
+    Electricity_OldSupplierID?: any;
+    Gas_OldPlanID?: any;
+    Electricity_OldPlanID?: any;
+
+}
+
+
+export class PersonalDetail {
+    FirstName?: string;
+    LastName?: string;
+    EmailAddress?: string;
+    MobileNumber?: string;
+    DOB?: any;
+    AddressId?: number;
+    PaymentDetails_SortCode?: string;
+    PaymentDetails_AccountNumber?: string;
+    PaymentDetails_AccountName?: string;
+    Title?: number;
+    UserId?: number;
+    Id?:number;
+    AlternativeMobileNumber?: any;
+
+}
+
+
+export class EditCustomer {
+     Id: any
+    CustomerName: any;
+    CustomerInformation: any;
+    CallbackFlag: any;
+    Notes: any;
+    CreatedDate: any;
+    UpdatedOn: any;
+    Status: any;
+    Phone_No: any;
+    PartnerId: any;
+    CallbackTime: any;
+    CallbackDate: any;
+    AddressLine1: any;
+    AddressLine2: any;
+    City: any;
+    Postcode: any;
+    FullAddress: any;
+    HouseName: any;
+    HouseNumber: any;
+    FlatNumber: any;
+    StreetName: any;
+    Country: any;
+    FirstName: any;
+    LastName: any;
+    EmailAddress: any;
+    MobileNumber: any;
+    LandlineNumber: any;
+    DOB: any;
+    Title: any;
+    ReferralCode: any;
+    PaymentDetails_AccountNumber: any;
+    PaymentDetails_Sortcode: any;
+    PaymentDetails_AccountName: any;
+    EnergyTypeID: any;
+    EnergyUsageID: any;
+    ElectricityConsumption: any;
+   ElectricityConsumptionPeriodID: any;
+    GasConsumption: any;
+   GasConsumptionPeriodID: any;
+   ElectricityCurrentPlan_SupplierID: any;
+   ElectricityCurrentPlan_PlanID: any;
+   ElectricityCurrentPlan_PlanPaymentID: any;
+   GasCurrentPlan_SupplierID: any;
+   GasCurrentPlan_PlanID: any;
+   GasCurrentPlan_PlanPaymentID: any;
+   HouseTypeID: any;
+   FamilyMembersID: any;
+   NoOfRoomsID: any;
+   TitleID: any;
+   CurrentSupplierID: any;
+   EmploymentStatusID: any;
+   ResidentialStatusID: any;
+   TimeOfCurrentAddress: any;
+   WhereDidYouHearAboutUs: any;
+   TypeOfHome: any;
+   PackageID: any;
+   GasMPRNNumber: any;
+   ElectricitySupplyNumber: any;
+   DirectDebitDetail: any;
+     IsElectricMeterReading: any;
+   Economy_Elect_Meter: any;
+    Electricity_Day_Consumption: any;
+    Electricity_Night_Consumption: any;
+   Electricity_Day_ConsumptionPeriodID: any;
+    Electricity_Night_ConsumptionPeriodID: any;
+    IBANNumber: any;
+    PendingBankDetails: any;
+    Reference: any;
+    IsSendEmail: any;
+    Gas_OldSupplierID: any;
+    Electricity_OldSupplierID: any;
+    Gas_OldPlanID: any;
+    Electricity_OldPlanID: any;
+    AlternativeMobileNumber: any;
+}

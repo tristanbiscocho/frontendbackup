@@ -1,0 +1,173 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <p-toast position="center"></p-toast>
+    <div class="detail" [ngStyle]="{'min-height': minheight}">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/supervisor-list/' + pageOffset">Supervisors</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span *ngIf="userId == null || userId == undefined">
+                    Add Supervisor
+                </span>
+                
+                <span *ngIf="!!userId">
+                    Edit Details
+                </span>
+            </p>
+        </div>
+        <div class="content w-100-p" fxLayoutAlign="center center" [ngStyle]="{'min-height': minheight}" >
+            <form name="addPartner" class="event-form" [formGroup]="addSupervisor" >
+            <div  class="p-24">
+                <p-toast position="center"></p-toast>
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" fxFlex.lt-md="100" appearance="outline">
+                        <mat-label>Title</mat-label>
+                        <mat-select placeholder="Title" formControlName="Title" required>
+                            <mat-option [value]="1">Mr</mat-option>
+                        <mat-option [value]="3">Mrs</mat-option>
+                        <mat-option [value]="2">Miss</mat-option>
+                        <mat-option [value]="4">Ms</mat-option>
+                        <mat-option [value]="5">Dr</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="addSupervisor.get('Title').hasError('required')">
+                            Title is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>First name</mat-label>
+                        <input matInput  formControlName="FirstName" placeholder="First name" required>
+                        <mat-error *ngIf="addSupervisor.get('FirstName').hasError('required')">
+                            First name is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Last name</mat-label>
+                        <input matInput disabled  formControlName="LastName" placeholder="Last name" required>
+                        <mat-error *ngIf="addSupervisor.get('LastName').hasError('required')">
+                            Last name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Email address</mat-label>
+                        <input matInput disabled formControlName="EmailId" placeholder="Email address" required>
+                        <mat-error *ngIf="addSupervisor.get('EmailId').hasError('required')">
+                            Email is required
+                        </mat-error>
+                        <mat-error *ngIf="addSupervisor.get('EmailId').hasError('pattern')">
+                            Please enter a valid Email address.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div fxLayoutAlign="start start" fxFlex="50">
+                        <international-phone-number fxLayoutAlign="start start" [ngModelOptions]="{standalone: true}" class="input-field" [(ngModel)]="phone_number" placeholder="Enter Phone Number" [maxlength]="20" [required]="true" #phoneNumber="ngModel" name="phone_number"></international-phone-number>
+                    </div>
+                </div>
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" fxFlex.lt-md="100" appearance="outline">
+                        <mat-label>Date of birth</mat-label>
+                        <input (click)="picker.open()" matInput formControlName="DOB" [max]="maxDate" required [matDatepicker]="picker" placeholder="Date of birth">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="addSupervisor.get('DOB').hasError('required')">
+                            Date of birth is required.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Commission</mat-label>
+                        <input formControlName="Comission" min="0"  matInput type="number" oninput="validity.valid||(value='');" placeholder="Commission" required>
+                        <span matPrefix>£</span>
+                        <mat-error *ngIf="addSupervisor.get('Comission').hasError('required')">
+                            Comission is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field fxFlex="100" appearance="outline">
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="AddressLine1" placeholder="Address" required>
+                    
+                        <mat-error *ngIf="addSupervisor.get('AddressLine1').hasError('required')">
+                            Address is required
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>City</mat-label>
+                        <input matInput formControlName="City" placeholder="City" required>
+                        <mat-error *ngIf="addSupervisor.get('City').hasError('required')">
+                            City is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Postal Code</mat-label>
+                        <input matInput formControlName="PostCode" placeholder="Postal Code" required>
+                        <mat-error *ngIf="addSupervisor.get('PostCode').hasError('required')">
+                            Postal code is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <h3 class="mt-0">
+                    Payment Details
+                </h3>
+                <div fxLayoutGap="12px">
+                    <!-- <div fxLayoutAlign="start start" fxFlex="50"> -->
+                        <!-- <p-inputMask formControlName="SortCode" required
+                            class="input-field sort-code" mask="99-99-99" placeholder="Sort Code (6 Digits) *">
+                        </p-inputMask> -->
+                        <!-- <p-inputMask class="input-field sort-code" formControlName="SortCode" mask="99-99-99" placeholder="Sort Code (6 Digits)"></p-inputMask> -->
+                    <!-- </div> -->
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Sort Code (6 Digits)*</mat-label>
+                        <input matInput formControlName="SortCode" [textMask]="{mask: datemask}" [(ngModel)]="myModel" placeholder="Sort Code (6 Digits) *">
+                       </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Account Number (8 Digits)</mat-label>
+                        <input required type="number" formControlName="AccountNUmber" matInput
+                            placeholder="Account Number (8 Digits)"
+                            onKeyPress="if(this.value.length==8) return false;"
+                            oninput="validity.valid||(value='');" min="0" required>
+                    </mat-form-field>
+                </div>
+
+
+                <div fxLayoutGap="12px">
+              
+                    <div class="py-12" fxLayout="row" fxLayoutAlign="start center" fxFlex="50">
+                        <h3 class="m-0">Partners</h3>&nbsp;&nbsp;&nbsp;
+                        <div>
+                            <button mat-button (click)="seletcPartner()">
+                                <mat-icon>add</mat-icon>Select Partner
+                            </button>
+                        </div>
+                      
+                    </div>
+                </div>  
+                <div fxLayout="column" fxLayoutGap="12px">
+                    <mat-card *ngFor="let data of selectedPartners; index as i" class="p-4 px-12 w-50-p" fxLayoutAlign="space-between center">
+                        <div><b>{{data.PartnerName}}</b> <br/>{{data.EmailAddress}}<br/>{{data.City}}</div>
+                        <button *ngIf="!!data.Id" mat-icon-button (click)="removePartnerById(i, data.Id)">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                        <button *ngIf="data.Id == null || data.Id == undefined" mat-icon-button (click)="removePartner(i)">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </mat-card>
+                </div>
+                <div class="py-12" fxLayoutAlign="end end">
+                    <button *ngIf="supervisorDetail == null || supervisorDetail== undefined" mat-flat-button color="accent" (click)="addSupervisorData()" [disabled]="addSupervisor.invalid || !hasNumber.test(addSupervisor.controls['SortCode'].value)" >Submit</button>
+                    <button *ngIf="!!supervisorDetail" mat-flat-button color="accent" (click)="editSupervisor()" [disabled]="addSupervisor.invalid || !hasNumber.test(addSupervisor.controls['SortCode'].value)" >Save</button>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>

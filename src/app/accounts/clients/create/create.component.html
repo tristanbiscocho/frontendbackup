@@ -1,0 +1,776 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+  <p-toast position="center"></p-toast>
+  <div class="detail" [ngStyle]="{'min-height': minheight}">
+      <div class="header-title my-12">
+          <p>
+              <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+              <span>&nbsp;/&nbsp;</span>
+              <label [routerLink]="'/accounts/clients'">Clients</label>
+              <span>&nbsp;/&nbsp;</span>
+              <span *ngIf="userId == null || userId == undefined">
+                  Add Clients
+              </span>
+              
+              <span *ngIf="!!userId">
+                  Edit Details
+              </span>
+          </p>
+      </div>
+      <div class="container" fxLayout="row" fxLayoutAlign="center none">
+        <div fxFlex="95%">
+      
+          <mat-card>
+            <mat-card-content>
+              
+              <h2> Clients</h2>
+              <form [formGroup]="form"  (ngSubmit)="onSubmit()">
+                
+              <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Supplier</mat-label>
+                        <!-- <input type="email" matInput formControlName="SupplierId" [errorStateMatcher]="matcher"> -->
+                        <mat-select  formControlName="SupplierId">
+                          <mat-option *ngFor="let item of allSupplier" value="item.Id">
+                            {{item.Name}} 
+                          </mat-option>
+                        </mat-select>
+                        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                      
+                        <mat-error *ngIf="SupplierId.hasError('required')">
+                            Supplier  is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Company Name</mat-label>
+                        <input type="email" matInput formControlName="CompanyName" [errorStateMatcher]="matcher">
+                        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                      
+                        <mat-error *ngIf="CompanyName.hasError('required')">
+                          Company Name is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                
+                      <mat-form-field class="example-full-width">
+                        <mat-label>Title</mat-label>
+                        <mat-select formControlName="Title" placeholder="Title">
+                            <mat-option value="0">Mr</mat-option>
+                            <mat-option value="2">Mrs</mat-option>
+                            <mat-option value="1">Miss</mat-option>
+                            <mat-option value="3">Ms</mat-option>
+                            <mat-option value="4">Dr</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="Title.hasError('required')">
+                          Tittle is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>First Name</mat-label>
+                        <input type="text" matInput formControlName="FirstName" [errorStateMatcher]="matcher">
+                        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                      
+                        <mat-error *ngIf="FirstName.hasError('required')">
+                            First Name is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Last Name</mat-label>
+                        <input type="text" matInput formControlName="LastName" [errorStateMatcher]="matcher">
+                        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                      
+                        <mat-error *ngIf="LastName.hasError('required')">
+                            Last Name is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                      <mat-label>Business Phone Number</mat-label>
+                      <input type="text" matInput formControlName="BusineesPhoneNumber" [errorStateMatcher]="matcher">
+                      <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                    
+                      <mat-error *ngIf="BusineesPhoneNumber.hasError('required')">
+                          Business Phone Number is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Alternative Phone Number</mat-label>
+                    <input type="text" matInput formControlName="Number" [errorStateMatcher]="matcher">
+                    <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                  
+                    <mat-error *ngIf="Number.hasError('required')">
+                        Number is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="example-full-width">
+                  <mat-label>Email</mat-label>
+                  <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
+                         placeholder="Ex. pat@example.com">
+                  <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                  <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+                    Please enter a valid email address
+                  </mat-error>
+                  <mat-error *ngIf="email.hasError('required')">
+                    Email is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <mat-label>Vat Number</mat-label>
+                <input type="text" matInput formControlName="VatNumber" [errorStateMatcher]="matcher">
+                <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+              
+                <mat-error *ngIf="VatNumber.hasError('required')">
+                    Vat Number is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+        </div>
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Address</mat-label>
+                        <input type="text" matInput formControlName="Address" [errorStateMatcher]="matcher">
+                        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                      
+                        <mat-error *ngIf="Address.hasError('required')">
+                            Address is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                </div>
+               
+             
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Address/Optional</mat-label>
+                        <input type="text" matInput formControlName="BuildingName" [errorStateMatcher]="matcher">
+                        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                      
+                        <mat-error *ngIf="BuildingName.hasError('required')">
+                            Building Name is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                </div>
+               
+               
+                
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width">
+                          <mat-label>Town City</mat-label>
+                          <input type="text" matInput formControlName="TownCity" [errorStateMatcher]="matcher">
+                          <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                        
+                          <mat-error *ngIf="TownCity.hasError('required')">
+                              Town City is <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Post Code</mat-label>
+                        <input type="text" matInput formControlName="TownCity" [errorStateMatcher]="matcher">
+                        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                      
+                        <mat-error *ngIf="TownCity.hasError('required')">
+                            Town City is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Country</mat-label>
+                    <mat-select  formControlName="Title" placeholder="Title">
+        <mat-option value="AF">Afghanistan</mat-option>
+        <mat-option value="AX">Aland Islands</mat-option>
+        <mat-option value="AL">Albania</mat-option>
+        <mat-option value="DZ">Algeria</mat-option>
+        <mat-option value="AS">American Samoa</mat-option>
+        <mat-option value="AD">Andorra</mat-option>
+        <mat-option value="AO">Angola</mat-option>
+        <mat-option value="AI">Anguilla</mat-option>
+        <mat-option value="AQ">Antarctica</mat-option>
+        <mat-option value="AG">Antigua and Barbuda</mat-option>
+        <mat-option value="AR">Argentina</mat-option>
+        <mat-option value="AM">Armenia</mat-option>
+        <mat-option value="AW">Aruba</mat-option>
+        <mat-option value="AU">Australia</mat-option>
+        <mat-option value="AT">Austria</mat-option>
+        <mat-option value="AZ">Azerbaijan</mat-option>
+        <mat-option value="BS">Bahamas</mat-option>
+        <mat-option value="BH">Bahrain</mat-option>
+        <mat-option value="BD">Bangladesh</mat-option>
+        <mat-option value="BB">Barbados</mat-option>
+        <mat-option value="BY">Belarus</mat-option>
+        <mat-option value="BE">Belgium</mat-option>
+        <mat-option value="BZ">Belize</mat-option>
+        <mat-option value="BJ">Benin</mat-option>
+        <mat-option value="BM">Bermuda</mat-option>
+        <mat-option value="BT">Bhutan</mat-option>
+        <mat-option value="BO">Bolivia</mat-option>
+        <mat-option value="BQ">Bonaire, Sint Eustatius and Saba</mat-option>
+        <mat-option value="BA">Bosnia and Herzegovina</mat-option>
+        <mat-option value="BW">Botswana</mat-option>
+        <mat-option value="BV">Bouvet Island</mat-option>
+        <mat-option value="BR">Brazil</mat-option>
+        <mat-option value="IO">British Indian Ocean Territory</mat-option>
+        <mat-option value="BN">Brunei Darussalam</mat-option>
+        <mat-option value="BG">Bulgaria</mat-option>
+        <mat-option value="BF">Burkina Faso</mat-option>
+        <mat-option value="BI">Burundi</mat-option>
+        <mat-option value="KH">Cambodia</mat-option>
+        <mat-option value="CM">Cameroon</mat-option>
+        <mat-option value="CA">Canada</mat-option>
+        <mat-option value="CV">Cape Verde</mat-option>
+        <mat-option value="KY">Cayman Islands</mat-option>
+        <mat-option value="CF">Central African Republic</mat-option>
+        <mat-option value="TD">Chad</mat-option>
+        <mat-option value="CL">Chile</mat-option>
+        <mat-option value="CN">China</mat-option>
+        <mat-option value="CX">Christmas Island</mat-option>
+        <mat-option value="CC">Cocos (Keeling) Islands</mat-option>
+        <mat-option value="CO">Colombia</mat-option>
+        <mat-option value="KM">Comoros</mat-option>
+        <mat-option value="CG">Congo</mat-option>
+        <mat-option value="CD">Congo, the Democratic Republic of the</mat-option>
+        <mat-option value="CK">Cook Islands</mat-option>
+        <mat-option value="CR">Costa Rica</mat-option>
+        <mat-option value="CI">Cote D'Ivoire</mat-option>
+        <mat-option value="HR">Croatia</mat-option>
+        <mat-option value="CU">Cuba</mat-option>
+        <mat-option value="CW">Curacao</mat-option>
+        <mat-option value="CY">Cyprus</mat-option>
+        <mat-option value="CZ">Czech Republic</mat-option>
+        <mat-option value="DK">Denmark</mat-option>
+        <mat-option value="DJ">Djibouti</mat-option>
+        <mat-option value="DM">Dominica</mat-option>
+        <mat-option value="DO">Dominican Republic</mat-option>
+        <mat-option value="EC">Ecuador</mat-option>
+        <mat-option value="EG">Egypt</mat-option>
+        <mat-option value="SV">El Salvador</mat-option>
+        <mat-option value="GQ">Equatorial Guinea</mat-option>
+        <mat-option value="ER">Eritrea</mat-option>
+        <mat-option value="EE">Estonia</mat-option>
+        <mat-option value="ET">Ethiopia</mat-option>
+        <mat-option value="FK">Falkland Islands (Malvinas)</mat-option>
+        <mat-option value="FO">Faroe Islands</mat-option>
+        <mat-option value="FJ">Fiji</mat-option>
+        <mat-option value="FI">Finland</mat-option>
+        <mat-option value="FR">France</mat-option>
+        <mat-option value="GF">French Guiana</mat-option>
+        <mat-option value="PF">French Polynesia</mat-option>
+        <mat-option value="TF">French Southern Territories</mat-option>
+        <mat-option value="GA">Gabon</mat-option>
+        <mat-option value="GM">Gambia</mat-option>
+        <mat-option value="GE">Georgia</mat-option>
+        <mat-option value="DE">Germany</mat-option>
+        <mat-option value="GH">Ghana</mat-option>
+        <mat-option value="GI">Gibraltar</mat-option>
+        <mat-option value="GR">Greece</mat-option>
+        <mat-option value="GL">Greenland</mat-option>
+        <mat-option value="GD">Grenada</mat-option>
+        <mat-option value="GP">Guadeloupe</mat-option>
+        <mat-option value="GU">Guam</mat-option>
+        <mat-option value="GT">Guatemala</mat-option>
+        <mat-option value="GG">Guernsey</mat-option>
+        <mat-option value="GN">Guinea</mat-option>
+        <mat-option value="GW">Guinea-Bissau</mat-option>
+        <mat-option value="GY">Guyana</mat-option>
+        <mat-option value="HT">Haiti</mat-option>
+        <mat-option value="HM">Heard Island and Mcdonald Islands</mat-option>
+        <mat-option value="VA">Holy See (Vatican City State)</mat-option>
+        <mat-option value="HN">Honduras</mat-option>
+        <mat-option value="HK">Hong Kong</mat-option>
+        <mat-option value="HU">Hungary</mat-option>
+        <mat-option value="IS">Iceland</mat-option>
+        <mat-option value="IN">India</mat-option>
+        <mat-option value="ID">Indonesia</mat-option>
+        <mat-option value="IR">Iran, Islamic Republic of</mat-option>
+        <mat-option value="IQ">Iraq</mat-option>
+        <mat-option value="IE">Ireland</mat-option>
+        <mat-option value="IM">Isle of Man</mat-option>
+        <mat-option value="IL">Israel</mat-option>
+        <mat-option value="IT">Italy</mat-option>
+        <mat-option value="JM">Jamaica</mat-option>
+        <mat-option value="JP">Japan</mat-option>
+        <mat-option value="JE">Jersey</mat-option>
+        <mat-option value="JO">Jordan</mat-option>
+        <mat-option value="KZ">Kazakhstan</mat-option>
+        <mat-option value="KE">Kenya</mat-option>
+        <mat-option value="KI">Kiribati</mat-option>
+        <mat-option value="KP">Korea, Democratic People"s Republic of</mat-option>
+        <mat-option value="KR">Korea, Republic of</mat-option>
+        <mat-option value="XK">Kosovo</mat-option>
+        <mat-option value="KW">Kuwait</mat-option>
+        <mat-option value="KG">Kyrgyzstan</mat-option>
+        <mat-option value="LA">Lao People's Democratic Republic</mat-option>
+        <mat-option value="LV">Latvia</mat-option>
+        <mat-option value="LB">Lebanon</mat-option>
+        <mat-option value="LS">Lesotho</mat-option>
+        <mat-option value="LR">Liberia</mat-option>
+        <mat-option value="LY">Libyan Arab Jamahiriya</mat-option>
+        <mat-option value="LI">Liechtenstein</mat-option>
+        <mat-option value="LT">Lithuania</mat-option>
+        <mat-option value="LU">Luxembourg</mat-option>
+        <mat-option value="MO">Macao</mat-option>
+        <mat-option value="MK">Macedonia, the Former Yugoslav Republic of</mat-option>
+        <mat-option value="MG">Madagascar</mat-option>
+        <mat-option value="MW">Malawi</mat-option>
+        <mat-option value="MY">Malaysia</mat-option>
+        <mat-option value="MV">Maldives</mat-option>
+        <mat-option value="ML">Mali</mat-option>
+        <mat-option value="MT">Malta</mat-option>
+        <mat-option value="MH">Marshall Islands</mat-option>
+        <mat-option value="MQ">Martinique</mat-option>
+        <mat-option value="MR">Mauritania</mat-option>
+        <mat-option value="MU">Mauritius</mat-option>
+        <mat-option value="YT">Mayotte</mat-option>
+        <mat-option value="MX">Mexico</mat-option>
+        <mat-option value="FM">Micronesia, Federated States of</mat-option>
+        <mat-option value="MD">Moldova, Republic of</mat-option>
+        <mat-option value="MC">Monaco</mat-option>
+        <mat-option value="MN">Mongolia</mat-option>
+        <mat-option value="ME">Montenegro</mat-option>
+        <mat-option value="MS">Montserrat</mat-option>
+        <mat-option value="MA">Morocco</mat-option>
+        <mat-option value="MZ">Mozambique</mat-option>
+        <mat-option value="MM">Myanmar</mat-option>
+        <mat-option value="NA">Namibia</mat-option>
+        <mat-option value="NR">Nauru</mat-option>
+        <mat-option value="NP">Nepal</mat-option>
+        <mat-option value="NL">Netherlands</mat-option>
+        <mat-option value="AN">Netherlands Antilles</mat-option>
+        <mat-option value="NC">New Caledonia</mat-option>
+        <mat-option value="NZ">New Zealand</mat-option>
+        <mat-option value="NI">Nicaragua</mat-option>
+        <mat-option value="NE">Niger</mat-option>
+        <mat-option value="NG">Nigeria</mat-option>
+        <mat-option value="NU">Niue</mat-option>
+        <mat-option value="NF">Norfolk Island</mat-option>
+        <mat-option value="MP">Northern Mariana Islands</mat-option>
+        <mat-option value="NO">Norway</mat-option>
+        <mat-option value="OM">Oman</mat-option>
+        <mat-option value="PK">Pakistan</mat-option>
+        <mat-option value="PW">Palau</mat-option>
+        <mat-option value="PS">Palestinian Territory, Occupied</mat-option>
+        <mat-option value="PA">Panama</mat-option>
+        <mat-option value="PG">Papua New Guinea</mat-option>
+        <mat-option value="PY">Paraguay</mat-option>
+        <mat-option value="PE">Peru</mat-option>
+        <mat-option value="PH">Philippines</mat-option>
+        <mat-option value="PN">Pitcairn</mat-option>
+        <mat-option value="PL">Poland</mat-option>
+        <mat-option value="PT">Portugal</mat-option>
+        <mat-option value="PR">Puerto Rico</mat-option>
+        <mat-option value="QA">Qatar</mat-option>
+        <mat-option value="RE">Reunion</mat-option>
+        <mat-option value="RO">Romania</mat-option>
+        <mat-option value="RU">Russian Federation</mat-option>
+        <mat-option value="RW">Rwanda</mat-option>
+        <mat-option value="BL">Saint Barthelemy</mat-option>
+        <mat-option value="SH">Saint Helena</mat-option>
+        <mat-option value="KN">Saint Kitts and Nevis</mat-option>
+        <mat-option value="LC">Saint Lucia</mat-option>
+        <mat-option value="MF">Saint Martin</mat-option>
+        <mat-option value="PM">Saint Pierre and Miquelon</mat-option>
+        <mat-option value="VC">Saint Vincent and the Grenadines</mat-option>
+        <mat-option value="WS">Samoa</mat-option>
+        <mat-option value="SM">San Marino</mat-option>
+        <mat-option value="ST">Sao Tome and Principe</mat-option>
+        <mat-option value="SA">Saudi Arabia</mat-option>
+        <mat-option value="SN">Senegal</mat-option>
+        <mat-option value="RS">Serbia</mat-option>
+        <mat-option value="CS">Serbia and Montenegro</mat-option>
+        <mat-option value="SC">Seychelles</mat-option>
+        <mat-option value="SL">Sierra Leone</mat-option>
+        <mat-option value="SG">Singapore</mat-option>
+        <mat-option value="SX">Sint Maarten</mat-option>
+        <mat-option value="SK">Slovakia</mat-option>
+        <mat-option value="SI">Slovenia</mat-option>
+        <mat-option value="SB">Solomon Islands</mat-option>
+        <mat-option value="SO">Somalia</mat-option>
+        <mat-option value="ZA">South Africa</mat-option>
+        <mat-option value="GS">South Georgia and the South Sandwich Islands</mat-option>
+        <mat-option value="SS">South Sudan</mat-option>
+        <mat-option value="ES">Spain</mat-option>
+        <mat-option value="LK">Sri Lanka</mat-option>
+        <mat-option value="SD">Sudan</mat-option>
+        <mat-option value="SR">Suriname</mat-option>
+        <mat-option value="SJ">Svalbard and Jan Mayen</mat-option>
+        <mat-option value="SZ">Swaziland</mat-option>
+        <mat-option value="SE">Sweden</mat-option>
+        <mat-option value="CH">Switzerland</mat-option>
+        <mat-option value="SY">Syrian Arab Republic</mat-option>
+        <mat-option value="TW">Taiwan, Province of China</mat-option>
+        <mat-option value="TJ">Tajikistan</mat-option>
+        <mat-option value="TZ">Tanzania, United Republic of</mat-option>
+        <mat-option value="TH">Thailand</mat-option>
+        <mat-option value="TL">Timor-Leste</mat-option>
+        <mat-option value="TG">Togo</mat-option>
+        <mat-option value="TK">Tokelau</mat-option>
+        <mat-option value="TO">Tonga</mat-option>
+        <mat-option value="TT">Trinidad and Tobago</mat-option>
+        <mat-option value="TN">Tunisia</mat-option>
+        <mat-option value="TR">Turkey</mat-option>
+        <mat-option value="TM">Turkmenistan</mat-option>
+        <mat-option value="TC">Turks and Caicos Islands</mat-option>
+        <mat-option value="TV">Tuvalu</mat-option>
+        <mat-option value="UG">Uganda</mat-option>
+        <mat-option value="UA">Ukraine</mat-option>
+        <mat-option value="AE">United Arab Emirates</mat-option>
+        <mat-option value="GB">United Kingdom</mat-option>
+        <mat-option value="US">United States</mat-option>
+        <mat-option value="UM">United States Minor Outlying Islands</mat-option>
+        <mat-option value="UY">Uruguay</mat-option>
+        <mat-option value="UZ">Uzbekistan</mat-option>
+        <mat-option value="VU">Vanuatu</mat-option>
+        <mat-option value="VE">Venezuela</mat-option>
+        <mat-option value="VN">Viet Nam</mat-option>
+        <mat-option value="VG">Virgin Islands, British</mat-option>
+        <mat-option value="VI">Virgin Islands, U.s.</mat-option>
+        <mat-option value="WF">Wallis and Futuna</mat-option>
+        <mat-option value="EH">Western Sahara</mat-option>
+        <mat-option value="YE">Yemen</mat-option>
+        <mat-option value="ZM">Zambia</mat-option>
+        <mat-option value="ZW">Zimbabwe</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="Title.hasError('required')">
+                      Tittle is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+                 <div class="col-md-12" *ngIf="1==2">
+                 
+                    <mat-label>Commission Type</mat-label><br>
+                  <ng-container *ngFor="let item of commissionType">
+                    <label *ngIf="item.Id==1" (click)="setCommissionType(item.Id)" class="radio-inline" style="padding: 10px;">
+                      <input  checked class="fx-radio-size"   type="radio" name="optradio" value="item.Id"><span>{{item.Name}}</span>
+                    </label>
+                    <label *ngIf="item.Id!=1" (click)="setCommissionType(item.Id)" class="radio-inline" style="padding: 10px;">
+                      <input   class="fx-radio-size"  type="radio" name="optradio" value="item.Id"><span>{{item.Name}}</span>
+                    </label>
+                  </ng-container>
+                  
+                 
+                 </div>
+                 <div class="col-md-12" *ngIf="currentCommission==3">
+           
+                      <mat-label>Commission In Variable Fee</mat-label><br>
+                      <label   class="radio-inline" style="padding: 10px;">
+                        <input (click)="setVariableFee('percentage')"  checked class="fx-radio-size"   type="radio" name="variablefee" value="Percentage"><span>Percentage</span>
+                      </label>
+                      <label  class="radio-inline" style="padding: 10px;">
+                        <input (click)="setVariableFee('amount')"   class="fx-radio-size"  type="radio" name="variablefee" value="Amount"><span>Amount</span>
+                      </label>
+                      <label  class="radio-inline" style="padding: 10px;">
+                        <input  (click)="setVariableFee('both')"  class="fx-radio-size"  type="radio" name="variablefee" value="Both"><span>Both</span>
+                      </label>
+                     <div class="row"  *ngIf="variableType=='percentage'||variableType=='both'">
+                      <div class="col-md-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label> Percentage</mat-label>
+                            <span matPrefix>%&nbsp;</span>
+                            <input type="text" matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="variablePercentage">
+                          
+                            <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                          </mat-form-field>
+                          
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-6" >
+                          <mat-form-field class="example-full-width">
+                              <mat-label> Start Commission</mat-label>
+                              <!-- <span matPrefix>%&nbsp;</span> -->
+                              <input type="text" matInput >
+                            
+                              <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                            </mat-form-field>
+                            
+                            
+                      </div>
+                      <div class="col-md-5">
+                       
+                          <mat-form-field class="example-full-width">
+                            <mat-label> End Commission</mat-label>
+                            <!-- <span matPrefix>%&nbsp;</span> -->
+                            <input type="text" matInput >
+                          
+                            <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                          </mat-form-field>
+                          
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" (click)="addNewPrecentage()" class="btn btn-primary btn-sm">+</button>
+                    </div>
+                       </div>
+                       
+                    </div>
+                     </div>
+                     <!-- <div *ngFor="let item of rawString" [innerHTML]="item | sanitizeHtml">{{item}}</div> -->
+                    <div class="row"  *ngIf="variableType=='amount'||variableType=='both'">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label> Amount</mat-label>
+                        <!-- <span matPrefix>%&nbsp;</span> -->
+                        <input type="text" matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="variableAmount">
+                      
+                        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                      </mat-form-field>
+                      
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-6" >
+                      <mat-form-field class="example-full-width">
+                          <mat-label> Start Commission</mat-label>
+                          <!-- <span matPrefix>%&nbsp;</span> -->
+                          <input type="text" matInput >
+                        
+                          <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                        </mat-form-field>
+                        
+                        
+                  </div>
+                  <div class="col-md-5">
+                   
+                      <mat-form-field class="example-full-width">
+                        <mat-label> End Commission</mat-label>
+                        <!-- <span matPrefix>%&nbsp;</span> -->
+                        <input type="text" matInput >
+                      
+                        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                      </mat-form-field>
+                      
+                </div>
+                <div class="col-md-1">
+                  <button type="button" (click)="addNewAmount()" class="btn btn-primary btn-sm">+</button>
+                </div>
+                   </div>
+                   
+                </div>
+                     </div>
+                     <div *ngFor="let item of rawStringAMount" >{{item}}</div>
+              </div>
+                 <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                      <mat-label>Commission In Percentage</mat-label>
+                      <span matPrefix>%&nbsp;</span>
+                      <input type="text" matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="precentageValue">
+                    
+                      <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                    </mat-form-field>
+                    <p *ngIf="precentageValue.length<=0" style="color: red;font-size: 10.5px;"> Commission In Percentage is <strong>required</strong></p>
+              </div>
+           
+            <div class="col-md-5">
+              <mat-form-field class="example-full-width">
+                  <mat-label>Commission In Fixed Fee</mat-label>
+                  <span matPrefix>€&nbsp;</span>
+                  <input type="text" matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="fixedvalue">
+                </mat-form-field>
+                <p *ngIf="fixedvalue.length<=0" style="color: red;font-size: 10.5px;"> Commission In Fixed Fee is <strong>required</strong></p>
+          </div>
+          <div class="col-md-1">
+            <button type="button"   *ngIf="!addcommissionShow&&rawString.length<1" style="height: 30px;" (click)="addCommission(true)" class="btn btn-primary btn-sm">+</button>
+            <button type="button" *ngIf="addcommissionShow&&rawString.length<1" style="height: 30px;" (click)="addCommission(false)" class="btn btn-primary btn-sm">-</button>
+          </div>
+          <div class="container row" *ngIf="addcommissionShow">
+            <div class="col-md-6 example-full-width mat-form-field">
+              <label style="font-size: 11px;color: darkgray;">Start Commission</label>
+              <input type="text" class="form-control fx-custom-border-fld">
+              </div>
+              <div class="col-md-5 example-full-width mat-form-field">
+              <label style="font-size: 11px;color: darkgray;">End Commission</label>
+              <input  type="text" class="form-control fx-custom-border-fld">
+            
+              </div>
+              <div class="col-md-1">
+                <button *ngIf="rawString.length<1" type="button" style="height: 30px;" (click)="addNewPrecentage()" class="btn btn-primary btn-sm">+</button>
+              </div>
+          </div>
+          <div *ngFor="let item of rawString">
+          <app-commission></app-commission>
+          </div>
+       <div *ngIf="rawString.length>0">
+        <button type="button" style="height: 30px;" (click)="addNewPrecentage()" class="btn btn-primary btn-sm">+</button>
+        <button type="button" style="height: 30px;" (click)="removePercentage()" class="btn btn-primary btn-sm">-</button>
+       </div>
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <mat-label>Term of Duration</mat-label>
+                <mat-select formControlName="TermOfDuration">  
+                  <mat-option *ngFor="let item of termOfDuration" value="item">
+                    {{item}} Month
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="TermOfDuration.hasError('required')">
+                  Term of Duration is <strong>required</strong>
+              </mat-error>
+              </mat-form-field>
+        </div>
+        <!-- <div class="col-md-6">
+          <mat-form-field class="example-full-width">
+              <mat-label>Term of Refund</mat-label>
+              <mat-select formControlName="TermOfRefund">
+                <mat-option *ngFor="let item of termOfDuration" value="item">
+                  {{item}} Month
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="TermOfRefund.hasError('required')">
+                Term of Refund is <strong>required</strong>
+            </mat-error>
+            </mat-form-field>
+      </div> -->
+      <div class="col-md-12">
+                 
+        <mat-label>Invoice Generation Type</mat-label><br>
+      <ng-container *ngFor="let item of invoiceGenerationType;let i=index;">
+        <label *ngIf="item.Id==1" (click)="setInvoiceGenerationType(item.Id)" class="radio-inline" style="padding: 10px;">
+          <input  checked class="fx-radio-size"   type="radio" name="optradioType" value="item.Id"><span>{{item.TypeOfInvoice}}</span>
+        </label>
+        <label *ngIf="item.Id!=1" (click)="setInvoiceGenerationType(item.Id)" class="radio-inline" style="padding: 10px;">
+          <input   class="fx-radio-size"  type="radio" name="optradioType" value="item.Id"><span>{{item.TypeOfInvoice}}</span>
+        </label>
+      </ng-container>
+      
+     
+     </div>
+     <div *ngIf="currentInvoice==1" class="col-md-6">
+      <mat-form-field class="example-full-width">
+          <mat-label>Date Of Every Month</mat-label>
+          <input matInput [matDatepicker]="picker" [ngModelOptions]="{standalone: true}" [(ngModel)]="fixDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <p *ngIf="fixDate.length<=0" style="color: red;font-size: 10.5px;"> Date is <strong>required</strong></p>
+    </div>
+    <div class="col-md-6" *ngIf="currentInvoice==2">
+      <mat-form-field class="example-full-width">
+          <mat-label>Select Last Day of Month</mat-label>
+          <mat-select  (selectionChange)="DayDuration=$event.value">
+            <mat-option *ngFor="let item of days" value="item.id">
+              {{item.name}} 
+            </mat-option>
+          </mat-select>
+          <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+        </mat-form-field>
+        <p *ngIf="DayDuration.length<=0" style="color: red;font-size: 10.5px;"> Gap Day is <strong>required</strong></p>
+    </div>
+    <div class="col-md-6" *ngIf="currentInvoice==3">
+      <mat-form-field class="example-full-width">
+          <mat-label>Select Every Week Day</mat-label>
+          <mat-select  (selectionChange)="WeekDay=$event.value">
+            <mat-option *ngFor="let item of days" value="item.id">
+              {{item.name}} 
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p *ngIf="WeekDay.length<=0" style="color: red;font-size: 10.5px;"> Week Day is <strong>required</strong></p>
+    </div>
+    <div class="col-md-6" *ngIf="currentInvoice==5">
+      <mat-form-field class="example-full-width">
+          <mat-label>Select Start Date</mat-label>
+          <input matInput [matDatepicker]="picker2" [ngModelOptions]="{standalone: true}" [(ngModel)]="FortNight">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        <p *ngIf="WeekDay.length<=0" style="color: red;font-size: 10.5px;"> Week Day is <strong>required</strong></p>
+    </div>
+    <div class="col-md-6" *ngIf="currentInvoice==6">
+      <mat-form-field class="example-full-width">
+          <mat-label>Select Every Second Last Week Day</mat-label>
+          <mat-select  (selectionChange)="SecondLastWeekDayMonth=$event.value">
+            <mat-option *ngFor="let item of days" value="item.id">
+              {{item.name}} 
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p *ngIf="SecondLastWeekDayMonth.length<=0" style="color: red;font-size: 10.5px;">Select 2nd Last  Week Day is <strong>required</strong></p>
+    </div>
+    <div class="col-md-6" *ngIf="currentInvoice==7">
+      <mat-form-field class="example-full-width">
+          <mat-label>Select  Last Week Of month</mat-label>
+          <mat-select  (selectionChange)="LastWeekMonth=$event.value">
+            <mat-option *ngFor="let item of days" value="item.id">
+              {{item.name}} 
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p *ngIf="LastWeekMonth.length<=0" style="color: red;font-size: 10.5px;">Select Month Last  Week Day is <strong>required</strong></p>
+    </div>
+    <div class="col-md-12">
+                 
+      <mat-label>Invoice Payable Type</mat-label><br>
+    <ng-container *ngFor="let item of invoicePayable;let i=index;">
+      <label *ngIf="item.Id==1" (click)="setInvoicePayableType(item.Id)" class="radio-inline" style="padding: 10px;">
+        <input  checked class="fx-radio-size"   type="radio" name="optradioTypePayable" value="item.Id"><span>{{item.Type}}</span>
+      </label>
+      <label *ngIf="item.Id!=1" (click)="setInvoicePayableType(item.Id)" class="radio-inline" style="padding: 10px;">
+        <input   class="fx-radio-size"  type="radio" name="optradioTypePayable" value="item.Id"><span>{{item.Type}}</span>
+      </label>
+    </ng-container>
+    </div>
+    <div *ngIf="currentPayable==2" class="col-md-6">
+      <mat-form-field class="example-full-width">
+          <mat-label>Select Date</mat-label>
+          <input matInput [matDatepicker]="picker1" [ngModelOptions]="{standalone: true}" [(ngModel)]="payableAfterDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <p *ngIf="payableAfterDate.length<=0" style="color: red;font-size: 10.5px;"> Date is <strong>required</strong></p>
+    </div>
+    <div class="col-md-6" *ngIf="currentPayable==3">
+      <mat-form-field class="example-full-width">
+          <mat-label>Select Days</mat-label>
+          <mat-select  (selectionChange)="payableAfterDays=$event.value">
+            <mat-option *ngFor="let item of daysAfter" value="item">
+              {{item}}  Days
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p *ngIf="payableAfterDays.length<=0" style="color: red;font-size: 10.5px;"> Week Day is <strong>required</strong></p>
+    </div>
+    <div class="col-md-12">
+      <mat-label>Overpaid commission refund clause?</mat-label><br>
+      
+        <label   class="radio-inline" style="padding: 10px;">
+          <input  checked class="fx-radio-size"   type="radio" name="refundYesNo" value="yes"><span>Yes</span>
+        </label>
+        <label  class="radio-inline" style="padding: 10px;">
+          <input   class="fx-radio-size"  type="radio" name="refundYesNo" value="no"><span>No</span>
+        </label>
+    
+    </div>
+    </div>
+    <div class="row">
+                <div class="col-6"></div>
+                <div class="form-group col-6">
+                   <div style="float: right;">
+                   
+                  <a [routerLink]="['/accounts/clients']" style="margin-left: 10px;" color="dark"  class="mat-focus-indicator mat-raised-button mat-button-base mat-info">Cancel</a>
+                  <button type="submit" color="primary"  class="mat-focus-indicator mat-raised-button mat-button-base mat-primary" [disabled]="!form.valid">Save</button>
+                </div>
+                </div>
+            </div>
+              </form>
+       
+              
+            </mat-card-content>
+          </mat-card>
+      
+        </div>
+      </div>
+  </div>
+</div>
+

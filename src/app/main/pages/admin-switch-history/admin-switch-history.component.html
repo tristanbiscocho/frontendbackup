@@ -1,0 +1,351 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div
+            class="my-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between
+            start"
+        >
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <label [routerLink]="'/customer-list/' + customerPageOffset"
+                        >Customers</label
+                    >
+                    <span>&nbsp;/&nbsp;</span>
+                    <span *ngIf="!!customerDetails">Switch history list</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="content-filter">
+                <div fxLayoutAlign="space-between center" class="px-24 py-12">
+                    <h2
+                        style="color: white"
+                        class="m-0"
+                        *ngIf="!!customerDetails"
+                    >
+                        Email address: {{ customerDetails.EmailAddress }}
+                    </h2>
+                    <h2
+                        style="color: white"
+                        class="m-0"
+                        *ngIf="!!customerDetails"
+                    >
+                        Reference code: {{ customerDetails.ReferralCode }}
+                    </h2>
+                </div>
+                <div class="w-100-p" fxLayoutAlign="center center">
+                    <div
+                        fxLayoutAlign="center center"
+                        fxLayout.lt-md="column"
+                        fxLayoutGap="15px"
+                        fxFlex="80"
+                        class="p-12"
+                    >
+                        <mat-form-field fxFlex="50" class="search-input">
+                            <input
+                                matInput
+                                #filter
+                                [formControl]="searchSwitch"
+                                placeholder="Pool Name, Email, Pool ID"
+                            />
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="15">
+                            <mat-select
+                                placeholder="Supplier"
+                                [(ngModel)]="currentPlan"
+                            >
+                                <mat-option
+                                    *ngFor="let sup of suppliers"
+                                    [value]="sup.ID"
+                                    >{{ sup.Name }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="15">
+                            <input
+                                (click)="picker.open()"
+                                matInput
+                                [(ngModel)]="fromDate"
+                                [matDatepicker]="picker"
+                                placeholder="From
+                            date"
+                            />
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="picker"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="30">
+                            <input
+                                (click)="picker1.open()"
+                                matInput
+                                [(ngModel)]="toDate"
+                                [matDatepicker]="picker1"
+                                placeholder="To
+                            date"
+                            />
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="picker1"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+
+                        <button
+                            mat-flat-button
+                            style="background: rgba(199, 203, 234, 0.2)"
+                            (click)="getSwitchHistory()"
+                        >
+                            <mat-icon class="white-fg mt-8">
+                                swap_vert
+                            </mat-icon>
+                            <br />
+                            Filter
+                        </button>
+                        <button
+                            style="background: rgba(199, 203, 234, 0.2)"
+                            mat-flat-button
+                            (click)="clearF()"
+                        >
+                            <mat-icon class="white-fg mt-8"> cancel </mat-icon>
+                            <br />
+                            Clear
+                        </button>
+                        <div *ngIf="!!customerDetails">
+                            <button
+                                 *ngIf="customerDetails.IsBlocked == false"
+                                style="background: rgba(199, 203, 234, 0.2)"
+                                [routerLink]="
+                                    '/create-switch-history/' +
+                                    customerId +
+                                    '/' +
+                                    customerUId +
+                                    '/' +
+                                    customerPageOffset +
+                                    '/' +
+                                    pageOffset
+                                "
+                                mat-flat-button
+                            >
+                                <mat-icon>add</mat-icon>
+                                <br />
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="historyData?.length > 0">
+                <ngx-datatable
+                    class="material striped w-100-p"
+                    [rows]="historyData"
+                    [columnMode]="'force'"
+                    [headerHeight]="50"
+                    [scrollbarH]="true"
+                    [footerHeight]="50"
+                    [rowHeight]="'auto'"
+                    [limit]="10"
+                    [offset]="pageOffset"
+                    (page)="onChange($event)"
+                >
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="date"
+                        name="Date"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.Date | date: "dd / MM / yyyy" }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="currentSupplier"
+                        name="Current supplier / Plan"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                            ><br /><br />
+                            <!-- <span *ngIf="!!row.ElectricityFromSupplier"><b>:</b><br/><br/></span> -->
+                            <span
+                                *ngIf="!!row.ElectricityFromSupplier"
+                                fxLayout="row"
+                                fxLayoutAlign="center center"
+                            >
+                                <div>
+                                    <img
+                                        width="25"
+                                        class="mr-12"
+                                        src="assets/images/betterDeal/electricity-1.png"
+                                    />
+                                </div>
+                                <div>
+                                    <p>{{ row.ElectricityToSupplier }}</p>
+                                </div>
+                            </span>
+                            <!-- <span *ngIf="!!row.GasFromSupplier"><b>Gas & Electricity:</b><br/><br/></span> -->
+                            <span
+                                fxLayout="row"
+                                fxLayoutAlign="center center"
+                                *ngIf="!!row.GasFromSupplier"
+                            >
+                                <div>
+                                    <img
+                                        width="25"
+                                        class="mr-12"
+                                        src="assets/images/betterDeal/gas.png"
+                                    />
+                                </div>
+                                <div>
+                                    <p>{{ row.GasToSupplier }}</p>
+                                </div>
+                            </span>
+                            <br /><br />
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="previousSupplier"
+                        name="Previous supplier / Plan"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <br /><br />
+                            <!-- <span *ngIf="!!row.ElectricityToSupplier"><b>Electricity:</b><br/><br/></span> -->
+                            <span
+                                *ngIf="!!row.ElectricityToSupplier"
+                                fxLayout="row"
+                                fxLayoutAlign="center center"
+                            >
+                                <div>
+                                    <img
+                                        width="25"
+                                        class="mr-12"
+                                        src="assets/images/betterDeal/electricity-1.png"
+                                    />
+                                </div>
+                                <div>
+                                    <p>{{ row.ElectricityFromSupplier }}</p>
+                                </div>
+                            </span>
+                            <!-- <span *ngIf="!!row.GasToSupplier"><b>Gas & Electricity:</b><br/><br/></span> -->
+                            <span
+                                *ngIf="!!row.GasToSupplier"
+                                fxLayout="row"
+                                fxLayoutAlign="center center"
+                            >
+                                <img
+                                    width="25"
+                                    class="mr-12"
+                                    src="assets/images/betterDeal/gas.png"
+                                />
+                                <div>
+                                    <p>{{ row.GasFromSupplier }}</p>
+                                </div>
+                            </span>
+                            <br /><br />
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="poolId"
+                        name="Pool
+                    id"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.PoolId }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="poolName"
+                        name="Pool Name / Email address"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <b>{{ row.PoolName }}</b> <br /><br />
+                            {{ row.EmailAddress }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="switchStatus"
+                        name="Switch status"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <p *ngIf="row.Status == 2">Completed</p>
+                            <p *ngIf="row.Status == null">Pending</p>
+                            <p *ngIf="row.Status == 4">Rejected</p>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [sortable]="false" name="Actions">
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <button
+                                class="actionBtn"
+                                color="accent"
+                                matTooltip="More Details"
+                                [routerLink]="
+                                    '/switch-history/' +
+                                    customerId +
+                                    '/' +
+                                    customerUId +
+                                    '/' +
+                                    customerPageOffset +
+                                    '/' +
+                                    pageOffset
+                                "
+                                mat-mini-fab
+                            >
+                                <mat-icon> history </mat-icon>
+                            </button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+
+            <div fxLayoutAlign="center center" *ngIf="historyData == null">
+                <h1
+                    style="
+                        text-align: center;
+                        font-size: medium;
+                        position: absolute;
+                        top: 50%;
+                    "
+                >
+                    No Data Found
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>

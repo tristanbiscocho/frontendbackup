@@ -1,0 +1,188 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+
+        <div class="my-12" fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between start">
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/contractor-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span> 
+                    <span>My Commission</span>
+                </p>
+
+            </div>
+
+            <mat-card  fxFlex="26" class="credit-card p-20">
+                <mat-card class="image-card">
+                    <div class="detail-img">
+                    <img width="40"
+                        src="assets/images/logos/profile.png"
+                        />
+                </div>
+                </mat-card>
+                <div fxLayoutAlign="start end" fxLayout="column">
+                    <h2 class="m-12" >{{currentUser.ReferralCode}}</h2>
+                </div>
+            </mat-card>
+            <!-- <mat-card fxFlex="30" class="p-8 credit-card" fxLayoutGap="12px"
+                fxLayout="row" fxLayoutAlign="start center">
+                <mat-card class="image-card">
+                    <img width="40"
+                    src="assets/images/logos/profile.png"
+                        />
+                    </mat-card>
+                  
+                
+                <div fxFlex="70">
+
+                    <h2 class="m-0">{{currentUser.ReferralCode}}</h2>
+                </div>
+            </mat-card> -->
+        </div>
+        <div class="content">
+            <div fxLayoutAlign="center center" fxLayout="column" class="p-12
+                content-filter">
+
+                <!-- search -->
+                <div fxLayout.lt-sm="column" class="px-12 w-100-p"
+                    fxLayoutGap="12px" fxLayoutAlign="center
+                    center">
+
+                    <mat-form-field fxFlex="50">
+                        <input (click)="picker.open()" matInput [matDatepicker]="picker" [(ngModel)]="fromDate" [max]="toDate"
+                            placeholder="From Date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="50">
+                        <input (click)="picker1.open()" matInput [matDatepicker]="picker1"
+                            placeholder="To Date" [(ngModel)]="toDate" [min]="fromDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+
+
+                    <mat-form-field fxFlex="50">
+                        <mat-select placeholder="Status" [(ngModel)]="status">
+                           <mat-option value="1">Pending</mat-option>
+                           <mat-option value="2">Completed</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+
+                    <button mat-flat-button style="background: rgba(199, 203, 234, 0.2);" (click)="getInvoiceData(currentUser.CustomerId)">
+                        <mat-icon class="white-fg mt-8">
+                            swap_vert
+                        </mat-icon> <br />
+                        Filter
+                    </button>
+                    <button style="background: rgba(199, 203, 234, 0.2);" mat-flat-button  (click)="clearInvoiceData(currentUser.CustomerId)">
+                        <mat-icon class="white-fg mt-8">
+                            cancel
+                        </mat-icon> <br />
+                        Clear
+                    </button>
+
+                    <!-- <div fxLayout="row">
+                        <div>
+                        <button mat-flat-button color="accent" (click)="getInvoiceData(currentUser.CustomerId)">
+                            Filter
+                        </button></div>&nbsp;<div>
+                        <button mat-flat-button color="accent" (click)="clearInvoiceData(currentUser.CustomerId)">
+                            Clear
+                        </button></div>
+                    </div> -->
+
+
+                </div>
+            </div>
+
+            <!-- table-->
+            <div *ngIf="invoices?.length > 0">
+                <ngx-datatable class="material striped w-100-p" [rows]="invoices"
+                [columnMode]="'force'" [headerHeight]="50"
+                [scrollbarH]="true"
+                [footerHeight]="50" [rowHeight]="'auto'"
+                [limit]="100" [offset]="tableOffset" (page)="onChangePage($event)">
+                <ngx-datatable-column [sortable]="true" prop="transactionId"
+                    name="Transaction id">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        {{row.TransactionId}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="true" prop="commissionDate"
+                    name="Commission date">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        {{row.TransactionDate | date : 'dd / MM / yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+
+                <ngx-datatable-column [sortable]="true" prop="month"
+                    name="Month">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        {{row.TransactionDate | date : 'MMM'}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+
+                <ngx-datatable-column [sortable]="true" prop="amount"
+                    name="Amount">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        £ {{row.TotalCommission}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="true" prop="customerSignedUp"
+                    name="Customer signed up">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        <a [routerLink]="'/pending-customers/' + tableOffset + '/' + currentUser.Id + '/' + 4  + '/' + 0 + '/' + currentUser.FirstName + '/' + 'partner' ">{{row.NoOfReferral}}</a>
+                        <!-- <span class="referral-list">{{row.NoOfReferral}}</span> -->
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="true" prop="paymentStatus"
+                    name="Payment status">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        <span *ngIf="row.Status == 1">Pending</span>
+                        <span *ngIf="row.Status == 2">Completed</span>
+                    </ng-template>
+                </ngx-datatable-column>
+
+
+                <ngx-datatable-column [sortable]="true" name="View invoice"
+                    prop="viewInvoice">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        <button matTooltip="View Invoice" [routerLink]="'/invoices/'+ row.ID + '/' + currentUser.CustomerId + '/' + tableOffset" mat-mini-fab>
+                            <mat-icon class="white-fg">
+                                list_alt
+                            </mat-icon>
+                        </button>
+                        <!-- <button *ngIf="!!row.NoOfReferral" [routerLink]="'/invoices/'+ row.ID + '/' + currentUser.CustomerId"
+                        mat-icon-button>
+                        <mat-icon>
+                            cloud_download
+                        </mat-icon>
+                    </button> -->
+                    </ng-template>
+                </ngx-datatable-column>
+
+
+            </ngx-datatable>
+            </div>
+            <div fxLayoutAlign="center center" *ngIf="invoices?.length == 0">
+                <h1 style="text-align:center;font-size: medium;position: absolute;
+                top: 50%;">No Data Found</h1>
+            </div>
+           
+        </div>
+    </div>
+</div>

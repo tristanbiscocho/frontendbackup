@@ -1,0 +1,36 @@
+<div [ngSwitch]="view" class="views" (click)="$event.stopPropagation()">
+
+    <div class="view" *ngSwitchCase="'main'" [@slideInLeft]>
+
+        <!-- SIDENAV HEADER -->
+        <div class="header mat-accent-bg px-24" [ngClass]="" fxLayout="column" fxLayoutAlign="center center">
+            <div>Filter Configuration Data</div>
+        </div>
+        <!-- / SIDENAV HEADER -->
+
+        <!-- SIDENAV CONTENT -->
+        <div class="content py-16" fusePerfectScrollbar>
+
+            <div class="nav">
+                
+                <div class="nav-item">
+                    <p  class="title">&nbsp; &nbsp;&nbsp;Filter Configuration Data</p>
+                    <div style="padding-top:4% !important" class="nav-link" matRipple>
+                        <mat-form-field fxFlex>
+                            <mat-select style="width:100%" placeholder="Select Type" [(ngModel)]="systemEnum" (change)="getsystemenumdatabyid(systemEnum)">
+                                <mat-option *ngFor="let SystemEnum of this.sytemenumdata.systemenumdata; let i = index;trackBy: customTrackBy" [value]="SystemEnum.Id">
+                                    {{SystemEnum.Name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+             
+
+                </div>
+        </div>
+        <!-- / SIDENAV CONTENT -->
+    </div>
+
+</div>

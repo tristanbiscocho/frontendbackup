@@ -1,0 +1,214 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="content">
+        <div class="detail my-24">
+            <div class="header-title">
+                <p>
+                    <label [routerLink]="'/contractor-dashboard'"
+                        >Dashboard</label
+                    >
+                    <span>&nbsp;/&nbsp;</span>
+                    <span>Add New Customer</span>
+                </p>
+            </div>
+            <p-toast position="center"></p-toast>
+            <div fxLayout.lt-sm="column" fxLayoutGap="24px" fxLayout="column">
+                <!-- Customer Profile Start -->
+
+                <!-- Customer Profile END -->
+
+                <!-- Partner Profile Start -->
+                <mat-card
+                    fxFlex="100"
+                    class="credit-card p-12 w-100-p"
+                    style="background: white"
+                    fxLayout="column"
+                >
+                    <div class="w-100-p p-12">
+                        <form [formGroup]="addcustomerFormGroup">
+                            <div>
+                                <mat-form-field
+                                    fxFlex="50"
+                                    fxFlex.lt-md="100"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Customer Name</mat-label>
+                                    <input
+                                        matInput
+                                        required
+                                        placeholder="Customer Name"
+                                        formControlName="CustomerName"
+                                    />
+                                    <!-- <mat-error *ngIf="addcustomerFormGroup.CustomerName.required">
+                                                Customer Name is required
+                                            </mat-error> --> </mat-form-field
+                                >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div fxLayoutAlign="start start" fxFlex="50">
+                                    <international-phone-number
+                                        fxLayoutAlign="start
+                                            start"
+                                        class="input-field"
+                                        [(ngModel)]="phone_number"
+                                        (change)="validatePhone()"
+                                        placeholder="Phone No"
+                                        [maxlength]="15"
+                                        [required]="true"
+                                        #phoneNumber="ngModel"
+                                        name="phone_number"
+                                        [ngModelOptions]="{ standalone: true }"
+                                    ></international-phone-number>
+                                </div>
+                            </div>
+                            <div>
+                                <mat-form-field
+                                    fxFlex="50"
+                                    fxFlex.lt-md="100"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Paste Information</mat-label>
+                                    <textarea
+                                        required
+                                        matInput
+                                        placeholder="Paste Information"
+                                        formControlName="CustomerInformation"
+                                        rows="6"
+                                    >
+                                    </textarea>
+                                    <!-- <mat-error *ngIf="addcustomerFormGroup.CustomerInformation.required">
+                                                Paste Information is required
+                                            </mat-error> -->
+                                </mat-form-field>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <mat-form-field
+                                    fxFlex="50"
+                                    fxFlex.lt-md="100"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Extra Notes</mat-label>
+                                    <textarea
+                                        matInput
+                                        placeholder="Extra Notes"
+                                        formControlName="Notes"
+                                        rows="6"
+                                    >
+                                    </textarea>
+                                </mat-form-field>
+                            </div>
+
+                            <div>
+                                <mat-radio-group
+                                    formControlName="CallbackFlag"
+                                    (change)="callbackchange($event)"
+                                    [(ngModel)]="callback"
+                                    required
+                                >
+                                    <div class="energy-use-radio mb-12">
+                                        <mat-radio-button fxFlex="50" value="1">
+                                            <span> Call Back Any Time</span>
+                                        </mat-radio-button>
+                                        <mat-radio-button fxFlex="50" value="2">
+                                            <span>Select Time</span>
+                                        </mat-radio-button>
+                                    </div>
+                                </mat-radio-group>
+                            </div>
+
+                            <div fxLayoutAlign="start center">
+                                <div
+                                    fxFlex="50"
+                                    *ngIf="isDateshow == true"
+                                    fxLayout.lt-sm="column"
+                                >
+                                    <mat-form-field
+                                        fxFlex="100"
+                                        fxFlex.lt-md="100"
+                                        appearance="outline"
+                                    >
+                                        <mat-label
+                                            >Please Select Callback
+                                            Date</mat-label
+                                        >
+                                        <input
+                                            (click)="picker.open()"
+                                            [min]="minDate"
+                                            #input
+                                            required
+                                            matInput
+                                            [max]="maxDate"
+                                            [matDatepicker]="picker"
+                                            formControlName="CallbackDate"
+                                            (click)="picker.open()"
+                                        />
+                                        <mat-datepicker-toggle
+                                            matSuffix
+                                            [for]="picker"
+                                        ></mat-datepicker-toggle>
+                                        <mat-datepicker
+                                            #picker
+                                        ></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div
+                                    fxFlex="50"
+                                    class="pl-24"
+                                    *ngIf="isTimeshow == true"
+                                >
+                                    <timepicker
+                                        formControlName="CallbackTime"
+                                        [(ngModel)]="mytime"
+                                    ></timepicker>
+                                </div>
+                            </div>
+
+                            <div class="w-100-p p-12">
+                                <div fxLayoutAlign="end center">
+                                    <button
+                                        mat-flat-button
+                                        class="c-p-btn"
+                                        (click)="submitCustomer()"
+                                        color="accent"
+                                    >
+                                        CALL BACK LATER
+                                    </button>
+                                    &nbsp;&nbsp;
+
+                                    <button
+                                        mat-flat-button
+                                        class="c-p-btn"
+                                        [routerLink]="['/register']"
+                                        [queryParams]="{
+                                            addedbypartner: 'true'
+                                        }"
+                                        color="accent"
+                                    >
+                                        SIGN UP NOW
+                                    </button>
+                                    &nbsp;&nbsp;
+
+                                    <button
+                                        mat-flat-button
+                                        class="c-p-btn"
+                                        *ngIf="isShowbutton == true"
+                                        color="accent"
+                                        (click)="goNotinterestedpage()"
+                                    >
+                                        NOT INTERESTED
+                                    </button>
+                                    &nbsp;&nbsp;
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </mat-card>
+                <!-- Partner Profile END -->
+
+                <!-- Customer Activity START -->
+
+                <!-- Customer Activity END -->
+
+                <!-- Supervisor Detail START -->
+
+                <!-- Supervisor Derail END -->
+            </div>
+        </div>
+    </div>
+</div>

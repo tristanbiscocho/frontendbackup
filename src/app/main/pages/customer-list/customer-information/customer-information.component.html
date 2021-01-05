@@ -1,0 +1,477 @@
+
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+  <div class="detail">
+      <div class="my-24" fxLayout.lt-sm="column" fxLayoutAlign="space-between
+          start">
+          <div class="header-title">
+              <p class="m-0">
+                  <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                  <span>&nbsp;/&nbsp;</span>
+                  <label [routerLink]="'/customer-list/' + customerPageOffset">Customers</label>
+                  <span>&nbsp;/&nbsp;</span>
+                  <span>Customer Information - {{profiledetails?.FullName}}</span>
+              </p>
+          </div>
+      </div>
+      <p-toast position="center"></p-toast>
+      <div fxLayout.lt-sm="column" fxLayoutGap="24px" fxLayout="column">
+        <mat-card fxFlex="100" class="credit-card p-12 w-100-p"  fxLayout="column">
+            <div class="w-100-p p-12 content-header" fxLayoutAlign="space-between center">
+
+                <h3 class="m-0" fxLayoutAlign="start center">
+                     Personal details -  {{profiledetails?.FullName}}
+                </h3>
+                &nbsp;&nbsp;
+                <h3 class="m-0">
+                    Referral Code -  {{profiledetails?.referralcode}} &nbsp;&nbsp;
+               </h3>
+            </div>
+
+            <div class="w-100-p p-12" >
+
+                <div fxLayout.lt-sm="column">
+                    <div fxFlex=30 fxFlex.lt-sm="100">
+                        <p class="font-weight-500 mt-0">Email address</p>
+                    </div>
+                    <div fxFlex="50" fxFlex.lt-sm="100">
+                        <p class="mt-0">{{profiledetails?.username}}</p>
+                    </div>
+                </div>
+                <div fxLayout.lt-sm="column">
+                    <div fxFlex="30" fxFlex.lt-sm="100">
+                        <p class="font-weight-500 mt-0">Created On</p>
+                    </div>
+                    <div fxFlex="50" fxFlex.lt-sm="100">
+                        <p class="mt-0">{{profiledetails?.createdon | date:'dd/MM/yyyy'}}</p>
+                    </div>
+                </div>
+
+                <div fxLayout.lt-sm="column">
+                    <div fxFlex="30" fxFlex.lt-sm="100">
+                        <p class="font-weight-500 mt-0">Next Switch Date</p>
+                    </div>
+                    <div fxFlex="50" fxFlex.lt-sm="100">
+                        <p class="mt-0">{{profiledetails?.NextSwitchOnByAdmin | date:'dd/MM/yyyy'}}</p>
+                    </div>
+                </div>
+
+
+            </div>
+            </mat-card>
+          
+            <div class="content">
+                <mat-tab-group>
+                  <!-- <mat-tab label="Pool"> 
+                      <div *ngIf="poolData?.length > 0">
+                        <ngx-datatable class="material w-100-p" [rows]="poolData" [columnMode]="'force'"
+                        [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+                        <ngx-datatable-column [sortable]="true" prop="Email" name="Email">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.Email}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="FirstName" name="First name">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.FirstName}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="LastName" name="Last name">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.LastName}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="CustomerPoolOn" name="Customer Pool On">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.CustomerPoolOn | date: 'dd / MM / yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="EmailVerificationOn" name="Email Verification On">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <span *ngIf="row.EmailVerificationOn != null">
+                                    {{row.EmailVerificationOn | date: 'dd / MM / yyyy'}}
+                                </span>
+                                <span *ngIf="row.EmailVerificationOn == null">-</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [width]="175" [sortable]="true" prop="SignupConfirmationOn" name="Signup Confirmation On">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <span *ngIf="row.SignupConfirmationOn != null">
+                                    {{row.SignupConfirmationOn | date: 'dd / MM / yyyy'}}
+                                </span>
+                                <span *ngIf="row.SignupConfirmationOn == null">-</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        </ngx-datatable>
+                      </div>
+                 
+                    <div fxLayoutAlign="center center" *ngIf="poolData?.length == 0">
+                        <h1 style="line-height: 500px;font-size: medium;">No Data Found</h1>
+                    </div>
+                  </mat-tab> -->
+
+                  <mat-tab label="Switch"> 
+                      <div *ngIf="switchData?.length > 0">
+                        <ngx-datatable class="material w-100-p" [rows]="switchData" [columnMode]="'force'"
+                        [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+                        <ngx-datatable-column [sortable]="true" prop="eFrom" name="Switch From">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.eFrom}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="eTo" name="Switch To">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.eTo}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="Status" name="Status">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <span *ngIf="row.Status == null">
+                                    Pending
+                                </span>
+                                <span *ngIf="row.Status == 4 || row.Status == 2">
+                                    Completed
+                                </span>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="IsRejected" name="Is Rejected">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <Span *ngIf="row.IsRejected == true">Rejected</Span>
+                                <Span *ngIf="row.IsRejected == false">Not Rejected</Span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        </ngx-datatable>
+                      </div>
+                      <div fxLayoutAlign="center center" *ngIf="switchData?.length == 0">
+                        <h1 style="line-height: 500px;font-size: medium;">No Data Found</h1>
+                    </div>
+                   
+                  </mat-tab>
+<!--                    
+                  <mat-tab label="Bill"> 
+                      <div *ngIf="billData?.length > 0">
+                        <ngx-datatable class="material w-100-p" [rows]="billData" [columnMode]="'force'"
+                    [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+                    <ngx-datatable-column [sortable]="true" prop="Amount" name="amount">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            £{{row.Amount}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column [sortable]="true" prop="Created Date" name="Created Date">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.CreatedOn | date:'dd/MM/yyyy'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column [sortable]="true" prop="Start Date" name="Start Date">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.StartDate | date:'dd/MM/yyyy'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column [sortable]="true" prop="End Date" name="End Date">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.EndDate | date:'dd/MM/yyyy'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column [sortable]="true" prop="Status" name="Status">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <span *ngIf="row.Status == 1">
+                                Pending
+                            </span>
+                            <span *ngIf="row.Status == 2">
+                                Completed
+                            </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column [sortable]="true" prop="StatusFromDebit" name="Status From Debit">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.StatusFromDebit}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+
+                   
+                    <ngx-datatable-column [width]="250" [sortable]="true" prop="StripeChargeD" name="Transcation ID">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                         <span *ngIf="row.StripeChargeD != null">{{parsedata?.balance_transaction}}</span> 
+                         <span *ngIf="row.StripeChargeD == null">-</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    </ngx-datatable>
+                      </div>
+                    
+                    <div fxLayoutAlign="center center" *ngIf="billData?.length == 0">
+                        <h1 style="line-height: 500px;font-size: medium;" >No Data Found</h1>
+                    </div>
+                  </mat-tab> -->
+                 
+
+                  <!-- <mat-tab label="Meter">
+                      <div *ngIf="meterData?.length > 0">
+                        <ngx-datatable class="material w-100-p" [rows]="meterData" [columnMode]="'force'"
+                        [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+                        <ngx-datatable-column [sortable]="true" prop="Energy Type" name="Energy Type">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <span *ngIf="row.EnergyType == 1">
+                                    Gas & Electricity
+                                </span>
+                                <span *ngIf="row.EnergyType == 2">
+                                   Electricity
+                                </span>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="Date" name="Date">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.Date | date:'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="Reading Value" name="Reading Value">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.ReadingValue}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="Low Reading Value" name="Low Reading Value">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <span *ngIf="row.LowReadingValue != ''">{{row.LowReadingValue}} </span>
+                                <span *ngIf="row.LowReadingValue == ''">-</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                       
+                        <ngx-datatable-column [sortable]="true" prop="Reasons" name="Reasons">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                               <span *ngIf="row.AdditionalInfo != null">{{row.AdditionalInfo}}</span> 
+                               <span *ngIf="row.AdditionalInfo == null">-</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        </ngx-datatable>
+                      </div>
+                  
+                    <div fxLayoutAlign="center center" *ngIf="meterData?.length == 0">
+                        <h1 style="line-height: 500px;font-size: medium;">No Data Found</h1>
+                    </div>
+                  </mat-tab> -->
+
+                  <mat-tab label="Message"> 
+                      <div *ngIf="mesData?.length > 0">
+                        <ngx-datatable class="material w-100-p" [rows]="mesData" [columnMode]="'force'"
+                        [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+                        <ngx-datatable-column [sortable]="true" prop="Message Name" name="Message Name">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.Message_Name}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="Date" name="Date">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.Date | date:'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="Message Text" name="Message Text">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <button class="actionBtn"  (click)="requestJSON(row.Message_Text)"  matTooltip="View Info" mat-mini-fab>
+                                <mat-icon class="white-fg">
+                                    list_alt
+                                </mat-icon>
+                            </button>
+                                <!-- <button  style="background: #3b91de;"  (click)="requestJSON(row.Message_Text)" mat-mini-fab>
+                                    <mat-icon class="white-fg">list_alt</mat-icon>
+                                </button> -->
+                            </ng-template>
+                        </ngx-datatable-column>
+                        </ngx-datatable>
+                      </div>
+                
+                    <div fxLayoutAlign="center center" *ngIf="mesData?.length == 0">
+                        <h1 style="line-height: 500px;font-size: medium;">No Data Found</h1>
+                    </div>
+                  </mat-tab>
+
+                  <mat-tab label="Upcoming">
+                    <div class="w-100-p p-12" *ngIf="!!upcomedata">
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex=30 fxFlex.lt-sm="100">
+                                <p class="font-weight-500 mt-0" style="color: #ffe118;font-weight: bold;">Next Supplier Switch
+                                </p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="mt-0">{{upcomedata[0]?.NextSwitchOn | date:'dd/MM/yyyy'}}</p>
+                            </div>
+                        </div>
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500 mt-0" style="color: #ffe118;font-weight: bold;">Welcome Mail on Switch 
+                                </p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="mt-0">{{upcomedata[0]?.FirstMailForMeterReading | date:'dd/MM/yyyy'}}</p>
+                            </div>
+                        </div>
+        
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500 mt-0" style="color: #ffe118;font-weight: bold;">First Meter Reading Mail
+                                </p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="mt-0">{{upcomedata[0]?.FirstMailForPaymnetDeduction | date:'dd/MM/yyyy'}}</p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500 mt-0" style="color: #ffe118;font-weight: bold;">Bill Request mail
+                                </p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="mt-0">{{upcomedata[0]?.FirstBillOn | date:'dd/MM/yyyy'}}</p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500 mt-0" style="color: #ffe118;font-weight: bold;">Payment Charged Mail
+                                </p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="mt-0">{{upcomedata[0]?.PaymnentRequestOn | date:'dd/MM/yyyy'}}</p>
+                            </div>
+                        </div>
+        
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500 mt-0" style="color: #ffe118;font-weight: bold;">Next Account Manager Switch Date
+                                </p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="mt-0">{{upcomedata[0]?.NextPoolOnSevenFive | date:'dd/MM/yyyy'}}</p>
+                            </div>
+                        </div>
+        
+        
+                    </div>
+                    <div fxLayoutAlign="center center" *ngIf="upcomedata?.length == 0">
+                        <h1 style="line-height: 500px;font-size: medium;">No Data Found</h1>
+                    </div>
+                    <!-- <div *ngIf="upcomedata?.length > 0">
+                        <ngx-datatable class="material w-100-p" [rows]="upcomedata" [columnMode]="'force'"
+                        [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+                        <ngx-datatable-column [sortable]="true" prop="Created On" name="Created On">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.CreatedOn | date:'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="NextSwitch On" name="NextSwitch On">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.NextSwitchOn  | date:'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="FirstMailForMeterReading" name="FirstMailForMeterReading">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.FirstMailForMeterReading  | date:'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="FirstMailForPaymnetDeduction" name="FirstMailForPaymnetDeduction">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.FirstMailForPaymnetDeduction  | date:'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="FirstBillOn" name="FirstBillOn">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.FirstBillOn  | date:'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="PaymnentRequestOn" name="PaymnentRequestOn">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.PaymnentRequestOn  | date:'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="NextPoolOnSevenFive" name="NextPoolOnSevenFive">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.NextPoolOnSevenFive  | date:'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        </ngx-datatable>
+                      </div>
+                  
+                    <div fxLayoutAlign="center center" *ngIf="upcomedata?.length == 0">
+                        <h1>No Data Found</h1>
+                    </div> -->
+                    </mat-tab>
+
+                    <!-- <mat-tab label="Customer Credit Debit">
+                        <div *ngIf="anythingdata?.length > 0">
+                            <ngx-datatable class="material w-100-p" [rows]="anythingdata" [columnMode]="'force'"
+                            [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+
+                            <ngx-datatable-column [sortable]="true" prop="Reason" name="Reason">
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                    {{row.Reason}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column [sortable]="true" prop="Status" name="Status">
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                    <span *ngIf="row.Status == 1">
+                                        Credit
+                                    </span>
+                                    <span *ngIf="row.Status == 2">
+                                        Debit
+                                    </span>
+                                    
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column [sortable]="true" prop="Amount" name="Amount">
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                    £{{row.Amount}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column [sortable]="true" prop="Created On" name="Created On">
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                    {{row.CreatedOn | date:'dd/MM/yyyy'}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+
+                            </ngx-datatable>
+                            
+                          </div>
+                      
+                        <div fxLayoutAlign="center center" *ngIf="anythingdata?.length == 0">
+                            <h1 style="line-height: 500px;font-size: medium;">No Data Found</h1>
+                        </div>
+                    </mat-tab> -->
+            
+              </mat-tab-group>
+  </div>
+      </div>
+     
+  </div>
+</div>

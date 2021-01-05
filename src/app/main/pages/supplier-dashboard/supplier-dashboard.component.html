@@ -1,0 +1,183 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail" fxLayoutAlign="space-between center">
+        <div class="header-title">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Supplier Configuration</span>
+            </p>
+        </div>
+        <div></div>
+    </div>
+    <div class="detail">
+        <div
+            class="mb-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between
+            start"
+        >
+            <div class="header-title">
+                <!-- <h1 class="mt-0"></h1> -->
+                <h2></h2>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="detail">
+            <div fxLayoutGap="24px" fxLayout="column">
+                <!-- <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/payment-method'"
+                        class="credit-card p-12 mat-card"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/configuration.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="my-24 alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Payment Method</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/energy-type'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/configuration.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div  fxLayout="column">
+                            <h3 class="my-12">Energy Type</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/energy-supplier'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/configuration.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div  fxLayout="column">
+                            <h3 class="my-12">Energy Supplier</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/tariff-type'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/configuration.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div  fxLayout="column">
+                            <h3 class="my-12">Tariff Type</h3>
+                        </div>
+                    </mat-card>
+                </div> -->
+                <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/settings-package'"
+                        class="credit-card p-12 mat-card"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/package.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment my-24 alignment-card-text"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Packages</h3>
+                            <p
+                                *ngIf="!!settingsCount"
+                                fxLayoutAlign="center center"
+                                class="count m-0"
+                            >
+                                {{ settingsCount.PackageCount }}
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/supplier/' + 0"
+                        class="credit-card p-12 mat-card"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/supplier.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment my-24 alignment-card-text"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Suppliers</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/plan'"
+                        class="credit-card p-12 mat-card"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/configuration.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment my-24 alignment-card-text"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Plan</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        style="visibility: hidden"
+                        class="credit-card p-12 mat-card"
+                    >
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,108 @@
+<ngx-datatable
+    class="material"
+    [rows]="OrgWorkflows"
+    [columnMode]="'force'"
+    [headerHeight]="48"
+    [footerHeight]="56"
+    [rowHeight]="'auto'"
+    [limit]="10"
+>
+    <ngx-datatable-column name="Name">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+            <span class="block p-t-5">{{ row.WorkFlowName }}</span>
+        </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Type">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+            <span class="block p-t-5">{{ row.Type }}</span>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Module">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+            <span class="block p-t-5">{{ row.Module }}</span>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Date created">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+            <span class="block p-t-5">{{
+                row.CreatedOn | date: "MMM d, yyyy"
+            }}</span>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Active">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+            <mat-icon
+                *ngIf="row.IsActive"
+                class="active-icon mat-green-600-bg s-16"
+                >check</mat-icon
+            >
+            <mat-icon
+                *ngIf="!row.IsActive"
+                class="active-icon mat-red-500-bg s-16"
+                >close</mat-icon
+            >
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Required workflows">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+            <mat-icon
+                *ngIf="row.SyetemRequiredWorkFlow"
+                class="active-icon mat-green-600-bg s-16"
+                >check</mat-icon
+            >
+            <mat-icon
+                *ngIf="!row.SyetemRequiredWorkFlow"
+                class="active-icon mat-red-500-bg s-16"
+                >close</mat-icon
+            >
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Action">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+            <div>
+                <button
+                    mat-button
+                    class="mat-icon-button"
+                    [matMenuTriggerFor]="workflowMenu"
+                    aria-label="more"
+                >
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #workflowMenu="matMenu">
+                    <button mat-menu-item (click)="GetWorkFlow(row.ID)">
+                        <mat-icon>edit</mat-icon>
+                        Edit
+                    </button>
+                    <button
+                        *ngIf="
+                            row.IsActive == 1 && row.SyetemRequiredWorkFlow != 1
+                        "
+                        mat-menu-item
+                        (click)="DisableWorkFlow(row.ID)"
+                    >
+                        <mat-icon>not_interested</mat-icon>
+                        Disable workflow
+                    </button>
+                    <button
+                        *ngIf="row.IsActive == 0"
+                        mat-menu-item
+                        (click)="EnableWorkFlow(row.ID)"
+                    >
+                        <mat-icon>check_box </mat-icon>
+                        Enable workflow
+                    </button>
+
+                    <button
+                        *ngIf="row.SyetemRequiredWorkFlow != 1"
+                        mat-menu-item
+                        (click)="DeleteWorkFlow(row)"
+                    >
+                        <mat-icon>delete </mat-icon>
+                        Delete Workflow
+                    </button>
+                </mat-menu>
+            </div>
+        </ng-template>
+    </ngx-datatable-column>
+</ngx-datatable>

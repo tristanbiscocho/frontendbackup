@@ -1,0 +1,408 @@
+<div id="dashboard" class="page-layout blank p-8" fusePerfectScrollbar>
+    <div class="detail" fxLayoutAlign="space-between center">
+        <div class="header-title">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Customers</span>
+            </p>
+        </div>
+    </div>
+
+    <p-toast position="center"></p-toast>
+    <div class="detail my-12 content">
+        <div class="p-24 w-100-p content-filter" fxLayoutAlign="center center">
+            <div
+                fxFlex="80"
+                fxLayout.lt-md="column"
+                fxLayoutGap="15px"
+                fxLayoutAlign="center center"
+            >
+                <mat-form-field fxFlex="50" class="search-input">
+                    <input
+                        matInput
+                        placeholder="Customer No / Name / Email"
+                        [formControl]="searchCategory"
+                    />
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+                <mat-form-field fxFlex="15">
+                    <input
+                        (click)="picker.open()"
+                        (dateChange)="filterCustomer()"
+                        matInput
+                        [matDatepicker]="picker"
+                        placeholder="From
+                        Date"
+                        [(ngModel)]="searchByStartDate"
+                    />
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="15">
+                    <input
+                        (click)="picker1.open()"
+                        (dateChange)="filterCustomer()"
+                        matInput
+                        [(ngModel)]="sesrchByEndDate"
+                        [matDatepicker]="picker1"
+                        placeholder="To Date"
+                    />
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker1"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="30">
+                    <mat-select
+                        (selectionChange)="doSomething($event)"
+                        placeholder="Supplier"
+                        [(ngModel)]="SearchBySupplier"
+                    >
+                        <mat-option
+                            *ngFor="let supplier of suppliers"
+                            [value]="supplier.ID"
+                            >{{ supplier.Name }}</mat-option
+                        >
+                    </mat-select>
+                </mat-form-field>
+
+                <button
+                    mat-flat-button
+                    style="background: rgba(199, 203, 234, 0.2)"
+                    (click)="filterCustomer()"
+                >
+                    <mat-icon class="white-fg mt-8"> swap_vert </mat-icon>
+                    <br />
+                    Filter
+                </button>
+                <button
+                    style="background: rgba(199, 203, 234, 0.2)"
+                    mat-flat-button
+                    (click)="clearFilter()"
+                >
+                    <mat-icon class="white-fg mt-8"> cancel </mat-icon> <br />
+                    Clear
+                </button>
+            </div>
+        </div>
+        <!-- <div>
+            <button mat-fab class="add-button white" (click)="addReadingMeter()">
+                <mat-icon class="white-fg">add</mat-icon>
+            </button>
+        </div> -->
+        <div *ngIf="customerList?.length > 0">
+            <ngx-datatable
+                class="material w-100-p"
+                [rows]="customerList"
+                [columnMode]="'force'"
+                [offset]="tableOffset"
+                (page)="onChange($event)"
+                [headerHeight]="50"
+                [scrollbarH]="true"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [limit]="10"
+            >
+                <ngx-datatable-column
+                    [sortable]="true"
+                    prop="customerNo"
+                    name="Customer no"
+                    [width]="40"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        <a
+                            [routerLink]="
+                                '/my-profile/' + row.Id + '/' + tableOffset
+                            "
+                            >{{ row.Id }}</a
+                        >
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column
+                    [sortable]="true"
+                    prop="CreatedOn"
+                    name="Registered on"
+                    [width]="60"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        {{ row.CreatedOn | date: "dd/MM/yyyy" }}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <!-- <ngx-datatable-column [sortable]="true" prop="PendingBankdetails" name="Pending Bank Details" [width]="60">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        {{row.PendingBankdetails}}
+                    </ng-template>
+                </ngx-datatable-column> -->
+
+                <ngx-datatable-column
+                    [sortable]="true"
+                    prop="name"
+                    name="Customer details"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        <br />
+                        <a
+                            [routerLink]="
+                                '/my-profile/' + row.Id + '/' + tableOffset
+                            "
+                            class="userName"
+                            >{{ row.FirstName }} {{ row.LastName }}</a
+                        ><br /><br />
+                        {{ row.EmailAddress }}<br /><br />
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column
+                    [sortable]="true"
+                    prop="currentSupplier"
+                    name="Current supplier"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        <br /><br />
+                        <span fxLayout="row" fxLayoutAlign="center center">
+                            <div>
+                                <!-- <img width="25" class="mr-12" *ngIf="!!row.ElectricityCurrentSupplierName"
+                                src="assets/images/betterDeal/electricity-1.png" /> -->
+                            </div>
+                            <div>
+                                <p>
+                                    {{ row.ElectricityCurrentSupplierName }}
+                                </p>
+                            </div>
+                        </span>
+
+                        <!-- <span fxLayout="row" fxLayoutAlign="center center">
+                            <div>
+                                <img width="25" class="mr-12" *ngIf="!!row.GasCurrentSupplierName"
+                                src="assets/images/betterDeal/gas.png" />
+                            </div>
+                            <div>
+                                <p>
+                                    {{row.GasCurrentSupplierName}}
+                                </p>
+                            </div>
+                           </span> -->
+                        <br /><br />
+                    </ng-template>
+                </ngx-datatable-column>
+                <!-- <ngx-datatable-column [sortable]="true" prop="postCode" name="Address">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        <br *ngIf="!!row.AddressLine1 || !!row.City" />
+                        {{row.PostCode}}<br *ngIf="!!row.AddressLine1 || !!row.City" /> <br
+                            *ngIf="!!row.AddressLine1 || !!row.City" />{{row.AddressLine1}}
+                        {{row.City}}<br *ngIf="!!row.AddressLine1 || !!row.City" /><br
+                            *ngIf="!!row.AddressLine1 || !!row.City" />
+                    </ng-template>
+                </ngx-datatable-column> -->
+
+                <ngx-datatable-column
+                    [sortable]="true"
+                    prop="RererralCount"
+                    name="Economy 7 or 10"
+                    [width]="50"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        <span *ngIf="row.IsElectricMeterReading == true">
+                            <mat-icon style="color: #5db461"
+                                >check_circle_outline</mat-icon
+                            >
+                        </span>
+
+                        <span *ngIf="row.IsElectricMeterReading == false">
+                            <mat-icon style="color: #d3595e">cancel</mat-icon>
+                        </span>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column
+                    [sortable]="true"
+                    prop="RererralCount"
+                    name="Referral"
+                    [width]="30"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        <br />
+                        <div style="text-align: center">
+                            <span
+                                [routerLink]="
+                                    '/admin-refferallist/' +
+                                    row.UserId +
+                                    '/' +
+                                    tableOffset +
+                                    '/' +
+                                    row.Id
+                                "
+                                class="type-of-payment"
+                                style="cursor: pointer"
+                                >{{ row.RererralCount }}</span
+                            ><br /><br />
+                            <p class="m-0">Referrals</p>
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column
+                    width="240"
+                    [sortable]="false"
+                    name="Action"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        <Div style="text-align: center">
+                            <button
+                                class="actionBtn"
+                                matTooltip="Switch History"
+                                [routerLink]="
+                                    '/admin-switch-history/' +
+                                    row.Id +
+                                    '/' +
+                                    row.UserId +
+                                    '/' +
+                                    tableOffset +
+                                    '/' +
+                                    0
+                                "
+                                mat-mini-fab
+                            >
+                                <mat-icon> history </mat-icon>
+                            </button>
+                            <!-- <button class="actionBtn" matTooltip="Customer Bills"
+                            [routerLink]="'/admin-customer-bill/' + row.Id + '/' + tableOffset + '/' + 0" mat-mini-fab>
+                            <mat-icon>
+                                featured_play_list
+                            </mat-icon>
+                        </button> -->
+
+                            <!-- <button class="actionBtn" matTooltip="Customer profile"
+                            mat-icon-button>
+                            <mat-icon>
+                                person_pin
+                            </mat-icon>
+                        </button> -->
+                            <!-- <button
+                                class="actionBtn"
+                                matTooltip="Meter Reading"
+                                [routerLink]="
+                                    '/meter-reading/' +
+                                    row.Id +
+                                    '/' +
+                                    row.EnergyTypeID +
+                                    '/' +
+                                    tableOffset
+                                "
+                                mat-mini-fab
+                            >
+                                <mat-icon> chrome_reader_mode </mat-icon>
+                            </button> -->
+
+                            <button
+                                class="actionBtn"
+                                matTooltip="Customer Profile"
+                                [routerLink]="
+                                    '/my-profile/' + row.Id + '/' + tableOffset
+                                "
+                                mat-mini-fab
+                            >
+                                <mat-icon> person_add </mat-icon>
+                            </button>
+
+                            <button
+                                *ngIf="!row.IsBlocked"
+                                style="background: #d54e4c"
+                                class="actionBtn"
+                                matTooltip="Block Customer"
+                                (click)="blockCustomer(row.Id, true)"
+                                mat-mini-fab
+                            >
+                                <mat-icon>lock</mat-icon>
+                            </button>
+                            <button
+                                *ngIf="row.IsBlocked"
+                                style="background: #5db461"
+                                class="actionBtn"
+                                matTooltip="Unblock Customer"
+                                (click)="unblockCustomer(row.Id, false)"
+                                mat-mini-fab
+                            >
+                                <mat-icon>lock_open</mat-icon>
+                            </button>
+
+                            <button
+                                class="actionBtn"
+                                [routerLink]="
+                                    'customer-information/' +
+                                    row.Id +
+                                    '/' +
+                                    row.UserId +
+                                    '/' +
+                                    tableOffset +
+                                    '/' +
+                                    0
+                                "
+                                matTooltip="Customer Information"
+                                mat-mini-fab
+                            >
+                                <mat-icon>view_list</mat-icon>
+                            </button>
+
+                            <!-- <button class="actionBtn" style="background: #ffe118;" [routerLink]="'/payment-status/' + row.Id + '/' + tableOffset " matTooltip="Gocardless Payment Status" mat-mini-fab>
+                        <mat-icon>payment</mat-icon>
+                    </button> -->
+
+                            <!-- <button class="actionBtn" style="background: #d54e4c;"  matTooltip="Close Account" mat-mini-fab>
+                        <mat-icon>close</mat-icon>
+                    </button> -->
+                        </Div>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+        <div fxLayoutAlign="center center" *ngIf="customerList?.length == 0">
+            <h1
+                style="
+                    text-align: center;
+                    font-size: medium;
+                    position: absolute;
+                    top: 50%;
+                "
+            >
+                No Data Found
+            </h1>
+        </div>
+    </div>
+</div>

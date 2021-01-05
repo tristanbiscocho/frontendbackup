@@ -1,0 +1,125 @@
+<div id="space-wrapper" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div *ngIf="showLoader">
+        <div class="loader1">
+            <div>
+                <div class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-toast position="center"></p-toast>
+    <div class="detail" [ngStyle]="{ 'min-height': minheight }">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group btn-group-lg" dropdown>
+                    <button
+                        dropdownToggle
+                        class="btn btn-info dropdown-toggle text-white"
+                    >
+                        Add <span class="caret"></span>
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu" role="menu">
+                        <li role="menuitem">
+                            <a
+                                class="dropdown-item"
+                                routerLink="/knowledge-base-dashboard/manage-articles/create-article"
+                                >Article</a
+                            >
+                        </li>
+                        <li role="menuitem">
+                            <a
+                                class="dropdown-item"
+                                routerLink="/knowledge-base-dashboard/arrange-content/add-section"
+                                >Section</a
+                            >
+                        </li>
+                        <li role="menuitem">
+                            <a
+                                class="dropdown-item"
+                                routerLink="/knowledge-base-dashboard/arrange-content/add-category"
+                                >Category</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/knowledge-base-dashboard'"
+                    >Overview</label
+                >
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/knowledge-base-dashboard/arrange-content/'">Arrange Content</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>New Category</span>
+            </p>
+        </div>
+        <div class="content rounded-lg">
+            <form class="w-100-p p-md-5">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field
+                                    fxFlex="100"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Name</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Category Name"
+                                        required
+                                    />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-12">
+                                <mat-form-field
+                                    fxFlex="100"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Description</mat-label>
+                                    <textarea
+                                        matInput
+                                        rows="7"
+                                        placeholder="Description"
+                                        required
+                                    ></textarea>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6"></div>
+                            <div class="form-group col-6">
+                                <div style="float: right">
+                                    <a
+                                        [routerLink]="[
+                                            '/knowledge-base-dashboard/arrange-content'
+                                        ]"
+                                        style="margin-left: 10px"
+                                        color="dark"
+                                        class="mat-focus-indicator mat-raised-button mat-button-base mat-info"
+                                        >Cancel</a
+                                    >
+                                    &nbsp;
+                                    <button
+                                        type="submit"
+                                        mat-flat-button
+                                        color="accent"
+                                        class="mat-focus-indicator mat-raised-button mat-button-base"
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

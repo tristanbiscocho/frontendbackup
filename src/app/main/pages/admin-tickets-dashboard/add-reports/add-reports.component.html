@@ -1,0 +1,145 @@
+<div id="space-wrapper" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div *ngIf="showLoader">
+        <div class="loader1">
+            <div>
+                <div class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-toast position="center"></p-toast>
+    <div class="detail" [ngStyle]="{ 'min-height': minheight }">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/admin-tickets-dashboard'"
+                    >Overview</label
+                >
+                <span>&nbsp;/&nbsp;</span>
+                <span> Add Report </span>
+            </p>
+        </div>
+        <div
+            class="content w-100-p"
+            fxLayoutAlign="center"
+            [ngStyle]="{ 'min-height': minheight }"
+        >
+            <form class="form-wrapper">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field
+                            fxFlex="100"
+                            fxFlex.lt-md="100"
+                            appearance="outline"
+                        >
+                            <mat-label>Report Type</mat-label>
+                            <mat-select placeholder="Type" required>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field
+                            fxFlex="100"
+                            fxFlex.lt-md="100"
+                            appearance="outline"
+                        >
+                            <mat-label>Category</mat-label>
+                            <mat-select placeholder="Category" required>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field
+                            fxFlex="100"
+                            fxFlex.lt-md="100"
+                            appearance="outline"
+                        >
+                            <mat-label>Users </mat-label>
+                            <mat-select placeholder="User" required>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field
+                            fxFlex="100"
+                            fxFlex.lt-md="100"
+                            appearance="outline"
+                        >
+                            <mat-label>Overdue Type</mat-label>
+                            <mat-select placeholder="Overdue" required>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field
+                            fxFlex="100"
+                            fxFlex.lt-md="100"
+                            appearance="outline"
+                        >
+                            <mat-label>Priority</mat-label>
+                            <mat-select placeholder="--select--" required>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-auto">
+                    <mat-form-field
+                        fxFlex="80"
+                        fxFlex.lt-md="100"
+                        appearance="outline"
+                    >
+                        <mat-label>From</mat-label>
+                        <input
+                            (click)="picker.open()"
+                            #input
+                            required
+                            matInput
+                            [matDatepicker]="picker"
+                            placeholder="Date From"
+                            (click)="picker.open()"
+                        />
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field
+                        fxFlex="80"
+                        fxFlex.lt-md="100"
+                        appearance="outline"
+                    >
+                        <mat-label>From</mat-label>
+                        <input
+                            (click)="pickert.open()"
+                            #input
+                            required
+                            matInput
+                            [matDatepicker]="pickert"
+                            placeholder="Date To"
+                            (click)="pickert.open()"
+                        />
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="pickert"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #pickert></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <p-toast position="center"></p-toast>
+                <div class="py-12" fxLayoutAlign="end end">
+                    <button mat-flat-button color="accent">Export</button>
+                    &nbsp;<button mat-flat-button color="accent">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div
+            class="my-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between-start"
+        >
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span>Emails</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="content" fxLayoutAlign="center center">
+        <div class="detail">
+            <div fxLayoutGap="24px" fxLayout="column" fxLayout.lt-sm="column">
+                <div
+                    fxLayout.lt-sm="column"
+                    fxLayout.lt-md="column"
+                    fxLayoutGap="24px"
+                >
+                    <mat-card
+                        fxFlex="25"
+                        [routerLink]="'/template'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/email.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Email Automation</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="25"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/email.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="alignment alignment-card-text"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Email Campaign</h3>
+                        </div>
+                    </mat-card>
+
+                    <mat-card
+                        style="visibility: hidden"
+                        fxFlex="25"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    ></mat-card>
+                    <mat-card
+                        style="visibility: hidden"
+                        fxFlex="25"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    ></mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

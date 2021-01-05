@@ -1,0 +1,121 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+
+        <div class="my-12" fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between start">
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/contractor-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span> 
+                    <span>Not Interested Customers</span>
+                </p>
+
+            </div>
+
+         
+            <!-- <mat-card fxFlex="30" class="p-8 credit-card" fxLayoutGap="12px"
+                fxLayout="row" fxLayoutAlign="start center">
+                <mat-card class="image-card">
+                    <img width="40"
+                    src="assets/images/logos/profile.png"
+                        />
+                    </mat-card>
+                  
+                
+                <div fxFlex="70">
+
+                    <h2 class="m-0">{{currentUser.ReferralCode}}</h2>
+                </div>
+            </mat-card> -->
+        </div>
+        <div class="content">
+           
+
+            <!-- table-->
+            <div *ngIf="customers?.length > 0">
+                <ngx-datatable class="material striped w-100-p" [rows]="customers"
+                [columnMode]="'force'" [headerHeight]="50"
+                [scrollbarH]="true"
+                [footerHeight]="50" [rowHeight]="'auto'"
+                [limit]="100" [offset]="tableOffset" (page)="onChangePage($event)">
+                <ngx-datatable-column [sortable]="true" prop="CallbackDate"
+                    name="Call Back Date">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        <span *ngIf="!!row.CallbackDate">
+                            {{row.CallbackDate | date : 'dd - MM - yyyy'}}
+                        </span>
+                        <span *ngIf="row.CallbackDate == undefined || null">
+                            Anytime
+                        </span>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="true" prop="CallbackTime"
+                    name="Call Back Time">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        <span *ngIf="!!row.CallbackTime">
+                            {{row.CallbackTime | date:'shortTime' }}
+                        </span>
+                        <span *ngIf="row.CallbackTime == undefined || null">
+                            Anytime
+                        </span>
+                    </ng-template>
+                </ngx-datatable-column>
+
+
+                <ngx-datatable-column [sortable]="true" prop="CustomerName"
+                    name="Name">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        {{row.CustomerName }}
+                    </ng-template>
+                </ngx-datatable-column>
+
+
+                <ngx-datatable-column [sortable]="true" prop="Phone_No"
+                    name="Phone">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                         {{row.Phone_No}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="true" prop="Notes"
+                    name="Note">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                         {{row.Notes}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column width="240" [sortable]="false" name="Action">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        <Div style="text-align: center;">
+                            <button matTooltip="Edit Customer" color="accent" (click)="editCustomer(row)"
+                            mat-mini-fab>
+                                  <mat-icon class="white-fg">edit</mat-icon>
+                              </button>
+                              <button matTooltip="Delete Customer" style="background-color: rgb(213, 78, 76);" (click)="deleteCustomer(row)" mat-mini-fab>
+                                <mat-icon>delete</mat-icon>
+                            </button>
+
+                </Div>
+                    </ng-template>
+
+                </ngx-datatable-column>
+
+              
+
+
+            </ngx-datatable>
+            </div>
+            <div fxLayoutAlign="center center" *ngIf="customers?.length == 0">
+                <h1 style="text-align:center;font-size: medium;position: absolute;
+                top: 50%;">No Data Found</h1>
+            </div>
+           
+        </div>
+    </div>
+</div>

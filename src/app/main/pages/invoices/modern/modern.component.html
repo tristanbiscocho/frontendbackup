@@ -1,0 +1,857 @@
+<link
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    rel="stylesheet"
+/>
+<div
+    fxLayout="column"
+    fxFlex="60"
+    fxFelx.lt-md="100"
+    style="margin: 0 auto"
+    *ngIf="!!billDetails"
+>
+    <div class="container bor-bott">
+        <div class="d-flex">
+            <div class="col py-2" style="background-color: #3e87c7"></div>
+            <div class="col" style="background-color: #57b947"></div>
+            <div class="col" style="background-color: #373737"></div>
+        </div>
+        <div class="d-flex justify-content-md-center bg-white">
+            <div class="col-5 col-md-11">
+                <div class="row">
+                    <div class="col pt-5">
+                        <span class="font-weight-bold Heading pt-2"
+                            >YOUR GAS AND<br />ELECTRICITY BILL</span
+                        >
+                        <p class="author-name mt-4">
+                            {{ billDetails.CustomerName }}
+                        </p>
+                        <p class="energy">Address of energy supply</p>
+                        <p class="address font-weight-bold">
+                            {{ billDetails.Address1 }} <br />
+                            {{ billDetails.City }} <br />
+                            {{ billDetails.PostCode }}
+                        </p>
+                        <p class="bill">BILL DATE</p>
+                        <p class="date">
+                            {{
+                                billDetails.BillInfo.CreatedOn
+                                    | date: "dd MMMM, yyyy"
+                            }}
+                        </p>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col">
+                        <div class="">
+                            <img
+                                class="logo"
+                                src="/assets/images/betterDeal/beterdeal_logo.png"
+                                alt="logo"
+                            />
+                            <p class="account pt-4 pb-2 mt-4">
+                                Your account number
+                            </p>
+                            <span class="phone">{{ userAccountNum }}</span>
+                            <p class="h-acdet">
+                                This is your unique customer number for your
+                                Energy account. Please quote this number when
+                                you contact us, as it will help us identify your
+                                account more quickly.
+                            </p>
+                            <p class="billing font-weight-bold">
+                                BILLING PERIOD
+                            </p>
+                            <p class="date">
+                                {{
+                                    billDetails.BillInfo.StartDate
+                                        | date: "dd MMMM, yyyy"
+                                }}
+                                -
+                                {{
+                                    billDetails.BillInfo.EndDate
+                                        | date: "dd MMMM, yyyy"
+                                }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container cont-2 pb-2 table-section-border">
+        <div class="col pt-5 pb-2">
+            <p class="estimated-hading text-center font-weight-bold">
+                ESTIMATED BILL DETAILS - ESTIMATED USAGE
+            </p>
+        </div>
+        <div
+            class="row d-flex justify-content-md-center"
+            style="margin-left: 5px"
+        >
+            <div class="col col-md-10 table-shadow">
+                <div
+                    class="row py-3 table-top-radi table-color table-hadi-data font-weight-bold d-flex justify-content-md-center"
+                >
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div
+                                class="col"
+                                style="padding-left: 0px; padding-right: 0px"
+                            >
+                                TYPE
+                            </div>
+                            <div class="col">METER READING (CURRENT)</div>
+                            <div class="col">METER READING (PREV)</div>
+                            <div class="col">UNITS USED</div>
+                            <div class="col">RATE PER UNIT</div>
+                            <div
+                                class="col text-right"
+                                style="padding-right: 0px"
+                            >
+                                TOTAL (GBP)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    *ngFor="let data of billDetails.BillHelperData"
+                    class="row d-flex px-5 justify-content-md-center py-3 bg-white row-hadi-data font-weight-bold"
+                >
+                    <div class="col-md-12">
+                        <div class="row table-bor-bott">
+                            <div
+                                class="col pb-4"
+                                style="padding-left: 0px; padding-right: 0px"
+                            >
+                                <span *ngIf="data.EnergyType == 1"> Gas </span>
+                                <span *ngIf="data.EnergyType == 2">
+                                    Electricity
+                                </span>
+                            </div>
+                            <div
+                                *ngIf="billDetails.BillInfo.BillType != 1"
+                                class="col"
+                            >
+                                <span class="meter-read-back-color p-1">1</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >2</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >0</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >0</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >0</span
+                                >
+                            </div>
+                            <div
+                                *ngIf="billDetails.BillInfo.BillType != 1"
+                                class="col"
+                            >
+                                <span class="meter-read-back-color p-1">1</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >1</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >8</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >5</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >0</span
+                                >
+                            </div>
+
+                            <div
+                                *ngIf="billDetails.BillInfo.BillType == 1"
+                                class="col"
+                            >
+                                <span class="meter-read-back-color p-1">x</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >x</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >x</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >x</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >x</span
+                                >
+                            </div>
+                            <div
+                                *ngIf="billDetails.BillInfo.BillType == 1"
+                                class="col"
+                            >
+                                <span class="meter-read-back-color p-1">x</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >x</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >x</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >x</span
+                                ><span class="meter-read-back-color p-1 ml-1"
+                                    >x</span
+                                >
+                            </div>
+                            <div class="col">
+                                {{ data.UnitWithSurcharge }} kWh
+                            </div>
+                            <div class="col">
+                                &pound;{{ data.PerUnitCost | number: "1.0-2" }}p
+                            </div>
+                            <div
+                                class="col text-right"
+                                style="padding-right: 0px"
+                            >
+                                &pound;{{ data.TotalAmount | number: "1.0-2" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row py-3 table-bor-bott bg-white row-hadi-data font-weight-bold">
+                    <div class="col">Electricity (Night)</div>
+                    <div  *ngIf="billDetails.BillInfo.BillType != 1" class="col"><span class="meter-read-back-color p-1">1</span><span
+                            class="meter-read-back-color p-1 ml-1">2</span><span
+                            class="meter-read-back-color p-1 ml-1">0</span><span
+                            class="meter-read-back-color p-1 ml-1">0</span><span
+                            class="meter-read-back-color p-1 ml-1">0</span></div>
+                    <div  *ngIf="billDetails.BillInfo.BillType != 1" class="col"><span class="meter-read-back-color p-1">1</span><span
+                            class="meter-read-back-color p-1 ml-1">1</span><span
+                            class="meter-read-back-color p-1 ml-1">8</span><span
+                            class="meter-read-back-color p-1 ml-1">5</span><span
+                            class="meter-read-back-color p-1 ml-1">0</span></div>
+                    <div class="col">150 kWh</div>
+                    <div class="col">&pound;1.20p</div>
+                    <div class="col">&pound;180.00</div>
+                </div> -->
+                <div
+                    class="row d-flex px-5 justify-content-md-center py-3 bg-white row-hadi-data font-weight-bold"
+                    style="
+                        border-bottom-left-radius: 30px;
+                        border-bottom-right-radius: 30px;
+                    "
+                >
+                    <div class="col-md-12 p-0">
+                        <div
+                            class="row py-3 table-bott-radi bg-white row-hadi-data font-weight-bold"
+                        >
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="col">Subtotal</div>
+                            <div class="col text-right">
+                                &pound;{{ subtotal | number: "1.0-2" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <img
+                    src="/assets/images/barcode.png"
+                    alt="barcode"
+                    width="2%"
+                    style="
+                        margin: -300px 0 -170px 0;
+                        padding: 0 10px 40px 20px;
+                        width: 7%;
+                    "
+                />
+            </div>
+        </div>
+        <div class="col py-4 mb-5">
+            <p class="statement-hading text-center font-weight-bold">
+                YOUR STATEMENT
+            </p>
+        </div>
+    </div>
+    <div class="container bg-white">
+        <div class="row verticle-txt">
+            <div class="col-md-12 text-center" style="margin: -10px 0 10px 0">
+                <p>
+                    Monti Trade BVBA t/a Lowest Tariff, Kattendijkdok-Westkaai
+                    61/1101,<br />
+                    2000 Antwerp, Belgium | Company Number BE 0658.981.574
+                </p>
+            </div>
+        </div>
+        <div
+            class="row d-flex justify-content-md-center"
+            style="margin: -420px 0 25px 40px"
+        >
+            <div class="col col-md-11 state-table-radi py-2">
+                <div
+                    *ngIf="billDetails.BillInfo.BillType == 1"
+                    class="mt-2 text-white state-bott-bor d-flex justify-content-md-between"
+                >
+                    <span class="state-data">Balance before this bill</span>
+                    <span class="state-value">&pound; 0</span>
+                </div>
+                <div
+                    *ngIf="billDetails.BillInfo.BillType == 1"
+                    class="mt-1 text-white state-bott-bor d-flex justify-content-md-between"
+                >
+                    <span class="state-data">Balance on last bill</span>
+                    <span class="state-value">&pound; 0</span>
+                </div>
+                <div
+                    *ngIf="billDetails.BillInfo.BillType == 1"
+                    class="mt-1 text-white state-bott-bor d-flex justify-content-md-between"
+                >
+                    <span class="state-data">Your starting balance</span>
+                    <span class="state-value">&pound; 0</span>
+                </div>
+
+                <div *ngFor="let data of billDetails.BillHelperData">
+                    <div
+                        *ngIf="data.EnergyType == 2"
+                        class="mt-3 text-white state-bott-bor d-flex justify-content-md-between"
+                    >
+                        <span class="state-data">Electricity bill</span>
+                        <span class="state-value"
+                            >&pound;
+                            {{ data.TotalAmount | number: "1.0-2" }}</span
+                        >
+                    </div>
+                    <div
+                        *ngIf="data.EnergyType == 2"
+                        class="mt-1 text-white state-bott-bor d-flex justify-content-md-between"
+                    >
+                        <span class="state-data"
+                            >{{ data.VetPercentage }}% VAT on electricity
+                            charge</span
+                        >
+                        <span class="state-value"
+                            >&pound;
+                            {{
+                                data.VatValueOnTotalAmount | number: "1.0-2"
+                            }}</span
+                        >
+                    </div>
+                    <div
+                        *ngIf="data.EnergyType == 1"
+                        class="mt-1 text-white state-bott-bor d-flex justify-content-md-between"
+                    >
+                        <span class="state-data">Gas charges</span>
+                        <span class="state-value"
+                            >&pound;
+                            {{ data.TotalAmount | number: "1.0-2" }}</span
+                        >
+                    </div>
+                    <div
+                        *ngIf="data.EnergyType == 1"
+                        class="mt-1 text-white state-bott-bor d-flex justify-content-md-between"
+                    >
+                        <span class="state-data"
+                            >{{ data.VetPercentage }}% VAT on gas charge</span
+                        >
+                        <span class="state-value"
+                            >&pound;
+                            {{
+                                data.VatValueOnTotalAmount | number: "1.0-2"
+                            }}</span
+                        >
+                    </div>
+                    <div
+                        *ngIf="data.EnergyType == 2"
+                        class="mt-1 text-white state-bott-bor d-flex justify-content-md-between"
+                    >
+                        <span class="state-data"
+                            >Standing charges electricity 365 @
+                            {{ data.FixedchargeAmountPerDay }}p per day</span
+                        >
+                        <span class="state-value"
+                            >&pound;
+                            {{ data.FixedchargeAmount | number: "1.0-2" }}</span
+                        >
+                    </div>
+                    <div
+                        *ngIf="data.EnergyType == 1"
+                        class="mt-1 text-white state-bott-bor d-flex justify-content-md-between"
+                    >
+                        <span class="state-data"
+                            >Standing charges gas 365 @
+                            {{ data.FixedchargeAmountPerDay }}p per day</span
+                        >
+                        <span class="state-value"
+                            >&pound;
+                            {{ data.FixedchargeAmount | number: "1.0-2" }}</span
+                        >
+                    </div>
+                </div>
+
+                <div
+                    class="mt-3 text-white state-bott-bor d-flex justify-content-md-between"
+                >
+                    <span class="state-end-data font-weight-bold"
+                        >Subtotal without VAT</span
+                    >
+                    <span class="state-end-value font-weight-bold"
+                        >&pound;
+                        {{
+                            billDetails.SubtotalWithoutVat | number: "1.0-2"
+                        }}</span
+                    >
+                </div>
+                <div
+                    class="text-white state-bott-bor d-flex justify-content-md-between"
+                >
+                    <span class="state-end-data font-weight-bold"
+                        >Total {{ vatTotal }}% VAT</span
+                    >
+                    <span class="state-end-value font-weight-bold"
+                        >&pound;
+                        {{ billDetails.TotalVat | number: "1.0-2" }}</span
+                    >
+                </div>
+                <div
+                    class="mb-3 text-white state-bott-bor d-flex justify-content-md-between"
+                >
+                    <span class="state-end-data font-weight-bold"
+                        >Total charges including VAT</span
+                    >
+                    <span class="state-end-value font-weight-bold"
+                        >&pound;
+                        {{
+                            billDetails.TotalChargeWithVAT | number: "1.0-2"
+                        }}</span
+                    >
+                </div>
+            </div>
+        </div>
+        <div
+            class="row d-flex justify-content-md-center"
+            style="margin-left: 40px"
+        >
+            <div class="col col-md-11">
+                <div class="row d-flex align-items-center">
+                    <div class="col col-md-6">
+                        <div class="pay-message mt-3" id="talkbubble">
+                            <p
+                                class="text-center py-3 text-white font-weight-bold"
+                            >
+                                When do I pay ?
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col col-md-3 pt-2">
+                        <h4 class="font-weight-bold b-pay-due">
+                            Your Payment is due by
+                        </h4>
+                        <h5 class="b-pay-due">
+                            Payment will be taken by Direct Debit on or soon
+                            after this date.
+                        </h5>
+                    </div>
+                    <div class="col col-md-3">
+                        <p
+                            class="month font-weight-bold text-center"
+                            style="text-transform: uppercase"
+                        >
+                            {{ billDetails.BillInfo.StartDate | date: "MMMM" }}
+                        </p>
+                        <div class="d-flex justify-content-md-center">
+                            <h1 class="sin-date font-weight-bold">
+                                {{
+                                    billDetails.BillInfo.StartDate | date: "dd"
+                                }}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="row d-flex justify-content-md-center mt-4 my-3"
+            style="margin-left: 40px"
+        >
+            <div class="col col-md-11">
+                <div class="row d-flex align-items-center">
+                    <div class="col m-0 p-0 text-center">
+                        <p class="m-0 speak-team font-weight-bold">
+                            Speak to one of our team
+                        </p>
+                        <p class="pay-mess font-weight-bold m-0">
+                            Live Chat: Monday to Friday, 9am-5pm
+                        </p>
+                    </div>
+                    <div class="col">
+                        <img
+                            class="mx-auto d-block pt-1"
+                            src="/assets/images/logos/1.png"
+                            alt="message photo"
+                        />
+                    </div>
+                    <div
+                        class="col support-link font-weight-bold m-0 p-0 text-center"
+                    >
+                        <p>support@lowesttariff.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-md-center">
+            <div class="col col-md-12">
+                <p class="text-center font-weight-bold company-address">
+                    www.lowesttariff.com
+                </p>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="col py-2" style="background-color: #3e87c7"></div>
+            <div class="col" style="background-color: #57b947"></div>
+            <div class="col" style="background-color: #373737"></div>
+        </div>
+    </div>
+</div>
+
+<!-- END -->
+
+<div
+    id="invoice"
+    class="modern page-layout blank"
+    fxLayout="row"
+    *ngIf="!!invoiceDetails"
+    fxLayoutAlign="center center"
+>
+    <div class="invoice-container">
+        <div fxLayoutAlign="space-between end" class="mb-12">
+            <button
+                *ngIf="!!currentUser && currentUser.RoleType == 3"
+                mat-icon-button
+                id="InvoiceButton1"
+                [routerLink]="'/admin-commission/' + pageOffset"
+            >
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+
+            <button
+                *ngIf="!!currentUser && currentUser.RoleType == 6"
+                mat-icon-button
+                id="InvoiceButton1"
+                [routerLink]="'/admin-commission/' + pageOffset"
+            >
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+
+            <button
+                *ngIf="
+                    !!currentUser &&
+                    (currentUser.RoleType == 1 || currentUser.RoleType == 5)
+                "
+                mat-icon-button
+                id="InvoiceButton1"
+                [routerLink]="'/supervisor-list/' + pageOffset"
+            >
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+
+            <button
+                mat-flat-button
+                id="InvoiceButton"
+                (click)="generateInvoice()"
+            >
+                Print Bill
+            </button>
+        </div>
+        <!-- INVOICE -->
+        <div class="card w-100-p" id="contentToConvert">
+            <div
+                class="header"
+                fxLayout="row"
+                fxLayoutAlign="space-between
+                start"
+            >
+                <div class="ids" fxLayout="column">
+                    <div
+                        fxLayout="row"
+                        class="seller"
+                        fxLayoutAlign="start
+                        center"
+                    >
+                        <div class="logo">
+                            <img src="assets/images/logos/LowestTeriff.png" />
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="detail">
+                            <div class="title" *ngIf="!!partnersDetails">
+                                {{ partnersDetails.FirstName }}&nbsp;{{
+                                    partnersDetails.LastName
+                                }}
+                            </div>
+
+                            <div class="phone">
+                                <span>Phone:</span>
+                                <span *ngIf="!!partnersDetails">{{
+                                    partnersDetails.PhoneNo
+                                }}</span>
+                            </div>
+                            <div class="email">
+                                <span>Email address: </span>
+                                <span *ngIf="!!partnersDetails">{{
+                                    partnersDetails.EmailId
+                                }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="summary">
+                    <tr class="code">
+                        <td class="label">INVOICE</td>
+                        <td class="value" *ngIf="!!partnersDetails">
+                            {{ partnersDetails.ReferrerCode }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">INVOICE DATE</td>
+                        <td class="value" *ngIf="!!invoiceDetails">
+                            {{
+                                invoiceDetails.StartDate
+                                    | date: "dd - MM - yyyy"
+                            }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">END DATE</td>
+                        <td class="value" *ngIf="!!invoiceDetails">
+                            {{
+                                invoiceDetails.EndDate | date: "dd - MM - yyyy"
+                            }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">TOTAL DUE</td>
+                        <td class="value" *ngIf="!!invoiceDetails">
+                            &#65505;{{ invoiceDetails.TotalCommission }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="content">
+                <table class="simple invoice-table">
+                    <thead>
+                        <tr>
+                            <th>SERVICE</th>
+                            <th class="text-right">NO OF CUSTOMER</th>
+                            <th class="text-right">COMMISSION</th>
+                            <th class="text-right">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="title">Customers</div>
+                            </td>
+                            <td *ngIf="!!invoiceDetails" class="text-right">
+                                {{ invoiceDetails.NoOfReferral }}
+                            </td>
+                            <td *ngIf="!!partnersDetails" class="text-right">
+                                &#65505;{{
+                                    partnersDetails.ComissionPercentage
+                                }}
+                            </td>
+                            <td *ngIf="!!invoiceDetails" class="text-right">
+                                &#65505;{{ invoiceDetails.TotalCommission }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="simple invoice-table-footer">
+                    <tbody>
+                        <tr class="total">
+                            <td>TOTAL</td>
+                            <td *ngIf="!!invoiceDetails">
+                                &#65505;{{ invoiceDetails.TotalCommission }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- / INVOICE -->
+    </div>
+</div>
+
+<div
+    id="invoice"
+    class="modern page-layout blank"
+    fxLayout="row"
+    *ngIf="!!supervisorInvoiceDetails"
+    fxLayoutAlign="center center"
+>
+    <div class="invoice-container">
+        <div fxLayoutAlign="space-between end" class="mb-12">
+            <button
+                *ngIf="!!currentUser && currentUser.RoleType == 4"
+                mat-icon-button
+                id="InvoiceButton1"
+                [routerLink]="'/invoice-list/' + pageOffset"
+            >
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+
+            <button
+                *ngIf="!!currentUser && currentUser.RoleType == 7"
+                mat-icon-button
+                id="InvoiceButton1"
+                [routerLink]="'/invoice-list/' + pageOffset"
+            >
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+
+            <button
+                *ngIf="
+                    !!currentUser &&
+                    (currentUser.RoleType == 1 || currentUser.RoleType == 5)
+                "
+                mat-icon-button
+                id="InvoiceButton1"
+                [routerLink]="'/supervisor-detail/' + pageOffset + '/' + 0"
+            >
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <button
+                mat-flat-button
+                id="InvoiceButton"
+                (click)="generateInvoice()"
+            >
+                Print Invoice
+            </button>
+        </div>
+        <!-- INVOICE -->
+        <div class="card w-100-p" id="contentToConvert">
+            <div
+                class="header"
+                fxLayout="row"
+                fxLayoutAlign="space-between
+                    start"
+            >
+                <div class="ids" fxLayout="column">
+                    <div
+                        fxLayout="row"
+                        class="seller"
+                        fxLayoutAlign="start
+                            center"
+                    >
+                        <div class="logo">
+                            <img src="assets/images/logos/LowestTeriff.png" />
+                        </div>
+
+                        <div fxHide.lt-sm class="divider"></div>
+
+                        <div class="detail">
+                            <div class="title" *ngIf="!!supervisorDetail">
+                                {{ supervisorDetail.FirstName }}
+                                {{ supervisorDetail.LastName }}
+                            </div>
+
+                            <div class="phone">
+                                <span>Phone:</span>
+                                <span *ngIf="!!supervisorDetail">{{
+                                    supervisorDetail.PhoneNo
+                                }}</span>
+                            </div>
+                            <div class="email">
+                                <span>Email address: </span>
+                                <span *ngIf="!!supervisorDetail">{{
+                                    supervisorDetail.EmailId
+                                }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="summary">
+                    <tr class="code">
+                        <td class="label">INVOICE</td>
+                        <td class="value">
+                            #{{ supervisorInvoiceDetails.ID }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">INVOICE DATE</td>
+                        <td class="value">
+                            {{
+                                supervisorInvoiceDetails.CreatedOn
+                                    | date: "dd - MM - yyyy"
+                            }}
+                        </td>
+                    </tr>
+
+                    <!-- <tr>
+                            <td class="label">END DATE</td>
+                            <td class="value">{{billDetails.BillInfo.EndDate | date: 'dd - MM - yyyy'}}</td>
+                        </tr> -->
+
+                    <tr>
+                        <td class="label">TOTAL DUE</td>
+                        <td class="value">
+                            {{ supervisorInvoiceDetails.TotalCommission }} GBP
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="content">
+                <table class="simple invoice-table">
+                    <thead>
+                        <tr>
+                            <th>SERVICE</th>
+                            <th class="text-right">NO OF CUSTOMER</th>
+                            <th class="text-right">UNIT PRICE</th>
+                            <th class="text-right">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="title">Customers</div>
+                            </td>
+                            <td
+                                *ngIf="!!supervisorInvoiceDetails"
+                                class="text-right"
+                            >
+                                {{ supervisorInvoiceDetails.NoOfReferral }}
+                            </td>
+                            <td *ngIf="!!supervisorDetail" class="text-right">
+                                {{ supervisorDetail.Comission }} GBP
+                            </td>
+                            <td
+                                *ngIf="!!supervisorInvoiceDetails"
+                                class="text-right"
+                            >
+                                {{
+                                    supervisorInvoiceDetails.TotalCommission
+                                }}
+                                GBP
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="simple invoice-table-footer">
+                    <tbody>
+                        <tr class="total">
+                            <td>TOTAL</td>
+                            <td *ngIf="!!supervisorInvoiceDetails">
+                                {{
+                                    supervisorInvoiceDetails.TotalCommission
+                                }}
+                                GBP
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- / INVOICE -->
+    </div>
+</div>

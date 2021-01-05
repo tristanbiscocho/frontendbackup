@@ -1,0 +1,174 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail" fxLayoutAlign="space-between center">
+        <div class="header-title">
+            <p>
+                <label *ngIf="customerId == undefined" [routerLink]="'/dashboard'">Dashboard</label>
+                <span *ngIf="customerId == undefined">&nbsp;/&nbsp;</span>
+                <label *ngIf="!!customerId" [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span *ngIf="!!customerId">&nbsp;/&nbsp;</span>
+                <label *ngIf="!!customerId && !this.route.snapshot.queryParams.prop" [routerLink]="'/customer-list/' + pageOffset">Customers</label>
+                <span *ngIf="!!customerId && !this.route.snapshot.queryParams.prop">&nbsp;/&nbsp;</span>
+                <label *ngIf="this.route.snapshot.queryParams.prop" [routerLink]="'/meterreadingforreason'">Meter Reading Reason</label>
+                <span *ngIf="this.route.snapshot.queryParams.prop">&nbsp;/&nbsp;</span>
+                <span>Meter Reading<span *ngIf="!!customerName && (currentUser.RoleType == 1 || currentUser.RoleType == 5)"> - {{customerName}}</span></span>
+            </p>
+        </div>
+
+
+    </div>
+
+   
+    <div class="detail my-24 content">
+
+        <!-- <button mat-flat-button color="accent">
+            Filter
+        </button> -->
+        <div fxLayoutAlign="end start" *ngIf="!!meterReading">
+            <button *ngIf="IsBlocked == false" class="m-12" mat-flat-button color="accent"
+                (click)="addReadingMeter()" >
+                <span class="white-fg">
+                    Add Meter Reading
+                </span>
+            </button>
+
+            <!-- <button *ngIf="IsBlocked == false" class="m-12" mat-flat-button color="accent"
+            (click)="editReadingMeter()">
+            Edit Meter reading
+        </button> -->
+        </div>
+        <p-toast position="center"></p-toast>
+        <div fxLayout.lt-sm="column" fxLayoutGap="24px" *ngIf="!!meterReading" class="w-100-p p-24">
+            <div fxFlex="50" fxFlex.lt-sm="100" *ngIf="!!meterReading.ElectricityReadingInfo">
+                <fieldset class="fdl">
+                    <legend class="ledg"> Electricity Reading </legend>
+                    <div class="pt-8" fxLayoutGap="4px">
+
+                        <p class="font-weight-300 lbl"
+                            fxLayoutAlign="start center"  *ngIf="!!meterReading">
+                            <mat-icon class="icn">calendar_today</mat-icon>
+                            Date:&nbsp;<span *ngIf="!!meterReading.ElectricityReadingInfo">{{meterReading.ElectricityReadingInfo.Date | date: 'dd / MM / yyyy'}}</span>
+                        </p>
+                        <p class="font-weight-300 lbl"
+                            fxLayoutAlign="start center"  *ngIf="!!meterReading">
+                        
+                            <mat-icon class="icn"> shutter_speed</mat-icon>
+                           Normal Reading:&nbsp;<span *ngIf="!!meterReading.ElectricityReadingInfo">{{meterReading.ElectricityReadingInfo.ReadingValue}} kWh</span></p>
+                        <p class="font-weight-300 lbl"
+                        fxLayoutAlign="start center"  *ngIf="!!meterReading  && meterReading.IsElectricMeterReading == true && !!meterReading.ElectricityReadingInfo">
+                       <span *ngIf="!!meterReading.ElectricityReadingInfo.LowReadingValue" style="place-content: center flex-start;
+                       align-items: center;
+                       flex-direction: row;
+                       box-sizing: border-box;
+                       display: flex;"> <mat-icon class="icn">
+                            shutter_speed</mat-icon>
+                        Low Reading:&nbsp; <span  *ngIf="!!meterReading.ElectricityReadingInfo ">{{meterReading.ElectricityReadingInfo.LowReadingValue}} kWh</span></span></p>
+                        
+                    </div>
+                </fieldset>
+            </div>
+            <div fxFlex="50" fxFlex.lt-sm="100" *ngIf="EnergyType == 1 && !!meterReading.GesReadingInfo">
+                <fieldset class="fdl">
+                    <legend class="ledg"> Gas Reading </legend>
+                    <div class="pt-8" fxLayoutGap="4px">
+                        <p class="font-weight-300 lbl"
+                            fxLayoutAlign="start center"  *ngIf="!!meterReading">
+                            <mat-icon class="icn">calendar_today</mat-icon>
+                            Date:&nbsp; <span *ngIf="!!meterReading.GesReadingInfo">{{meterReading.GesReadingInfo.Date | date: 'dd / MM / yyyy'}}</span>
+                            <p class="font-weight-300 lbl"
+                                fxLayoutAlign="start center"  *ngIf="!!meterReading">
+                                <mat-icon class="icn">
+                                    shutter_speed</mat-icon>
+                                Reading:&nbsp; <span  *ngIf="!!meterReading.GesReadingInfo">{{meterReading.GesReadingInfo.ReadingValue}} kWh</span></p>
+
+                               
+                        </div>
+                    </fieldset>
+                </div>
+                
+                <div  fxLayoutAlign="center center" class="w-100-p" *ngIf="meterReading.ElectricityReadingInfo == null && meterReading.GesReadingInfo == null">
+                    <h1 style="text-align:center;font-size: medium;position: absolute;
+                top: 50%;">No Data Found</h1>
+                </div>
+
+              
+            </div>
+            <div *ngIf="currentUser.RoleType == 1 || currentUser.RoleType == 5">
+                <div *ngIf="reasons?.length > 0">
+                    <ngx-datatable class="material striped w-100-p" [rows]="reasons" [columnMode]="'force'" 
+                    [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+    
+                    <ngx-datatable-column [sortable]="true" prop="Created Date" name="Created Date">
+                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                         {{row.Date | date: 'dd / MM / yyyy'}}
+                      </ng-template>
+                  </ngx-datatable-column>
+    
+                  <ngx-datatable-column [sortable]="true" prop="name" name="Customer details">
+                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                          <br /> {{row.FirstName}}
+                              {{row.LastName}}<br /><br/>
+                          {{row.EmailAddress}}<br /><br />
+                      </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [sortable]="true" prop="Reason" name="Current Reading Value">
+                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                         {{row.ReadingValue}}
+                      </ng-template>
+                  </ngx-datatable-column>
+                 
+                  <ngx-datatable-column [sortable]="true" prop="Reason" name="Previous Reading Value">
+                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                         {{row.PreviosMeterReading}}
+                      </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [sortable]="true" prop="Reason" name="Current Low Reading Value">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                       {{row.LowReadingValue}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [sortable]="true" prop="Reason" name="Previous Low Reading Value">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                       {{row.PreviousLowMeterReading}}
+                    </ng-template>
+                </ngx-datatable-column>
+                    <!-- <ngx-datatable-column [sortable]="true" prop="Reason" name="Reason">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                           {{row.AdditionalInfo}}
+                        </ng-template>
+                    </ngx-datatable-column> -->
+
+                    <ngx-datatable-column [sortable]="true" prop="Action" name="View">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <Div style="text-align: center;">
+                                <button class="actionBtn" (click)="viewReasons(row)" matTooltip="View Meter Reading Reason"  mat-mini-fab>
+                                    <mat-icon>
+                                        chrome_reader_mode
+                                    </mat-icon>
+                                </button>
+                            </Div>
+                        </ng-template>
+
+                        
+                      </ngx-datatable-column>
+    
+                      
+               
+                    </ngx-datatable>
+    
+                </div>
+                <!-- <div fxLayoutAlign="center center" *ngIf="reasons?.length == 0">
+                  <h1>No Data Found</h1>
+              </div> -->
+            </div>
+            
+
+        </div>
+
+       
+
+
+    </div>
+
+
+
+    

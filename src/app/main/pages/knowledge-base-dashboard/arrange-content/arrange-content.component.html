@@ -1,0 +1,132 @@
+<div id="space-wrapper" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div *ngIf="showLoader">
+        <div class="loader1">
+            <div>
+                <div class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-toast position="center"></p-toast>
+    <div class="detail" [ngStyle]="{ 'min-height': minheight }">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group btn-group-lg" dropdown>
+                    <button
+                        dropdownToggle
+                        class="btn btn-info dropdown-toggle text-white"
+                    >
+                        Add <span class="caret"></span>
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu" role="menu">
+                        <li role="menuitem">
+                            <a
+                                class="dropdown-item"
+                                routerLink="/knowledge-base-dashboard/manage-articles/create-article"
+                                >Article</a
+                            >
+                        </li>
+                        <li role="menuitem">
+                            <a
+                                class="dropdown-item"
+                                routerLink="/knowledge-base-dashboard/arrange-content/add-section"
+                                >Section</a
+                            >
+                        </li>
+                        <li role="menuitem">
+                            <a
+                                class="dropdown-item"
+                                routerLink="/knowledge-base-dashboard/arrange-content/add-category"
+                                >Category</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/knowledge-base-dashboard'"
+                    >Overview</label
+                >
+                <span>&nbsp;/&nbsp;</span>
+                <label>Arrange Content</label>
+            </p>
+        </div>
+        <div class="content rounded-lg">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="pt-5 pb-5 pl-2">
+                        <ul class="side-list-menu-wrapper">
+                            <li class="side-list-menu-item" (click)="activeTab(1)" [class.active]="arrangeSection == 1">Arrange Article</li>
+                            <li class="side-list-menu-item" (click)="activeTab(2)" [class.active]="arrangeSection == 2">Import Article</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <ng-container *ngIf="arrangeSection == 1">
+                        <div class="p-5">
+                            <h1 class="mt-0 mb-4">Arrange articles</h1>
+                            <small
+                                >Make your content easier to find with
+                                categories and sections.</small
+                            >
+                            <h5 class="mt-5 mb-4 text-secondery">
+                                Categories(4)
+                            </h5>
+                            <div class="arrange-wrapper">
+                                <div class="arrange-item">
+                                    <div class="row">
+                                        <div class="col align-self-center">
+                                            <div class="move">
+                                                <img
+                                                    src="./assets/images/betterDeal/icons/arrange.svg"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-auto pl-md-0">
+                                            <div class="top-heading">
+                                                Technology
+                                            </div>
+                                            <div class="sub-count">
+                                                3 Sections
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="arrange-item">
+                                    <div class="row">
+                                        <div class="col align-self-center">
+                                            <div class="move">
+                                                <img
+                                                    src="./assets/images/betterDeal/icons/arrange.svg"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-auto pl-md-0">
+                                            <div class="top-heading">
+                                                General
+                                            </div>
+                                            <div class="sub-count">
+                                                2 Sections
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="arrangeSection == 2">
+                      <div class="p-5">
+                          <h1 class="mt-0 mb-4">Import articles</h1>
+                      </div>
+                  </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

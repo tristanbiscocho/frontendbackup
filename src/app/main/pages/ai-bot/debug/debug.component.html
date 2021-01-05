@@ -1,0 +1,99 @@
+<div id="space-wrapper" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Debug</span>
+            </p>
+        </div>
+        <div class="content p-5">
+            <div class="row">
+                <div class="col-md-10">
+                    <mat-tree
+                        [dataSource]="dataSource"
+                        [treeControl]="treeControl"
+                    >
+                        <mat-tree-node
+                            *matTreeNodeDef="let node"
+                            matTreeNodePadding
+                        >
+                            <button mat-icon-button disabled></button>
+                            <mat-checkbox
+                                [checked]="descendantsAllSelected(node)"
+                                [indeterminate]="
+                                    descendantsPartiallySelected(node)
+                                "
+                                (change)="nodeSelectionToggle(node)"
+                            >
+                                {{ node.item }}
+                            </mat-checkbox>
+                        </mat-tree-node>
+                        <mat-tree-node
+                            *matTreeNodeDef="let node; when: hasChildren"
+                            matTreeNodePadding
+                        >
+                            <button
+                                mat-icon-button
+                                matTreeNodeToggle
+                                [attr.aria-label]="'toggle ' + node.filename"
+                            >
+                                <mat-icon>
+                                    {{
+                                        treeControl.isExpanded(node)
+                                            ? "expand_more"
+                                            : "chevron_right"
+                                    }}
+                                </mat-icon>
+                            </button>
+                            <mat-checkbox
+                                [checked]="descendantsAllSelected(node)"
+                                [indeterminate]="
+                                    descendantsPartiallySelected(node)
+                                "
+                                (change)="nodeSelectionToggle(node)"
+                            >
+                                {{ node.item }}
+                            </mat-checkbox>
+                        </mat-tree-node>
+                    </mat-tree>
+                </div>
+                <div class="col-md-2">
+                  <div fxLayoutGap="15px" fxLayoutAlign="center center">
+                    <div
+                        class="btn-group btn-group-lg w-100-p"
+                        dropdown
+                    >
+                        <button
+                            dropdownToggle
+                            type="button"
+                            class="btn-lg dropdown-toggle btn-block"
+                            mat-flat-button
+                            color="accent"
+                        >
+                            Save<span class="caret"></span>
+                        </button>
+                        <ul
+                            *dropdownMenu
+                            class="dropdown-menu"
+                            role="menu"
+                        >
+                            <li role="menuitem">
+                                <a
+                                    class="dropdown-item"
+                                    >Save</a
+                                >
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item"
+                                    >Refresh</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

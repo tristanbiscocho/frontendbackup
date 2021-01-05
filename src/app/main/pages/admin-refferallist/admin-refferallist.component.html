@@ -1,0 +1,160 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+
+        <div class="my-12" fxLayout.lt-sm="column" fxLayoutAlign="space-between start">
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span> 
+                    <label [routerLink]="'/customer-list/' +  pageOffset">Customers</label>
+                    <span>&nbsp;/&nbsp;</span> 
+                    <span *ngIf="customername">Referral List - {{customername}}</span>
+                    
+                 
+                <!-- <div class="my-24" fxLayout.lt-sm="column" fxLayoutAlign="space-between start"> -->
+            </div>
+                <mat-card fxFlex="20" class="p-0 credit-card" fxLayoutGap="12px" [routerLink]="'/admin-added-credits/' + userCustomerId + '/' + pageOffset +  '/' + tableOffset + '/' + customerId" 
+                fxLayout="row" >
+                <div fxFlex="30" class="bg-theme p-12">
+                        <img width="50" src="assets/images/logos/creadit.png" />
+                    </div>
+                    <div fxFlex="70" fxLayoutAlign="center end" fxLayout="column" class="p-12">
+                    <h1 class="m-0 credits">
+                        £{{total}}
+                    </h1>
+                    <h3 class="m-0">Referral Credits</h3>
+                </div>
+            </mat-card>
+        </div>
+        <div class="content">
+            <p-toast position="center"></p-toast>
+            <div  fxLayoutAlign="center center" fxLayout="column" class="p-12
+                content-filter">    
+
+                <!-- search -->
+                <div fxLayout.lt-sm="column" fxFlex="80" class="px-12" fxLayoutGap="15px" 
+                fxLayoutAlign="center center">
+                    <mat-form-field fxFlex="50" class="search-input">
+                        <input matInput placeholder="Referral Name / Email" [formControl]="searchReffreal">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+
+                    <!-- date picker -->
+
+                    <mat-form-field fxFlex="15">
+
+                        <input (click)="picker.open()" matInput [matDatepicker]="picker" [(ngModel)]="fromDate" [max]="endDate" placeholder="From
+                            date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="15">
+
+                        <input (click)="picker1.open()" matInput [matDatepicker]="picker1" [(ngModel)]="endDate" [min]="fromDate" placeholder="To
+                            date">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+
+
+                    <mat-form-field fxFlex="30">
+                        <mat-select placeholder="Status" [(ngModel)]="status">
+                           
+                                <mat-option *ngFor="let add of statusData" [value]="add.Id">{{add.Value}}</mat-option>
+                              
+                         
+                        </mat-select>
+                    </mat-form-field>
+
+                   
+                    <button mat-flat-button style="background: rgba(199, 203, 234, 0.2);"  (click)="getRefferalCount(customerId)">
+                        <mat-icon class="white-fg mt-8">
+                            swap_vert
+                        </mat-icon> <br />
+                        Filter
+                    </button>
+                    <button style="background: rgba(199, 203, 234, 0.2);" mat-flat-button  (click)="clearFilter(customerId)">
+                        <mat-icon class="white-fg mt-8">
+                            cancel
+                        </mat-icon> <br />
+                        Clear
+                    </button>
+                 
+
+                        
+
+                </div>
+            </div>
+
+            <!-- table-->
+            <div *ngIf="refferals?.length > 0">
+                <ngx-datatable class="material striped w-100-p" [rows]="refferals" [columnMode]="'force'" [headerHeight]="50" [scrollbarH]="true" 
+                [footerHeight]="50" [rowHeight]="'auto'" [offset]="tableOffset" (page)="onChange($event)"
+                    [limit]="10">
+                    <ngx-datatable-column [sortable]="true" prop="invitedOn" name="Invited on">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.InvitationSentDateTime | date : 'dd / MM / yyyy'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+    
+                    <ngx-datatable-column [sortable]="true" prop="ReferralName" name="Referral Name">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.ReferralName}}
+                        </ng-template>
+                    </ngx-datatable-column>
+    
+    
+                    <ngx-datatable-column [sortable]="true" prop="EmailId" name="Email address">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.EmailId}}
+                        </ng-template>
+                    </ngx-datatable-column>
+    
+    
+                    <ngx-datatable-column [sortable]="true" prop="SignUpDateTime" name="Signed up on">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.SignUpDateTime | date: 'dd / MM / yyyy'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+    
+                    <ngx-datatable-column [sortable]="true" prop="ReferralBonus" name="Referral Bonus">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <span class="referral-list" *ngIf="row.ReferralBonus != null && row.ReferralBonus != undefined">£{{row.ReferralBonus}}</span>
+                            <span class="referral-list" *ngIf="row.ReferralBonus == undefined">£0</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+    
+                    <ngx-datatable-column [sortable]="true" prop="Status" name="Status">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <span style="line-height: 20px;">{{row.CustomStatus}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+    
+    
+                </ngx-datatable>
+            </div>
+          
+            <div fxLayoutAlign="center center" *ngIf="refferals?.length == 0">
+                <h1 style="text-align:center;font-size: medium;position: absolute;
+                top: 50%;">No Data Found</h1>
+            </div>
+            <!-- <div fxLayoutAlign="end center" fxLayoutGap="12px" class="addcredits" fxLayout.lt-md="column">
+                <mat-form-field fxFlex="100">
+                    <input matInput type="number" oninput="validity.valid||(value='');" min="0" placeholder="Add Credits" [formControl]="addCredits">
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100">
+                        <input matInput  placeholder="Reason" [formControl]="reason">
+                    </mat-form-field>
+    
+                <div>
+                    <button  mat-flat-button color="accent" [disabled]="addCredits.value == '' || reason.value == ''" (click)="addCredit()">
+                        Add 
+                    </button>
+                </div>
+            </div> -->
+        </div>
+       
+    </div>
+</div>

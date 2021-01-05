@@ -1,0 +1,43 @@
+<div id="space-wrapper" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Source Control</span>
+            </p>
+        </div>
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-9 m-auto">
+                    <div class="card border shadow p-12 bg-info-light">
+                        <h2>Pull remote to file system</h2>
+                        <br />
+                        <small
+                            >Use this command to copy the remote data on your
+                            local file system.</small
+                        >
+                        <br />
+                        <code class="text-danger p-12"
+                            >bp.exe pull --url http://109.228.40.186:3001
+                            --authToken
+                            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXN0YW4uYkBvcHRpbXVzY29uc29ydGl1bS5jb20iLCJzdHJhdGVneSI6ImRlZmF1bHQiLCJpc1N1cGVyQWRtaW4iOnRydWUsImlhdCI6MTYwOTA5MzI5NSwiZXhwIjoxNjA5MTE0ODk1LCJhdWQiOiJjb2xsYWJvcmF0b3JzIn0.vw2CEheJTf6pA_jJt2yNfQUdtv79tfyUocOIXnRFcgg
+                            --targetDir data
+                        </code>
+                    </div>
+                    <br />
+                    <div class="card border shadow p-12 bg-info-light">
+                        <h2>Push local to this server</h2>
+                        <br />
+                        <small
+                            >Pushing local changes to a remote server is only
+                            possible when using the BPFS Storage
+                            "Database".</small
+                        >
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

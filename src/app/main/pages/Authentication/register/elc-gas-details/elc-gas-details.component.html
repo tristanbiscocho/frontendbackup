@@ -1,0 +1,140 @@
+<div class="dialog-content-wrapper">
+  
+    <div mat-dialog-content class="m-0 p-16" fusePerfectScrollbar>
+        <h1 style="color:#005a61">
+           About your Gas Tariff
+        </h1>
+        <br/>
+        <table id="customers">
+            <tr>
+                <th>Rates inc VAT</th>
+                <th>Existing Tariff</th>
+                <th>New Tariff</th>
+            </tr>
+            <tr>
+              <td>Supplier</td>
+              <td>{{energy.supplierName}}</td>
+              <td>{{energy.supplierName}}</td>
+            </tr>
+            <tr>
+                <td>Tariff name</td>
+                <td>{{energy.tariffName}}</td>
+                <td>Lowest Tariff Bespoke Plan</td>
+              </tr>
+              <tr>
+                <td>Tariff type</td>
+                <td>{{energy.tariffType}}</td>
+                <td>{{energy.tariffType}}</td>
+              </tr>
+              <tr>
+                <td>Payment method</td>
+                <td>Monthly Direct Debit</td>
+                <td>Monthly Direct Debit</td>
+              </tr>
+              <tr>
+                <td>Unit rate</td>
+                <td>{{energy.pricePerUnit| number : '1.2-2'}}p per kWh</td>
+                <td>{{energy.price1Gas| number : '1.2-2'}}p per kWh</td>
+              </tr>
+              <tr>
+                <td>Standing charge</td>
+                <td>{{energy.supplierName}}p per day</td>
+                <td>{{energy.supplierName}}p per day</td>
+              </tr>
+              <tr>
+                <td>Tariff ends on</td>
+                <td>12 months</td>
+                <td>12 months</td>
+              </tr>
+              <tr>
+                <td>Price guaranteed until</td>
+                <td>Permanently</td>
+                <td>Permanently</td>
+              </tr>
+              <tr>
+                <td>Exit fees</td>
+                <td>£ 0</td>
+                <td>£ 0</td>
+              </tr>
+              <tr>
+                <td>Discounts and additional charges</td>
+                <td>£ 0</td>
+                <td>£ 0</td>
+              </tr>
+              <!-- <tr>
+                <td>Average monthly direct debit</td>
+                <td>£ {{averageMonth | number : '1.2-2'}}</td>
+                <td>£ {{averageMonth | number : '1.2-2'}}</td>
+              </tr> -->
+        </table>
+
+        <br/>
+        <br/>
+        <h1 style="color:#005a61">
+            About your Electricity Tariff
+         </h1>
+         <br/>
+         <table id="customers">
+             <tr>
+                 <th>Rates inc VAT</th>
+                 <th>Existing Tariff</th>
+                 <th>New Tariff</th>
+             </tr>
+             <tr>
+               <td>Supplier</td>
+               <td>{{energy.supplierName}}</td>
+               <td>{{energy.supplierName}}</td>
+             </tr>
+             <tr>
+                 <td>Tariff name</td>
+                 <td>{{energy.tariffName}}</td>
+                 <td>Lowest Tariff Bespoke Plan</td>
+               </tr>
+               <tr>
+                 <td>Tariff type</td>
+                 <td>{{energy.tariffType}}</td>
+                 <td>{{energy.tariffType}}</td>
+               </tr>
+               <tr>
+                 <td>Payment method</td>
+                 <td>Monthly Direct Debit</td>
+                 <td>Monthly Direct Debit</td>
+               </tr>
+               <tr>
+                 <td>Unit rate</td>
+                 <td>{{energy.pricePerUnit| number : '1.2-2'}}p per kWh</td>
+                 <td>{{energy.price1Elec| number : '1.2-2'}}p per kWh</td>
+               </tr>
+               <tr>
+                 <td>Standing charge</td>
+                 <td>{{energy.supplierName| number : '1.2-2'}}p per day</td>
+                 <td>{{energy.supplierName| number : '1.2-2'}}p per day</td>
+               </tr>
+               <tr>
+                 <td>Tariff ends on</td>
+                 <td>12 months</td>
+                 <td>12 months</td>
+               </tr>
+               <tr>
+                 <td>Price guaranteed until</td>
+                 <td>Permanently</td>
+                 <td>Permanently</td>
+               </tr>
+               <tr>
+                 <td>Exit fees</td>
+                 <td>£ 0</td>
+                 <td>£ 0</td>
+               </tr>
+               <tr>
+                 <td>Discounts and additional charges</td>
+                 <td>£ 0</td>
+                 <td>£ 0</td>
+               </tr>
+               <!-- <tr>
+                <td>Average monthly direct debit</td>
+                <td>£ {{averageMonth | number : '1.2-2'}}</td>
+                <td>£ {{averageMonth | number : '1.2-2'}}</td>
+              </tr> -->
+         </table>
+    </div>
+</div>

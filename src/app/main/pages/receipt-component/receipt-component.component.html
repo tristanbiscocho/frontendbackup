@@ -1,0 +1,19 @@
+
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="m-0">
+      <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Receipt</span>
+          <button mat-button class="mat-icon-button" (click)="dialogRef.close()" aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </div>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+      <p style="font-weight: bold;">Transaction ID : {{parsedata?.balance_transaction}}</p>
+      <p style="font-weight: bold;">Date & Time : {{ Data?.CreatedOn | date:'dd/MM/yyyy,h:mm a' }}</p>
+      <p style="font-weight: bold;">Amount : £{{Data?.Amount}}</p>
+  </div>
+
+
+</div>

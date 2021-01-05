@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "Baron";
+    font-weight: normal;
+    src: url("../fonts/baron_neue/Baron\ Neue.otf"); /* IE9 Compat Modes */
+    src: url("../fonts/baron_neue/Baron\ Neue.otf?#iefix")
+            format("embedded-opentype"),
+        /* IE6-IE8 */ url("../fonts/baron_neue/Baron\ Neue.otf") format("woff"),
+        /* Modern Browsers */ url("../fonts/baron_neue/Baron\ Neue.otf.ttf")
+            format("truetype");
+}
+
+body{
+  font-family: "Baron", sans-serif !important;
+}

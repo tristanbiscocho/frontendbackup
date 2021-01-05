@@ -1,0 +1,75 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span *ngIf="!!ticketDetail" class="title dialog-title"
+                >Assign Agent</span
+            >
+            <button
+                mat-button
+                class="mat-icon-button"
+                (click)="dialogRef.close()"
+                aria-label="Close dialog"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showLoader">
+        <div class="loader1">
+            <div>
+                <div class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div
+        mat-dialog-content
+        *ngIf="assignAgentForm"
+        class="p-16 m-0"
+        fusePerfectScrollbar
+    >
+        <form
+            name="assignAgent"
+            [formGroup]="assignAgentForm"
+            class="event-form w-100-p"
+            fxLayout="column"
+            fxFlex
+        >
+            <div *ngIf="agents && agents.length > 0">
+                <div class="body">
+                    <p-toast position="center"></p-toast>
+                    <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-select
+                                matInput
+                                formControlName="agent_Id"
+                                placeholder="Select Agent"
+                            >
+                                <mat-option
+                                    *ngFor="let agent of agents"
+                                    [value]="agent.Id"
+                                    >{{ agent.Name }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="submit-btns">
+                    <button
+                        *ngIf="!!ticketDetail"
+                        mat-flat-button
+                        [disabled]="!assignAgentForm.valid"
+                        class="c-p-btn"
+                        (click)="assign()"
+                        color="accent"
+                    >
+                        Assign Agent
+                    </button>
+                    &nbsp; &nbsp;
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

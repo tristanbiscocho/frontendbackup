@@ -1,0 +1,179 @@
+<div id="template-add" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/settings'">Settings</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/template'">Templates</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span *ngIf="TemplateData == undefined">Add Templates</span>
+                <span *ngIf="!!TemplateData">Edit Templates</span>
+            </p>
+        </div>
+        <div class="content">
+            <mat-horizontal-stepper [linear]="true" #stepper fxFlex="100">
+                <mat-step [stepControl]="firstFormGroup">
+                    <!--stepper 1 (Baasic information)-->
+                    <ng-template matStepLabel>Add template data</ng-template>
+                    <form [formGroup]="firstFormGroup">
+                        <div class="w-100-p">
+                            <mat-form-field fxFlex="100">
+                                <input
+                                    matInput
+                                    formControlName="name"
+                                    [(ngModel)]="Name"
+                                    placeholder="Name"
+                                />
+                            </mat-form-field>
+                        </div>
+                        <div class="w-100-p">
+                            <mat-form-field fxFlex="100" class="mr-12">
+                                <mat-select
+                                    placeholder="Select module"
+                                    required
+                                    formControlName="object"
+                                    [(ngModel)]="Objval"
+                                    (selectionChange)="getobjectfeild($event)"
+                                >
+                                    <mat-option
+                                        *ngFor="let option of objects"
+                                        [value]="option.ID"
+                                    >
+                                        {{ option.DisplayName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="100">
+                                <mat-select
+                                    placeholder="Select type"
+                                    required
+                                    formControlName="type"
+                                    [(ngModel)]="Type"
+                                >
+                                    <mat-option [value]="1">
+                                        SMS Template
+                                    </mat-option>
+                                    <mat-option [value]="2">
+                                        Email Template
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayoutAlign="end center">
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperNext
+                            >
+                                Next
+                            </button>
+                        </div>
+                        <br />
+                    </form>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Design Template</ng-template>
+                    <div fxFlex="100" class="border">
+                        <div fxFlex="30" class="sideborder">
+                            <!--<div class="p-12 bottomborder">
+                                        <mat-form-field fxFlex="100">
+                                            <mat-select placeholder="Select Module" [(ngModel)]="this.Objval" (change)="this.getobjectfeild()">
+                                                <mat-option *ngFor="let option of this.Objects" [value]="[option.ID]">
+                                                    {{option.DisplayName
+                                                }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>-->
+                            <div class="p-12">
+                                <mat-form-field class="w-100-p searchinput">
+                                    <mat-icon matPrefix style="font-size: 18px"
+                                        >search</mat-icon
+                                    >
+                                    <input
+                                        [formControl]="searchInput"
+                                        type="tel"
+                                        matInput
+                                        placeholder="Search"
+                                    />
+                                </mat-form-field>
+                                <mat-chip-list
+                                    #chipListStepper4
+                                    class="w-100-p"
+                                    [(ngModel)]="Patient"
+                                >
+                                    <mat-chip
+                                        *ngFor="let tag of objectsFields"
+                                        class="mb-12"
+                                        [selectable]="selectable"
+                                        [removable]="removable"
+                                        (removed)="removepatientListtag(tag)"
+                                        (click)="onchip(tag)"
+                                    >
+                                        {{ tag.DisplayValue }}
+                                        <mat-icon
+                                            matChipRemove
+                                            *ngIf="removable"
+                                            >cancel</mat-icon
+                                        >
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                        </div>
+                        <div fxFlex="70">
+                            <div class="w-100-p">
+                                <div class="file-uploader">
+                                    <button
+                                        style="z-index: 111; float: right"
+                                        mat-fab
+                                        class="add-file-button"
+                                        color="basic"
+                                        (click)="opendialog()"
+                                        aria-label="Add file"
+                                    >
+                                        <mat-icon class="accent-fg"
+                                            >code</mat-icon
+                                        >
+                                    </button>
+                                </div>
+                                <!-- <app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="htmlContent"></app-ngx-editor> -->
+                                <!--<textarea class="w-100-p" [(ngModel)]="this.mailcontent" placeholder="Write something.."></textarea>-->
+                            </div>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div fxLayoutAlign="end center">
+                        <button
+                            mat-flat-button
+                            color="accent"
+                            matStepperPrevious
+                        >
+                            Previous</button
+                        >&nbsp;&nbsp;
+                        <button
+                            *ngIf="TemplateData == undefined"
+                            mat-flat-button
+                            color="accent"
+                            matStepperNext
+                            (click)="saveTemplate()"
+                        >
+                            Save
+                        </button>
+                        <button
+                            *ngIf="!!TemplateData"
+                            mat-flat-button
+                            color="accent"
+                            matStepperNext
+                            (click)="editTemplate()"
+                        >
+                            Update
+                        </button>
+                    </div>
+                    <br /><br />
+                </mat-step>
+            </mat-horizontal-stepper>
+        </div>
+    </div>
+</div>

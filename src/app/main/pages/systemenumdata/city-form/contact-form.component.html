@@ -1,0 +1,105 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{this.dialogTitle}}</span>
+            <button mat-button class="mat-icon-button"
+                    (click)="dialogRef.close()"
+                    aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+        <form name="savecityForm" [formGroup]="savecityForm" novalidate>
+            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+
+                <mat-form-field fxFlex>
+                    <input matInput  placeholder="ID" formControlName="id"  [(ngModel)]="ID" [readonly]="true">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field fxFlex>
+                    <mat-select placeholder="Type" formControlName="type" (change)="AllowState(systemenum)" [(ngModel)]="systemenum">
+                        <mat-option *ngFor="let SystemEnum of systemenumdata" [value]="SystemEnum.Id">
+                            {{SystemEnum.Name}}
+                        </mat-option>
+
+                    </mat-select>
+                    <mat-error *ngIf="cityFormErrors.type.required">
+                        {{'TYPE_VALIDATION_MSG'| translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div *ngIf =this.isparentshow>
+                <mat-form-field fxFlex>
+                    <mat-select placeholder="Value" formControlName="parent" [(ngModel)]="parentval">
+                        <mat-option *ngFor="let state of this.AllState" [value]="state.Id">
+                            {{state.Value}}
+                        </mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+            </div>
+            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+
+                <mat-form-field fxFlex>
+                    <input matInput  placeholder="Order" formControlName="sequence"  [(ngModel)]="sequenceVal">
+                </mat-form-field>
+            </div>
+            
+            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+
+                <mat-form-field fxFlex>
+                    <input matInput placeholder="Value" formControlName="en" [(ngModel)]="Name">
+                    <mat-error *ngIf="cityFormErrors.en.required">
+                        {{'ENG_VALIDATION_MSG'|translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <!-- <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="Sequence" type="number" oninput="validity.valid||(value='');" min="0" formControlName="sequence" [(ngModel)]="sequenceVal">
+                    </mat-form-field>
+                </div> -->
+
+            <!--<div fxLayout="row" class="textarea-wrapper" fxLayoutAlign="start start">
+
+                <mat-form-field fxFlex>
+                    <input matInput placeholder="{{'LANG.FRENCH_NAME' | translate}}" formControlName="fr" [(ngModel)]="FrenchName">
+                    <mat-error *ngIf="cityFormErrors.fr.required">
+                        {{'FRE_VALIDATION_MSG' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>-->
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <button *ngIf="this.action!='edit'"
+                mat-raised-button
+                (click)="dialogRef.close(['add',savecityForm])"
+                class="save-button mat-accent"
+                [disabled]="savecityForm.invalid"
+                aria-label="SAVE">
+          Add
+        </button>
+
+        <button *ngIf="this.action=='edit'"
+                mat-raised-button
+                (click)="dialogRef.close(['save',savecityForm])"
+                class="save-button mat-accent"
+                [disabled]="savecityForm.invalid"
+                aria-label="SAVE">
+           Save
+        </button>
+        <button mat-raised-button
+                (click)="dialogRef.close()"
+                class="save-button mat-accent"
+                aria-label="SAVE">
+            Cancel
+        </button>
+    </div>
+</div>

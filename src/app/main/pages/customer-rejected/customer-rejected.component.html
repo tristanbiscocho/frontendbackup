@@ -1,0 +1,234 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail" fxLayoutAlign="space-between center">
+        <div class="header-title">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Customer Validation - Rejected Switch List</span>
+            </p>
+        </div>
+
+        <div></div>
+    </div>
+
+    <p-toast position="center"></p-toast>
+    <div fxLayout.lt-sm="column" class="detail my-12" fxLayoutGap="24px">
+       
+        <mat-card fxFlex="50" [routerLink]="'/customeremail-verification'"
+            class="credit-card p-12" fxLayout="column">
+            <mat-card class="image-card">
+                <div class="detail-img">
+                <img width="30"
+                    src="assets/images/logos/configuration.png"
+                    />
+            </div>
+            </mat-card>
+            <div  fxLayoutAlign="start end" fxLayout="column">
+                <h3 class="my-24">
+                    Pending Email Verification
+                </h3>
+               
+            </div>
+        </mat-card>
+        <mat-card [routerLink]="'/customer-pendinglist'" fxFlex="50"
+            class="credit-card p-12" fxLayout="column">
+            <mat-card class="image-card">
+                <div class="detail-img">
+                <img width="30"
+                    src="assets/images/logos/configuration.png"
+                    />
+            </div>
+            </mat-card>
+            <div  fxLayoutAlign="start end" fxLayout="column">
+                <h3 class="my-24">
+                   Pending Signup Confirmation
+                </h3>
+              
+            </div>
+        </mat-card>
+        <mat-card
+            [routerLink]="'/customer-pendingSignup'"
+            fxFlex="50"
+            class="credit-card p-12" fxLayout="column">
+            <mat-card class="image-card">
+                <div class="detail-img">
+                <img width="30"
+                    src="assets/images/logos/configuration.png"
+                    />
+            </div>
+            </mat-card>
+            <div  fxLayoutAlign="start end" fxLayout="column">
+                <h3 class="my-24">
+                    Pending Moving Home List
+                </h3>
+            </div>
+        </mat-card>
+       
+        <mat-card
+        [routerLink]="'/customer-rejected'"
+        fxFlex="50"
+        class="credit-card p-12" style="background: #ffe118;" fxLayout="column">
+        <mat-card class="image-card" style="background: #fff;">
+            <div class="detail-img">
+            <img width="30"
+                src="assets/images/logos/configuration-blue.png"
+                />
+        </div>
+        </mat-card>
+        <div  fxLayoutAlign="start end" fxLayout="column">
+            <h3 class="my-24" style="color:#fff">
+                Rejected Switch List
+            </h3>
+        </div>
+    </mat-card>
+    </div>
+    <div class="detail my-24 content">
+        <div class="p-12 px-24 w-100-p content-filter" 
+             fxLayoutAlign="center center">
+             <div fxFlex="80" fxLayout.lt-md="column" fxLayoutGap="15px"
+             fxLayoutAlign="center center">
+                <mat-form-field fxFlex="50" class="search-input">
+                    <input matInput placeholder="Email / Pool Name / Customer Name / Customer No"
+                        [formControl]="searchCustomer">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+                <mat-form-field fxFlex="15">
+                    <input (click)="picker.open()" matInput [matDatepicker]="picker" [(ngModel)]="fromDate" [max]="toDate" placeholder="From Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+    
+                <mat-form-field fxFlex="15">
+                    <input (click)="picker1.open()" matInput [matDatepicker]="picker1" [(ngModel)]="toDate" [min]="fromDate" placeholder="To Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+    
+                <mat-form-field fxFlex="30">
+                    <mat-select placeholder="Supplier"
+                        [(ngModel)]="SearchBySupplier">
+                        <mat-option *ngFor="let supplier of suppliers"
+                            [value]="supplier.ID">{{supplier.Name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+    
+    
+                <button mat-flat-button style="background: rgba(199, 203, 234, 0.2);" (click)="getVerification()">
+                    <mat-icon class="white-fg mt-8">
+                        swap_vert
+                    </mat-icon> <br />
+                    Filter
+                </button>
+                <button style="background: rgba(199, 203, 234, 0.2);" mat-flat-button  (click)="clearFilter()">
+                    <mat-icon class="white-fg mt-8">
+                        cancel
+                    </mat-icon> <br />
+                    Clear
+                </button>
+             </div>
+          
+        </div>
+
+
+
+                <div *ngIf="customer?.length > 0">
+
+                    <!-- Table -->
+                    <ngx-datatable class="material striped w-100-p"
+                        [rows]="customer" [columnMode]="'force'"
+                        [headerHeight]="50" [scrollbarH]="true"
+                        [footerHeight]="50" [rowHeight]="'auto'"
+                        [limit]="10">
+                        <ngx-datatable-column [sortable]="true"
+                            prop="CustomerId" name="Customer no">
+                            <ng-template let-row="row" let-value="value"
+                                ngx-datatable-cell-template>
+                                {{row.CustomerId}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true"
+                            prop="CustomerPoolOn" name="Applied on">
+                            <ng-template let-row="row" let-value="value"
+                                ngx-datatable-cell-template>
+                                {{row.CustomerPoolOn | date: 'dd / MM / yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true" prop="CustomerFullName"
+                        name="Customer Name">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.CustomerFullName}}<br/><br/>
+                            {{row.CustomerEmail}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    
+                        <ngx-datatable-column [sortable]="true"
+                            prop="FirstName"
+                            name="Pool name">
+                            <ng-template let-row="row" let-value="value"
+                                ngx-datatable-cell-template>
+                                {{row.FirstName}} {{row.LastName}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true"
+                            prop="Email" name="Pool Email address">
+                            <ng-template let-row="row" let-value="value"
+                                ngx-datatable-cell-template>
+                                {{row.Email}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true"
+                            prop="CurrentSupplier" name="Current Supplier">
+                            <ng-template let-row="row" let-value="value"
+                                ngx-datatable-cell-template>
+                                <br /><br/>
+                                <span fxLayoutAlign="center center" fxLayout="row">
+                                    <div>
+                                        <img width="25" class="mr-12" *ngIf="!!row.ElectricityCurrentPlan_Supplier"
+                                    src="assets/images/betterDeal/electricity-1.png" />
+                                    </div>
+                                    <div>
+                                        <p>
+                                            {{row.ElectricityCurrentPlan_Supplier}}
+                                        </p>
+                                    </div>
+                                </span>
+                           
+                        <span fxLayoutAlign="center center" fxLayout="row">
+                            <div>
+                                <img width="25" class="mr-12" *ngIf="!!row.GasCurrentPlan_Supplier"
+                                    src="assets/images/betterDeal/gas.png" />
+                            </div>
+                            <div>
+                                <p>
+                                    {{row.GasCurrentPlan_Supplier}}
+                                </p>
+                            </div></span>
+                      
+                                <br /><br/>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true"
+                            prop="Status" name="Status">
+                            <ng-template let-row="row" let-value="value"
+                                ngx-datatable-cell-template>
+                                Rejected
+                            </ng-template>
+                        </ngx-datatable-column>
+                     
+
+
+                    </ngx-datatable>
+                </div>
+                <div fxLayoutAlign="center center" *ngIf="customer?.length == 0">
+                    <h1 style="text-align:center;font-size: medium;position: absolute;
+                    top: 50%;">No Data Found</h1>
+                </div>
+
+     
+
+
+    </div>
+
+
+</div>

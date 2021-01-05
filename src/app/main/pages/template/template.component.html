@@ -1,0 +1,163 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/email-options'">Emails</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Email Automation</span>
+            </p>
+        </div>
+        <div class="content">
+            <div>
+                <button mat-fab class="add-button" (click)="goToAddpage()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <p-toast position="center"></p-toast>
+
+            <mat-tab-group (selectedIndexChange)="setValue($event)">
+                <mat-tab label="Templates">
+                    <div *ngIf="templates?.length > 0">
+                        <ngx-datatable
+                            class="material striped w-100-p"
+                            [rows]="templates"
+                            [columnMode]="'force'"
+                            [headerHeight]="48"
+                            [footerHeight]="56"
+                            [rowHeight]="'auto'"
+                            [limit]="10"
+                        >
+                            <ngx-datatable-column name="Name">
+                                <ng-template
+                                    let-row="row"
+                                    ngx-datatable-cell-template
+                                >
+                                    <span class="block p-t-5">{{
+                                        row.Name
+                                    }}</span>
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="Type">
+                                <ng-template
+                                    let-row="row"
+                                    ngx-datatable-cell-template
+                                >
+                                    <span class="block p-t-5">{{
+                                        row.TemplateType
+                                    }}</span>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Module">
+                                <ng-template
+                                    let-row="row"
+                                    ngx-datatable-cell-template
+                                >
+                                    <span class="block p-t-5">{{
+                                        row.Module
+                                    }}</span>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Required template">
+                                <ng-template
+                                    let-row="row"
+                                    ngx-datatable-cell-template
+                                >
+                                    <mat-icon
+                                        *ngIf="
+                                            row.SystemRequiredTemplate == true
+                                        "
+                                        class="active-icon mat-green-600-bg s-16"
+                                        >check</mat-icon
+                                    >
+                                    <mat-icon
+                                        *ngIf="
+                                            row.SystemRequiredTemplate == false
+                                        "
+                                        class="active-icon mat-red-500-bg s-16"
+                                        >close</mat-icon
+                                    >
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Action">
+                                <ng-template
+                                    let-row="row"
+                                    ngx-datatable-cell-template
+                                >
+                                    <button
+                                        matTooltip="Edit Template"
+                                        color="accent"
+                                        aria-label="ReviewDetail"
+                                        (click)="openreviewdetail(row)"
+                                        mat-mini-fab
+                                    >
+                                        <mat-icon>mode_edit</mat-icon>
+                                    </button>
+                                    <button
+                                        matTooltip="Delete Template"
+                                        style="
+                                            background-color: rgb(213, 78, 76);
+                                        "
+                                        *ngIf="
+                                            row.SystemRequiredTemplate != true
+                                        "
+                                        aria-label="ReviewDetail"
+                                        (click)="deleteTemplate(row)"
+                                        mat-mini-fab
+                                    >
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                    <div
+                        fxLayoutAlign="center center"
+                        *ngIf="templates?.length == 0"
+                    >
+                        <h1
+                            style="
+                                text-align: center;
+                                font-size: medium;
+                                position: absolute;
+                                top: 50%;
+                            "
+                        >
+                            No Data Found
+                        </h1>
+                    </div>
+
+                    <!-- <ngx-datatable class="material striped w-100-p" [rows]="templates" [columns]="columns" [columnMode]="'force'" [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [reorderable]="reorderable"
+                        [limit]="10">
+                        <ngx-datatable-column [sortable]="true" prop="templateName" name="Template name">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.Name}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true" prop="userType" name="User type">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.userType}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true" prop="subject" name="Subject">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.subject}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true" prop="status" name="Status">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <img width="25" src="assets/images/logos/active.png" />
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                    </ngx-datatable> -->
+                </mat-tab>
+                <mat-tab label="Workflows">
+                    <workflows></workflows>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

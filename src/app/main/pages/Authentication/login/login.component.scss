@@ -1,0 +1,244 @@
+@import "src/@fuse/scss/fuse";
+:host {
+    #login {
+        width: 100%;
+        background-size: cover;
+        padding-top: 50px;
+        padding-bottom: 100px;
+        #login-form-wrapper {
+            flex: 1 0 auto;
+            padding: 32px;
+            @include media-breakpoint("xs") {
+                padding: 16px;
+            }
+            .title {
+                font-size: 3rem;
+                margin: 16px 0 12px 0;
+                color: #ffe118;
+                font-weight: 500;
+                text-align: center;
+            }
+
+            .title-detail {
+                font-size: 2rem;
+                margin-bottom: 32px;
+                color: #ffe118;
+                text-align: center;
+                a {
+                    text-decoration: underline;
+                    font-weight: 500;
+                    cursor: pointer;
+                }
+            }
+            .linkname {
+                margin-left: 3.5rem;
+            }
+            p {
+                margin-bottom: -3rem;
+            }
+
+            #login-form {
+                width: 950px;
+                max-width: 950px;
+                border-radius: 10px;
+                padding: 32px;
+                background: #ffffff;
+                text-align: center;
+                @include mat-elevation(16);
+                @include media-breakpoint("xs") {
+                    padding: 24px;
+                    width: 100%;
+                }
+                .logo {
+                    width: 128px;
+                    margin: 32px auto;
+                }
+                .title {
+                    font-size: 24px;
+                    margin: 16px 0 32px 0;
+                }
+
+                form {
+                    width: 100%;
+                    text-align: left;
+                    mat-form-field {
+                        width: 100%;
+                    }
+                    mat-checkbox {
+                        margin: 0;
+                    }
+                    .remember-forgot-password {
+                        font-size: 13px;
+                        margin-top: 8px;
+                        .remember-me {
+                            margin-bottom: 16px;
+                        }
+                        .forgot-password {
+                            font-size: 13px;
+                            font-weight: 500;
+                            margin-bottom: 16px;
+                            color: #ffe118;
+                        }
+                    }
+                    .submit-button {
+                        width: 220px;
+                        margin: 16px auto;
+                        display: block;
+                        @include media-breakpoint("xs") {
+                            width: 90%;
+                        }
+                    }
+                }
+                .register {
+                    margin: 32px auto 24px auto;
+                    font-weight: 500;
+                    .text {
+                        margin-right: 8px;
+                    }
+                }
+                .separator {
+                    font-size: 15px;
+                    font-weight: 600;
+                    margin: 24px auto;
+                    position: relative;
+                    overflow: hidden;
+                    width: 100px;
+                    color: rgba(0, 0, 0, 0.54);
+                    .text {
+                        display: inline-flex;
+                        position: relative;
+                        padding: 0 8px;
+                        z-index: 9999;
+                        &:before,
+                        &:after {
+                            content: "";
+                            display: block;
+                            width: 30px;
+                            position: absolute;
+                            top: 10px;
+                            border-top: 1px solid rgba(0, 0, 0, 0.12);
+                        }
+                        &:before {
+                            right: 100%;
+                        }
+                        &:after {
+                            left: 100%;
+                        }
+                    }
+                }
+                button {
+                    &.google,
+                    &.facebook {
+                        width: 192px;
+                        text-transform: none;
+                        color: #ffffff;
+                        font-size: 13px;
+                    }
+                    @include media-breakpoint("xs") {
+                        width: 80%;
+                    }
+                    &.google {
+                        background-color: #d73d32;
+                        margin-bottom: 8px;
+                    }
+                    &.facebook {
+                        background-color: rgb(63, 92, 154);
+                    }
+                }
+            }
+        }
+    }
+    fuse-sidebar {
+        display: none;
+    }
+}
+
+.btn-social {
+    position: relative;
+    padding-left: 72px;
+    padding-right: 22px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    margin-bottom: 15px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &.btn-facebook {
+        color: #fff !important;
+        background-color: #3b5998;
+        border-color: #3b5998;
+        i {
+            color: #3b5998 !important;
+        }
+    }
+    &.btn-twitter {
+        color: #fff !important;
+        background-color: #2ba9e1;
+        border-color: #2ba9e1;
+        i {
+            color: #2ba9e1 !important;
+        }
+    }
+    &.btn-microsoft {
+        color: #000000 !important;
+        background-color: #ffffff;
+        border-color: #000000;
+        .fa-windows {
+            background: black;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            font-size: 18px;
+            border-right: 0.01em solid #0000004d;
+        }
+    }
+    &.btn-apple {
+        color: #000000 !important;
+        background-color: #ffffff;
+        border-color: #000000;
+        i {
+            color: #000000 !important;
+            font-size: 18px;
+            border-right: 0.01em solid #0000004d;
+        }
+    }
+    &.btn-google {
+        color: #fff !important;
+        background-color: #4285f4;
+        border-color: #4285f4;
+        .fa-google {
+            background: conic-gradient(
+                    from -45deg,
+                    #ea4335 110deg,
+                    #4285f4 90deg 180deg,
+                    #34a853 180deg 270deg,
+                    #fbbc05 270deg
+                )
+                73% 55%/150% 150% no-repeat;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            font-size: 18px;
+        }
+    }
+}
+.line{
+    height: 100%;
+    width: 1px;
+    background-color: #cdcdcd;
+}
+.btn-social :first-child {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0px;
+    bottom: 0;
+    width: 40px;
+    line-height: 39px;
+    font-size: 1.6em;
+    text-align: center;
+    background-color: white;
+}

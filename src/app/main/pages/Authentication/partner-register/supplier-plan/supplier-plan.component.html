@@ -1,0 +1,212 @@
+<div class="dialog-content-wrapper">
+  
+    <div style="background: white;" mat-dialog-content class="m-0 p-16"  id="supplierDetails" fusePerfectScrollbar>
+        <h3 style="color:#005a61;text-align: center">
+            Your new estimated annual energy costs are £{{energy1.bill| number : '1.2-2'}}. That's {{energy1.savingPercentage| number : '1.2-2'}}% lower than your current plan.
+        </h3>
+        <br/>
+        <table style="width:100%" cellspacing="0">
+            <tr>
+                <th>
+                    Supplier
+                </th>
+                <th>
+                    Product Term
+                </th>
+                <th>
+                    Estimated Annual Cost
+                </th>
+                <th>
+                    Estimated Saving
+                </th>
+                <th>
+                    Exit Penalty
+                </th>
+             
+            </tr>
+            <tr colspan="2">
+                <td class="bottm-border ">
+                   <!-- <img *ngIf="IsClickedEmail == false" widtsupplierDetailsh="70" [src]="energy1.imageName" /> -->
+                   <p >{{energy1.supplierName}}</p>
+                </td>
+                <td class="border-td bottm-border">
+                    {{energy1.contractLength}} months
+                </td>
+                <td class="border-td" rowspan="2">
+                    £{{energy1.bill| number : '1.2-2'}}
+                </td>
+                <td class="border-td" rowspan="2">
+                    £{{energy1.saving| number : '1.2-2'}}  ({{energy1.savingPercentage| number : '1.2-2'}}%)
+                </td>
+                <td rowspan="2">
+                    0
+                </td>
+            </tr>
+            <tr> 
+                <td class="border-td" colspan="2">
+                    <img width="200" src="assets/images/logos/LowestTariff-plan.png" />
+                </td>
+            </tr>
+        </table>
+
+     
+                <h1 *ngIf="emergyType !=2 " style="color:#005a61">
+                   About your Gas Tariff
+                </h1>
+                <br/>
+                <table *ngIf="emergyType !=2 && !!currentEnergyGas" id="customers">
+                    <tr>
+                        <th>Rates inc VAT</th>
+                        <th>Existing Tariff</th>
+                        <th>New Tariff</th>
+                    </tr>
+                    <tr>
+                      <td>Supplier</td>
+                      <td>{{currentEnergyGas.supplierName}}</td>
+                      <td>{{energy.supplierName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Tariff name</td>
+                        <td>{{currentEnergyGas.tariffName}}</td>
+                        <td>Lowest Tariff Bespoke Plan</td>
+                      </tr>
+                      <tr>
+                        <td>Tariff type</td>
+                        <td>{{currentEnergyGas.tariffType}}</td>
+                        <td>{{energy.tariffType}}</td>
+                      </tr>
+                      <tr>
+                        <td>Payment method</td>
+                        <td>{{currentEnergyGas.paymentMethodName}}</td>
+                        <td>Monthly Direct Debit</td>
+                      </tr>
+                      <tr>
+                        <td>Unit rate</td>
+                        <td>{{currentEnergyGas.pricePerUnit| number : '5.2-2'}}p per kWh</td>
+                        <td>{{energy.price1Gas| number : '5.2-2'}}p per kWh</td>
+                      </tr>
+                      <tr>
+                        <td>Standing charge</td>
+                        <td>{{currentEnergyGas.standingChargeDaily| number : '5.2-2'}}p per day</td>
+                        <td>{{energy.standingChargeGas | number : '5.2-2'}}p per day</td>
+                      </tr>
+                      <tr>
+                        <td>Tariff ends on</td>
+                        <td>12 months</td>
+                        <td>12 months</td>
+                      </tr>
+                      <tr>
+                        <td>Price guaranteed until</td>
+                        <td>Permanently</td>
+                        <td>Permanently</td>
+                      </tr>
+                      <tr>
+                        <td>Exit fees</td>
+                        <td>£ 0</td>
+                        <td>£ 0</td>
+                      </tr>
+                      <tr>
+                        <td>Discounts and additional charges</td>
+                        <td>£ 0</td>
+                        <td>£ 0</td>
+                      </tr>
+                      <!-- <tr>
+                        <td>Average monthly direct debit</td>
+                        <td>£ {{currentEnergyGas.bill | number : '1.2-2'}}</td>
+                        <td>£ {{averageMonth | number : '1.2-2'}}</td>
+                      </tr> -->
+                </table>
+        
+                <br/>
+                <br/>
+                <h1 style="color:#005a61">
+                    About your Electricity Tariff
+                 </h1>
+                 <br/>
+                 <table *ngIf="!!currentEnergyElc" id="customers">
+                     <tr>
+                         <th>Rates inc VAT</th>
+                         <th>Existing Tariff</th>
+                         <th>New Tariff</th>
+                     </tr>
+                     <tr>
+                       <td>Supplier</td>
+                       <td>{{currentEnergyElc.supplierName}}</td>
+                       <td>{{energy.supplierName}}</td>
+                     </tr>
+                     <tr>
+                         <td>Tariff name</td>
+                         <td>{{currentEnergyElc.tariffName}}</td>
+                         <td>Lowest Tariff Bespoke Plan</td>
+                       </tr>
+                       <tr>
+                         <td>Tariff type</td>
+                         <td>{{currentEnergyElc.tariffType}}</td>
+                         <td>{{energy.tariffType}}</td>
+                       </tr>
+                       <tr>
+                         <td>Payment method</td>
+                         <td>{{currentEnergyElc.paymentMethodName}}</td>
+                         <td>Monthly Direct Debit</td>
+                       </tr>
+                       <tr>
+                         <td>Unit rate</td>
+                         <td>{{currentEnergyElc.pricePerUnit | number : '1.2-2'}}p per kWh</td>
+                         <td>{{energy.price1Elec | number : '1.2-2'}}p per kWh</td>
+                       </tr>
+                       <tr>
+                         <td>Standing charge</td>
+                         <td>{{currentEnergyElc.standingChargeDaily| number : '1.2-2'}}p per day</td>
+                         <td>{{energy.standingChargeElec | number : '1.2-2'}}p per day</td>
+                       </tr>
+                       <tr>
+                         <td>Tariff ends on</td>
+                         <td>12 months</td>
+                         <td>12 months</td>
+                       </tr>
+                       <tr>
+                         <td>Price guaranteed until</td>
+                         <td>Permanently</td>
+                         <td>Permanently</td>
+                       </tr>
+                       <tr>
+                         <td>Exit fees</td>
+                         <td>£ 0</td>
+                         <td>£ 0</td>
+                       </tr>
+                       <tr>
+                         <td>Discounts and additional charges</td>
+                         <td>£ 0</td>
+                         <td>£ 0</td>
+                       </tr>
+                       <!-- <tr>
+                        <td>Average monthly direct debit</td>
+                        <td>£ {{currentEnergyElc.bill | number : '1.2-2'}}</td>
+                        <td>£ {{averageMonth | number : '1.2-2'}}</td>
+                      </tr> -->
+                 </table>
+                <br/>
+                <table>
+                    <tr>
+                        <td> <h1 style="color:#005a61">Average monthly Direct Debit (total amount)</h1> </td>
+                        <td *ngIf="!!currentEnergyElc">
+                            <h1>£ {{avg | number : '1.2-2'}}</h1></td>
+                        <td>
+                           <h1>£ {{averageMonth | number : '1.2-2'}}</h1>
+                        </td>
+                    </tr>
+                </table>
+      
+    </div>
+    <br/>
+    <div *ngIf="IsClickedEmail == false" fxLayoutGap="12px" fxLayoutAlign="center center">
+      <button  mat-flat-button color="accent" (click)="closePopup()">
+         Continue
+      </button>
+      <button  mat-flat-button color="accent" (click)="sendEmailQoute()">
+         Email Quote
+    </button>
+
+  </div>
+  <br/><br/>
+</div>

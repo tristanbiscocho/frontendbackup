@@ -1,0 +1,143 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+  <div class="detail">
+      <div class="my-24"
+          fxLayout.lt-sm="column"
+          fxLayoutAlign="space-between start">
+          <div class="header-title">
+              <p class="m-0">
+                  <label [routerLink]="'/admin-dashboard'">
+                      Dashboard</label>
+                
+                  <span>&nbsp;/&nbsp;</span>
+                  <label [routerLink]="'/customer-list/' + pageOffset">Customers</label>
+                  <span>&nbsp;/&nbsp;</span>
+                  <span>Payment Status</span>
+                    <span>&nbsp;-&nbsp;</span>
+                    <span>{{customername}}</span>
+              </p>
+          </div>
+      </div>
+  </div>
+
+  <div class="content my-12">
+      <div class="">
+          <div class="detail" fxLayoutGap="12px" fxLayout="column">
+              <div class="credit-card "  style="height: 100vh;">
+                  <div fxLayout="row" fxLayoutAlign="center center"   class="p-24 content-filter">
+                      <div fxFlex="80" fxLayout.lt-md="column" fxLayoutGap="15px"
+                      fxLayoutAlign="center center">
+                          
+                      <!-- <mat-form-field fxFlex="30" class="search-input">
+                          <input matInput placeholder="Search" [formControl]="searchCategory">
+                          <mat-icon matSuffix>search</mat-icon>
+                      </mat-form-field> -->
+                      <!-- <mat-form-field fxFlex.lt-md="100" fxFlex="20">
+                        <mat-select (selectionChange)="filterbyEnergyType($event)"
+                            placeholder="Meter Type" [(ngModel)]="meterType" >
+                            <mat-option value="0">
+                                Normal Meter
+                            </mat-option>
+                            <mat-option value="1">
+                                Economic Electrical Meter
+                            </mat-option>
+                            
+                        </mat-select>
+                    </mat-form-field> -->
+                      <!-- <button mat-flat-button style="background: rgba(199, 203, 234, 0.2);" (click)="filterCustomer()">
+                          <mat-icon class="white-fg mt-8">
+                              swap_vert
+                          </mat-icon> <br />
+                          Filter
+                      </button>
+                      <button style="background: rgba(199, 203, 234, 0.2);" mat-flat-button  (click)="clearFilter()">
+                          <mat-icon class="white-fg mt-8">
+                              cancel
+                          </mat-icon> <br />
+                          Clear
+                      </button> -->
+                      </div>
+
+   
+                  </div>
+                  <div>
+                      <div *ngIf="paymentdata?.length > 0">
+                          <ngx-datatable class="material w-100-p" [rows]="paymentdata" [columnMode]="'force'" 
+                          [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+
+                          <ngx-datatable-column [sortable]="true" prop="Bill No" name="Bill No">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                               {{row.BillNo}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+
+                          <ngx-datatable-column [sortable]="true" prop="Start Date" name="Start Date">
+                              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                 {{row.StartDate | date:'dd/MM/yyyy'}}
+                              </ng-template>
+                          </ngx-datatable-column>
+  
+                          <ngx-datatable-column [sortable]="true" prop="End Date" name="End Date">
+                              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                 {{row.EndDate | date:'dd/MM/yyyy'}}
+                              </ng-template>
+                          </ngx-datatable-column>
+  
+                          <ngx-datatable-column [sortable]="true" prop="Amount" name="Amount">
+                              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                £{{parsedata?.amount}}
+                              </ng-template>
+                          </ngx-datatable-column>
+  
+                          <ngx-datatable-column [sortable]="true" prop="Amount Refunded" name="Amount Refunded">
+                              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                £{{parsedata?.amount_refunded}}
+                              </ng-template>
+                          </ngx-datatable-column>
+  
+                          <ngx-datatable-column [sortable]="true" prop="Charge Date" name="Charge Date">
+                            <ng-template  let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{formatteddate}}
+                             </ng-template>
+                          </ngx-datatable-column>
+                        
+
+                          <ngx-datatable-column [sortable]="true" prop="Created At" name="Created At">
+                            <ng-template  let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{parsedata?.created_at | date:'dd/MM/yyyy'}}
+                             </ng-template>
+                          </ngx-datatable-column>
+
+                          <ngx-datatable-column [sortable]="true" prop="Status" name="Status">
+                            <ng-template  let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{parsedata?.status}}
+                             </ng-template>
+                          </ngx-datatable-column>
+
+                          <ngx-datatable-column [sortable]="true" prop="id" name="Transcation Id">
+                            <ng-template  let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{parsedata?.id}}
+                             </ng-template>
+                          </ngx-datatable-column>
+
+                          <ngx-datatable-column [sortable]="true" prop="id" name="Payment No">
+                            <ng-template  let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{parsedata?.metadata.payment_no}}
+                             </ng-template>
+                          </ngx-datatable-column>
+
+                          </ngx-datatable>
+
+                      </div>
+                      <div fxLayoutAlign="center center" *ngIf="paymentdata?.length == 0">
+                        <h1 style="text-align:center;font-size: medium;position: absolute;
+                        top: 50%;">No Data Found</h1>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+     
+  </div>
+</div>
+

@@ -1,0 +1,98 @@
+<div id="space-wrapper" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Bots</span>
+            </p>
+        </div>
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-9 m-auto">
+                    <div
+                        fxLayoutAlign="center center"
+                        fxLayout.lt-md="column"
+                        fxLayoutGap="15px"
+                        class="p-12"
+                    >
+                        <mat-form-field fxFlex="100" class="search-input">
+                            <input
+                                id="search"
+                                #filter
+                                matInput
+                                placeholder="Filter bots"
+                            />
+                            <mat-icon matSuffix
+                                >search</mat-icon
+                            > </mat-form-field
+                        >&nbsp;
+                        <div fxLayoutGap="15px" fxLayoutAlign="center center">
+                            <div
+                                class="btn-group btn-group-lg w-100-p"
+                                dropdown
+                            >
+                                <button
+                                    dropdownToggle
+                                    type="button"
+                                    class="btn-lg dropdown-toggle btn-block"
+                                    mat-flat-button
+                                    color="accent"
+                                >
+                                    Create Bot <span class="caret"></span>
+                                </button>
+                                <ul
+                                    *dropdownMenu
+                                    class="dropdown-menu"
+                                    role="menu"
+                                >
+                                    <li role="menuitem">
+                                        <a
+                                            routerLink="/ai-bot/add-bot"
+                                            class="dropdown-item"
+                                            >New Bot</a
+                                        >
+                                    </li>
+                                    <li role="menuitem">
+                                        <a class="dropdown-item"
+                                            >Import Existing</a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-9 m-auto">
+                    <div class="bots">
+                        <div class="bot">
+                            <div class="row w-100-p">
+                                <div class="col-md">
+                                    <a class="top-heading text-primary"
+                                        >Alpha</a
+                                    >
+                                    <div class="sub-count">
+                                        A bot to help you get started
+                                    </div>
+                                </div>
+                                <div class="col-md-auto align-self-center">
+                                    <a routerLink="/ai-bot/add-bot">
+                                        <mat-icon>settings</mat-icon>
+                                        &nbsp;<span>Config</span>
+                                    </a>
+                                </div>
+                                <div class="col-md-auto align-self-center">
+                                    <mat-icon>chat_bubble</mat-icon>
+                                    &nbsp;<span>Open Chat</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

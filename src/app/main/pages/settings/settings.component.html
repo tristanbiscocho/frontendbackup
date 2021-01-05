@@ -1,0 +1,288 @@
+<div id="settings" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div
+            class="my-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between
+            start"
+        >
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span>Settings</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <p-toast position="center"></p-toast>
+    <div class="content" fxLayoutAlign="center center">
+        <div class="detail">
+            <div fxLayoutGap="24px" fxLayout="column">
+                <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/settings-package'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/package.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div fxLayoutAlign="start end" fxLayout="column">
+                            <h3 class="my-12">Package</h3>
+                            <p
+                                *ngIf="!!settingsCount"
+                                fxLayoutAlign="center center"
+                                class="count m-0"
+                            >
+                                {{ settingsCount.PackageCount }}
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/type-of-home'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/large.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div fxLayoutAlign="start end" fxLayout="column">
+                            <h3 class="my-12">Type of homes</h3>
+                            <p
+                                *ngIf="!!settingsCount"
+                                fxLayoutAlign="center center"
+                                class="count m-0"
+                            >
+                                {{ settingsCount.TypeOfHomeCount }}
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        [routerLink]="'/template'"
+                        fxFlex="50"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/email.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div fxLayoutAlign="start end" fxLayout="column">
+                            <h3 class="my-12">Email templates</h3>
+                            <p
+                                *ngIf="!!settingsCount"
+                                fxLayoutAlign="center center"
+                                class="count m-0"
+                            >
+                                {{ settingsCount.TemplateCount }}
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        [routerLink]="'/pages/configurations/systemenumdata'"
+                        fxFlex="50"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/configuration.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div fxLayoutAlign="center end" fxLayout="column">
+                            <h3 class="my-24">Configuration</h3>
+                        </div>
+                    </mat-card>
+                </div>
+                <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/supplier/' + 0"
+                        class="credit-card p-20"
+                    >
+                        <!-- <div class="detail-img">
+                        <img width="40"
+                            src="assets/images/logos/supplier.png" />
+                    </div> -->
+
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/supplier.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="my-24 alignment"
+                            fxLayoutAlign="start end"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">Suppliers</h3>
+                            <!-- <p fxLayoutAlign="center center" *ngIf="!!counts"
+                            class="count m-0">{{counts[0].SupplierCount}}</p> -->
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/plan'"
+                        class="credit-card p-12"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/configuration.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div fxLayoutAlign="start end" fxLayout="column">
+                            <h3 class="my-12">Plan</h3>
+                            <p
+                                *ngIf="!!settingsCount"
+                                fxLayoutAlign="center center"
+                                class="count m-0"
+                            ></p>
+                        </div>
+                    </mat-card>
+                </div>
+
+                <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <!-- <mat-card
+                        [routerLink]="'/manage-surcharge'"
+                        fxFlex="50"
+                        class="credit-card p-12" fxLayout="column">
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                            <img width="40"
+                                src="assets/images/logos/configuration.png"
+                                />
+                        </div>
+                        </mat-card>
+                        <div fxLayoutAlign="start end" fxLayout="column">
+                            <h3  class="my-24">
+                                Manage Surcharge
+                            </h3>
+                           
+                        </div>
+                    </mat-card>
+                <mat-card
+                [routerLink]="'/manage-fixed-cost'"
+                fxFlex="50"
+                class="credit-card p-12" fxLayout="column">
+                <mat-card class="image-card">
+                    <div class="detail-img">
+                    <img width="40"
+                        src="assets/images/logos/configuration.png"
+                        />
+                </div>
+                </mat-card>
+                <div fxLayoutAlign="start end" fxLayout="column">
+                    <h3  class="my-24">
+                        Manage Standing Charges
+                    </h3>
+                 
+                </div>
+            </mat-card>
+            <mat-card
+            [routerLink]="'/manage-unit-price'"
+            fxFlex="50"
+            class="credit-card p-12" fxLayout="column">
+            <mat-card class="image-card">
+                <div class="detail-img">
+                <img width="40"
+                    src="assets/images/logos/configuration.png"
+                    />
+            </div>
+            </mat-card>
+            <div fxLayoutAlign="start end" fxLayout="column">
+                <h3 class="my-24">
+                    Manage Unit cost
+                </h3>
+               
+            </div>
+        </mat-card> -->
+                </div>
+                <!-- <div>
+                    <mat-card fxFlex="100" class="credit-card p-12">
+                        <form [formGroup]="settingsForm">
+                            <div class="mb-24 mt-12" fxLayout="column">
+                                <p
+                                    class="mb-12 font-weight-500"
+                                    fxFlex="20"
+                                    fxFlex.lt-sm="100"
+                                >
+                                    Referral Discount
+                                </p>
+                             
+                            </div>
+                            <div
+                                fxLayoutAlign="start start"
+                                fxLayout.fxLayout.lt-md="column"
+                            >
+                                <div
+                                    fxLayoutAlign="start start"
+                                    fxLayout="column"
+                                    class="mr-12"
+                                >
+                                    <p
+                                        class="mb-12 font-weight-500"
+                                        fxFlex.lt-sm="100"
+                                        fxFlex="20"
+                                    >
+                                        Fixed amount
+                                    </p>
+                                    <div fxFlex="50" fxFlex.lt-sm="100">
+                                        <mat-form-field appearance="outline">
+                                            <input
+                                                matInput
+                                                formControlName="Setting_Value"
+                                            />
+                                            <span
+                                                style="visibility: hidden"
+                                                matSuffix
+                                                >%</span
+                                            >
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                               
+                            </div>
+                            <div fxLayoutAlign="end end">
+                                <button
+                                    mat-flat-button
+                                    color="accent"
+                                    (click)="ediitSettings()"
+                                >
+                                    Submit now
+                                </button>
+                            </div>
+                        </form>
+                    </mat-card>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

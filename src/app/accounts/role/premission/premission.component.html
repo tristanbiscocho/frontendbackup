@@ -1,0 +1,215 @@
+
+
+  <div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <p-toast position="center"></p-toast>
+    <div class="detail" [ngStyle]="{'min-height': minheight}">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/accounts'">Account</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span *ngIf="userId == null || userId == undefined">
+            Permission
+                </span>
+              
+            </p>
+        </div>
+        <div class="container" fxLayout="row" fxLayoutAlign="center none">
+          <div fxFlex="95%">
+        
+        
+      <mat-card>
+        <mat-card-content>
+            
+        
+            <form [formGroup]="form">
+                
+              <div class="row">
+            
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Enter Role Name</mat-label>
+                        <input matInput  formControlName="SupplierId">
+                        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                      
+                        <mat-error *ngIf="SupplierId.hasError('required')">
+                            Role Name  is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <h2>Assign Permission to Roles </h2>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Module</th>
+                        <th>Permission</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Dashboard</td>
+                        <td>       <mat-checkbox  style="padding: 10px;">
+                          Show         
+                   </mat-checkbox></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>User</td>
+                        <td><mat-checkbox  style="padding: 10px;">Show  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Manage  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Create  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Edit  </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td>Role</td>
+                        <td><mat-checkbox  style="padding: 10px;">Show  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Manage  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Create  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Edit  </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td>Proposal</td>
+                        <td><mat-checkbox  style="padding: 10px;">Show  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Manage  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Create  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Edit  </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td>Invoice</td>
+                        <td><mat-checkbox  style="padding: 10px;">Show  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Manage  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Create  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Edit  </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><mat-checkbox  style="padding: 10px;">Show  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Send  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Create Payment  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Delete  Payment </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><mat-checkbox  style="padding: 10px;">Duplicate  </mat-checkbox></td>
+     
+                      </tr>
+                      <tr>
+                        <td>Bill</td>
+                        <td><mat-checkbox  style="padding: 10px;">Show  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Manage  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Create  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Edit  </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><mat-checkbox  style="padding: 10px;">Show  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Send  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Create Payment  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Delete  Payment </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><mat-checkbox  style="padding: 10px;">Duplicate  </mat-checkbox></td>
+     
+                      </tr>
+                      <tr>
+                        <td>Revenue</td>
+                        
+                        <td><mat-checkbox  style="padding: 10px;">Manage  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Create  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Edit  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Delete  </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td>Payment</td>
+                        
+                        <td><mat-checkbox  style="padding: 10px;">Manage  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Create  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Edit  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Delete  </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td>Proposal Product</td>
+                        
+                        <td><mat-checkbox  style="padding: 10px;">Delete  </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td>Invoice Product</td>
+                        
+                        <td><mat-checkbox  style="padding: 10px;">Delete  </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td>Bill Product</td>
+                        
+                        <td><mat-checkbox  style="padding: 10px;">Delete  </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td>Report</td>
+                        
+                        <td><mat-checkbox  style="padding: 10px;">Income  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Expense  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Income vs Expense  </mat-checkbox></td>
+                        <td><mat-checkbox  style="padding: 10px;">Loss & Profit  </mat-checkbox></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        
+                        <td><mat-checkbox  style="padding: 10px;">Tax  </mat-checkbox></td>
+               
+                      </tr>
+                    </tbody>
+                  </table>
+                 </div>
+                <!-- <div  class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Bill Date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="BillDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                      <mat-error *ngIf="BillDate.hasError('required')">
+                        Bill Date  is <strong>required</strong>
+                    </mat-error>
+                  </div>
+                  <div  class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Due Date</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="DueDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                      <mat-error *ngIf="DueDate.hasError('required')">
+                        Due Date  is <strong>required</strong>
+                    </mat-error>
+                  </div> -->
+                
+             
+              </div>
+           
+              <div class="row">
+                <div class="col-6"></div>
+                <div class="form-group col-6">
+                   <div style="float: right;">
+                    <a [routerLink]="['/accounts']" style="margin-left: 10px;" color="dark"  class="mat-focus-indicator mat-raised-button mat-button-base mat-info">Cancel</a>
+                    <button type="submit" color="primary"  class="mat-focus-indicator mat-raised-button mat-button-base mat-primary" [disabled]="!form.valid">Save</button>
+
+                  </div>
+                </div>
+            </div>
+              </form>
+        </mat-card-content>
+      </mat-card>
+        
+          </div>
+        </div>
+    </div>
+  </div>
+  
+  

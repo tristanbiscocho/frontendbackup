@@ -1,0 +1,29 @@
+@import "src/@fuse/scss/fuse";
+
+.add-ticket-form-dialog{
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+    @include media-breakpoint-up('xs') {
+        width: 600px;
+    }
+}
+button{
+    border-radius: 5px;
+}
+:host/deep/ {
+    .input-group {
+        width: 100%;
+        place-content: flex-start;
+        align-items: flex-start;
+        flex-direction: row;
+        box-sizing: border-box;
+        display: flex;
+    }
+    *:not(mat-form-field)>input[type="text"] {
+        width: 90%;
+    }
+    .sort-code:not(mat-form-field)>input[type="text"] {
+        width: 100%;
+    }
+}

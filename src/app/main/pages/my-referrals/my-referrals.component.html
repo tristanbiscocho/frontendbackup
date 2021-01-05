@@ -1,0 +1,212 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="language-absolute-class">
+        <app-language-change></app-language-change>
+    </div>
+    <div class="detail">
+        <div class="my-24" fxLayout.lt-sm="column" fxLayoutAlign="start start">
+            <div class="header-title">
+                <p>
+                    <label [routerLink]="'/dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span> My Referrals</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="detail">
+            <p-toast position="center"></p-toast>
+
+            <div fxLayoutGap="12px" fxLayout="column">
+                <div fxLayout="column" fxLayoutGap="24px">
+                    <div fxLayout.lt-md="column" fxLayoutGap="24px">
+                        <mat-card
+                            fxFlex="25"
+                            style="cursor: pointer"
+                            [routerLink]="
+                                '/reff-Customer/' +
+                                currentUser.Id +
+                                '/' +
+                                currentUser.FirstName +
+                                '/' +
+                                1
+                            "
+                            class="credit-card p-20"
+                        >
+                            <mat-card class="image-card">
+                                <div class="detail-img">
+                                    <img
+                                        width="30"
+                                        src="assets/images/logos/meter-reading.png"
+                                    />
+                                </div>
+                            </mat-card>
+                            <div
+                                class="alignment"
+                                fxLayoutAlign="start end"
+                                fxLayout="column"
+                            >
+                                <p class="font-size-20 m-0">Invite Sent</p>
+                                <h1
+                                    class="m-0 font-size-30"
+                                    *ngIf="!!reffralCount"
+                                >
+                                    {{ reffralCount[0].InviteReferralCount }}
+                                </h1>
+                            </div>
+                        </mat-card>
+
+                        <mat-card
+                            fxFlex="25"
+                            style="cursor: pointer"
+                            [routerLink]="
+                                '/reff-Customer/' +
+                                currentUser.Id +
+                                '/' +
+                                currentUser.FirstName +
+                                '/' +
+                                2
+                            "
+                            class="credit-card p-20"
+                        >
+                            <mat-card class="image-card">
+                                <div class="detail-img">
+                                    <img
+                                        width="30"
+                                        src="assets/images/logos/meter-reading.png"
+                                    />
+                                </div>
+                            </mat-card>
+                            <div
+                                class="alignment"
+                                fxLayoutAlign="start end"
+                                fxLayout="column"
+                            >
+                                <p class="font-size-20 m-0">Referral Signup</p>
+                                <h1
+                                    class="m-0 font-size-30"
+                                    *ngIf="!!reffralCount"
+                                >
+                                    {{ reffralCount[0].SignUpReferralCount }}
+                                </h1>
+                            </div>
+                        </mat-card>
+                    </div>
+                    <mat-card
+                        fxFlex="100"
+                        class="credit-card"
+                        fxLayout="column"
+                    >
+                        <div
+                            fxLayout.lt-md="column"
+                            class="my-8"
+                            fxLayoutGap="12px"
+                            fxLayoutAlign="start start"
+                        >
+                            <div fxFlex="20">
+                                <p>My Referral Code</p>
+                            </div>
+                            <div fxFlex="40">
+                                <p *ngIf="!!currentUser">
+                                    {{ currentUser.ReferralCode }}
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            fxLayout.lt-md="column"
+                            fxLayoutGap="12px"
+                            fxLayoutAlign="start start"
+                        >
+                            <div fxFlex="20">
+                                <p>Enter Email address</p>
+                            </div>
+                            <div fxFlex="40">
+                                <mat-form-field
+                                    appearance="outline"
+                                    fxFlex="100"
+                                >
+                                    <mat-label>Enter Email address</mat-label>
+                                    <input
+                                        matInput
+                                        [(ngModel)]="EmailAddress"
+                                        [ngModelOptions]="{ standalone: true }"
+                                    />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div>
+                            <p
+                                *ngIf="!!settings"
+                                style="
+                                    font-weight: bold;
+                                    font-size: 18px;
+                                    color: #ffe118;
+                                "
+                                fxLayoutALign="start center"
+                            >
+                                You'll get £{{ settings[0].Setting_Value }},
+                                they get £{{ settings[0].Setting_Value }}. Each
+                                time.
+                                <!-- Here's your link: -->
+                            </p>
+                            <!-- <p>
+                                Your reward is paid around 90 days after a
+                                successful sign up. If your referral signs up
+                                and switches at a later date, you will receive
+                                your reward then.
+                            </p> -->
+                        </div>
+                        <div fxLayoutAlign="end start">
+                            <button
+                                mat-flat-button
+                                class="c-p-btn"
+                                color="accent"
+                                [disabled]="EmailAddress == undefined"
+                                (click)="addMyReferrals()"
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </mat-card>
+
+                    <!-- <div fxLayout.lt-md="column" fxLayoutGap="24px">
+                        <mat-card fxFlex="50" style="cursor: pointer;" class="credit-card"
+                            fxLayout="column" fxLayoutAlign="center center">
+                            <p class="font-size-20">
+                                Invite sent
+                            </p>
+                            <h1 class="m-0 font-size-30" *ngIf="!!reffralCount">{{reffralCount[0].InviteReferralCount}}</h1>
+                            <a >View List</a>
+                        </mat-card>
+                        <mat-card fxFlex="50" style="cursor: pointer;" [routerLink]="'/reff-Customer/' + currentUser.Id + '/' + currentUser.FirstName + '/' + 2" class="credit-card"
+                            fxLayout="column" fxLayoutAlign="center center">
+                            <p class="font-size-20">
+                                Referral Signup
+                            </p>
+                            <h1 class="m-0 font-size-30" *ngIf="!!reffralCount">{{reffralCount[0].SignUpReferralCount}}</h1>
+                            <a >View List</a>
+                        </mat-card>
+
+                        <mat-card fxFlex="50" style="cursor: pointer;" [routerLink]="'/admin-added-credits/' + currentUser.CustomerId + '/' + 0 +  '/' + 0 + '/' + currentUser.Id" class="credit-card"
+                            fxLayout="column" fxLayoutAlign="center center">
+                            <p class="font-size-20">
+                                Referral Credit
+                            </p>
+                            <h1 class="m-0 font-size-30" *ngIf="!!reffralCount">£<span *ngIf="!!reffralCount[0].ReferralCredit">{{reffralCount[0].ReferralCredit}}</span>
+                                <span *ngIf="reffralCount[0].ReferralCredit == null || reffralCount[0].ReferralCredit ==  undefined">0</span></h1>
+                            <a >View List</a>
+                        </mat-card>
+
+
+
+                    </div> -->
+                    <!-- <div class="header-title">
+                        <h1 class="m-0" fxLayoutAlign="end start">
+                            Expire in 1 year
+                        </h1>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

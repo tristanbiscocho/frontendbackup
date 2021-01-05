@@ -1,0 +1,145 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+
+        <div class="my-12" fxLayout.lt-sm="column" fxLayoutAlign="space-between start">
+            <div class="header-title">
+                <p *ngIf="currentUser.RoleType== 1 || currentUser.RoleType == 5 " class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span> 
+                    <label [routerLink]="'/customer-list/' +  pageOffset">Customers</label>
+                    <span>&nbsp;/&nbsp;</span> 
+                    <label [routerLink]="'/admin-refferallist/' + userId + '/' +  pageOffset + '/' + customerId">Referral List</label>
+                    <span>&nbsp;/&nbsp;</span> 
+                    <span>Your Credits</span>
+                </p>
+                <p *ngIf="currentUser.RoleType== 2" class="m-0">
+                        <label [routerLink]="'/dashboard'">Dashboard</label>
+                        <span>&nbsp;/&nbsp;</span> 
+                        <span>Your Credits</span>
+                    </p>
+                <!-- <div class="my-24" fxLayout.lt-sm="column" fxLayoutAlign="space-between start"> -->
+            </div>
+            <!-- <mat-card fxFlex="20" class="p-8 credit-card" fxLayoutGap="12px" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="30">
+                    <img width="50" src="assets/images/logos/creadit.png" />
+                </div>
+                <div fxFlex="70">
+                    <h1 class="m-0 credits">
+                        £{{total}}
+                    </h1>
+                    <h3 class="m-0">Referral Credits</h3>
+                </div>
+            </mat-card> -->
+        </div>
+        <div class="content">
+            <p-toast position="center"></p-toast>
+
+                <div *ngIf="currentUser.RoleType == 1 || currentUser.RoleType == 5" fxLayoutAlign="center center" fxLayout="column" class="p-12
+                content-filter">    
+
+                <!-- search -->
+                <div fxLayout.lt-sm="column" fxFlex="80" class="px-12" fxLayoutGap="15px" 
+                fxLayoutAlign="center center">
+                <mat-form-field fxFlex="100">
+                    <input matInput type="number" oninput="validity.valid||(value='');" min="0" placeholder="Add Credits" [formControl]="addCredits">
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100">
+                        <input matInput  placeholder="Reason" [formControl]="reason">
+                    </mat-form-field>
+    
+                    <button style="background: rgba(199, 203, 234, 0.2);" mat-flat-button  [disabled]="addCredits.value == '' || reason.value == ''" (click)="addCredit()">
+                        <mat-icon class="white-fg mt-8">
+                            add
+                        </mat-icon> <br />
+                        Add
+                    </button>
+                 
+
+
+                </div>
+            </div>
+
+
+            <!-- table-->
+            <div *ngIf="refferals?.length > 0">
+                <ngx-datatable class="material striped w-100-p" [rows]="refferals" [columnMode]="'force'" [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'"
+                [limit]="10">
+                <!-- <ngx-datatable-column [sortable]="true" prop="ID" name="Referral Invited Id">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        {{row.ID}}
+                    </ng-template>
+                </ngx-datatable-column> -->
+
+                <ngx-datatable-column [sortable]="true" prop="InvitationSentDateTime | CreditCreatedOn" name="Invited On / Created On">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        <span *ngIf="row.Type == 'Credit'">{{row.CreditCreatedOn | date: 'dd / MM / yyyy'}}</span>
+                        <span *ngIf="row.Type == 'Referral'">{{row.InvitationSentDateTime  | date: 'dd / MM / yyyy'}}</span>
+                        
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [sortable]="true" prop="EmailId" name="Email address">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        {{row.EmailId}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+              
+                <ngx-datatable-column [sortable]="false" name="Amount">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <span class="referral-list" *ngIf="!!row.Amount"> £ {{row.Amount}}</span>
+                            <span class="referral-list" *ngIf="row.ReferralBonus != null && row.ReferralBonus != undefined">£{{row.ReferralBonus}}</span>
+                            <span class="referral-list" *ngIf="row.ReferralBonus == null && row.Amount == null"> £ 0</span>
+
+                    </ng-template>
+                </ngx-datatable-column>
+
+
+                <ngx-datatable-column [sortable]="true" prop="Reason" name="Reason">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        <span *ngIf="row.Type == 'Credit'">{{row.Reason}}</span>
+                        <span *ngIf="row.Type == 'Referral'">Referral Invited</span>
+                    </ng-template>
+                </ngx-datatable-column>
+
+<!-- 
+                <ngx-datatable-column [sortable]="true" prop="CreditCreatedOn" name="Created On">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        {{row.CreditCreatedOn | date: 'dd / MM / yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column> -->
+
+             
+
+                <!-- <ngx-datatable-column [sortable]="true" prop="Status" name="Status">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        <span *ngIf = "row.Status == 1">Credit</span>
+                        <span *ngIf = "row.Status == 2">Debit</span>
+
+                    </ng-template>
+                </ngx-datatable-column> -->
+
+                <!-- <ngx-datatable-column *ngIf="currentUser.RoleType== 1" [sortable]="true" prop="Status" name="Delete">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <button mat-icon-button  style="background: #d54e4c;" class="actionBtn" mat-mini-fab (click)="removeCredit(row.Id)">
+                                <mat-icon>
+                                    delete
+                                </mat-icon>
+                            </button>
+                        </ng-template>
+                    </ngx-datatable-column> -->
+
+
+            </ngx-datatable>
+            </div>
+            <div fxLayoutAlign="center center" *ngIf="refferals?.length == 0">
+                <h1 style="text-align:center;font-size: medium;position: absolute;
+                top: 50%;">No Data Found</h1>
+            </div>
+           
+        
+        </div>
+       
+    </div>
+</div>

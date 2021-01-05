@@ -1,0 +1,277 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="language-absolute-class">
+        <app-language-change></app-language-change>
+    </div>
+    <div class="detail">
+        <div
+            class="my-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between start"
+        >
+            <div class="header-title">
+                <p *ngIf="customerUId == undefined">
+                    <label [routerLink]="'/dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span> My Switches</span>
+                </p>
+                <p *ngIf="!!customerUId" class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <label [routerLink]="'/customer-list/' + customerPageOffset"
+                        >Customers</label
+                    >
+                    <span>&nbsp;/&nbsp;</span>
+                    <label
+                        [routerLink]="
+                            '/admin-switch-history/' +
+                            customerId +
+                            '/' +
+                            customerUId +
+                            '/' +
+                            customerPageOffset +
+                            '/' +
+                            pageOffset
+                        "
+                        >Switch history list</label
+                    >
+                    <span>&nbsp;/&nbsp;</span>
+                    <span>Switch history</span>
+                </p>
+            </div>
+
+            <!-- <mat-card fxFlex="30" class="p-0 credit-card" fxLayoutGap="12px"
+            fxLayout="row" >
+            <div fxFlex="30" class="accent-bg p-12">
+                    <img width="50" src="assets/images/logos/creadit.png" />
+                </div>
+                <div fxFlex="70" fxLayoutAlign="center end" fxLayout="column" class="p-12">
+                    <h1 class="m-0 credits">
+                        £{{credits}}
+                    </h1>
+                    <h3 class="m-0">Your credits</h3>
+                </div>
+            </mat-card> -->
+        </div>
+    </div>
+
+    <div class="content my-12">
+        <div
+            class="detail"
+            fxLayoutGap="12px"
+            fxLayout="column"
+            *ngIf="!!switchHistory"
+        >
+            <div
+                fxLayoutGap="30px"
+                fxLayoutGap="12px"
+                fxLayout="column"
+                *ngFor="let data of switchHistory"
+            >
+                <div
+                    fxLayout.lt-sm="column"
+                    fxLayoutGap="24px"
+                    fxLayoutAlign="center center"
+                >
+                    <div fxFlex="50">
+                        <mat-card class="credit-cardnew p-20" fxLayout="column">
+                            <mat-card class="image-cardnew">
+                                <div class="detail-imgnew">
+                                    <img
+                                        width="55"
+                                        src="assets/images/logos/subscription-final.png"
+                                    />
+                                </div>
+                            </mat-card>
+                            <div
+                                class="my-24 alignmentnew"
+                                fxLayoutAlign="start end"
+                                fxLayout="column"
+                            >
+                                <h2 class="m-0">
+                                    <img
+                                        *ngIf="!!data.ElectricityPlanFrom"
+                                        width="25"
+                                        src="assets/images/betterDeal/electricity-1.png"
+                                    />
+                                    {{ data.ElectricitySupplierFrom }}
+                                    <small
+                                        >({{ data.ElectricityPlanFrom }})
+                                    </small>
+                                    <!-- <span
+                                *ngIf="
+                                    !!data.ElectricityPlanFrom &&
+                                    data.GasPlanFromID
+                                "
+                            >
+                                | </span
+                            > -->
+                                    <br *ngIf="!!data.GasPlanFromID" /><br
+                                        *ngIf="!!data.GasPlanFromID"
+                                    /><img
+                                        width="25"
+                                        src="assets/images/betterDeal/gas.png"
+                                        *ngIf="!!data.GasPlanFromID"
+                                    />&nbsp;
+                                    {{ data.GasSupplierFromID }}
+                                    <small *ngIf="!!data.GasPlanFromID"
+                                        >({{ data.GasPlanFromID }})</small
+                                    >
+                                </h2>
+                            </div>
+                        </mat-card>
+                        <div>
+                            <span>&nbsp;</span>
+                        </div>
+                    </div>
+
+                    <!-- <mat-card
+                        fxFlex="50"
+                        fxFlex.lt-md="100"
+                        class="credit-card
+                        p-12"
+                        fxLayout="column"
+                        fxLayoutAlign="center center"
+                    >
+                        <div class="detail-img">
+                            <img
+                                width="55"
+                                src="assets/images/logos/subscription-plan.png"
+                            />
+                        </div>
+                        <div>
+                            <h2 class="m-0">
+                                <img
+                                    *ngIf="!!data.ElectricityPlanFrom"
+                                    width="25"
+                                    src="assets/images/betterDeal/electricity-1.png"
+                                />
+                                {{ data.ElectricityPlanFrom
+                                }}<span
+                                    *ngIf="
+                                        !!data.ElectricityPlanFrom &&
+                                        data.GasPlanFromID
+                                    "
+                                >
+                                    | </span
+                                ><br/><br/><img
+                                    width="25"
+                                    src="assets/images/betterDeal/gas.png"
+                                    *ngIf="!!data.GasPlanFromID"
+                                />&nbsp;{{ data.GasPlanFromID }}
+                            </h2>
+                        </div>
+                    </mat-card> -->
+                    <div fxFlex="5">
+                        <img width="55" src="assets/images/betterDeal/from-to.png" />
+                    </div>
+                    <div fxFlex="50">
+                        <mat-card class="credit-cardnew p-20" fxLayout="column">
+                            <mat-card class="image-cardnew">
+                                <div class="detail-imgnew">
+                                    <img
+                                        width="55"
+                                        src="assets/images/logos/subscription-final.png"
+                                    />
+                                </div>
+                            </mat-card>
+                            <div
+                                class="my-24 alignmentnew"
+                                fxLayoutAlign="start end"
+                                fxLayout="column"
+                            >
+                                <h2 class="m-0">
+                                    <img
+                                        *ngIf="!!data.ElectricityPlanToId"
+                                        width="25"
+                                        src="assets/images/betterDeal/electricity-1.png"
+                                    />
+                                    {{ data.ElectricitySupplierToId }}
+                                    <!-- <small>({{ data.ElectricityPlanToId }})</small> -->
+                                    <small>(Lowest Tariff Bespoke Plan)</small>
+
+                                    <br *ngIf="!!data.GasPlanFromID" /><br
+                                        *ngIf="!!data.GasPlanFromID"
+                                    /><img
+                                        width="25"
+                                        src="assets/images/betterDeal/gas.png"
+                                        *ngIf="!!data.GasPlanToId"
+                                    />&nbsp;
+                                    {{ data.GasSupplierToId }}
+                                    <small *ngIf="!!data.GasPlanFromID"
+                                        >(Lowest Tariff Bespoke Plan)</small
+                                    >
+                                    <!-- <small>({{ data.GasPlanToId }})</small> -->
+                                </h2>
+                            </div>
+                        </mat-card>
+                        <div fxLayoutAlign="end end">
+                            <a
+                                (click)="viewDetails(data)"
+                                style="cursor: pointer"
+                                >View details</a
+                            >
+                        </div>
+                    </div>
+
+                    <!-- <mat-card
+                        fxFlex="50"
+                        fxFlex.lt-md="100"
+                        class="credit-card
+                        p-12"
+                        fxLayout="column"
+                        fxLayoutAlign="center center"
+                    >
+                        <div class="detail-img">
+                            <img
+                                width="55"
+                                src="assets/images/logos/subscription-plan.png"
+                            />
+                        </div>
+                        <div>
+                            <h2 class="m-0">
+                                <img
+                                    *ngIf="!!data.ElectricityPlanToId"
+                                    width="25"
+                                    src="assets/images/betterDeal/electricity-1.png"
+                                />
+                                {{data.ElectricityPlanToId}}<span *ngIf="!!data.ElectricityPlanToId &&
+                                        data.GasPlanToId">
+                                    | </span
+                                ><br/><br/><img
+                                    width="25"
+                                    src="assets/images/betterDeal/gas.png"
+                                    *ngIf="!!data.GasPlanToId"
+                                />&nbsp;{{ data.GasPlanToId }}
+                            </h2>
+                        </div>
+                    </mat-card> -->
+                </div>
+
+                <h3 *ngIf="data.status == null" fxLayoutAlign="center center">
+                    We have started the switch process, and will update you once
+                    it has been approved.
+                </h3>
+
+                <h3 *ngIf="data.status == 2" fxLayoutAlign="center center">
+                    Switch done successfully.
+                </h3>
+                <h3 *ngIf="data.status == 4" fxLayoutAlign="center center">
+                    Switch Rejected successfully.
+                </h3>
+            </div>
+
+            <div *ngIf="!switchHistory || switchHistory.length == 0">
+                <div
+                    *ngIf="switchHistory.length == 0"
+                    fxFlex="100"
+                    fxFlex.lt-md="100"
+                    class="credit-card contentn p-12"
+                    fxLayout="column"
+                    fxLayoutAlign="center center"
+                >
+                    <h2 class="m-0">no data.</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

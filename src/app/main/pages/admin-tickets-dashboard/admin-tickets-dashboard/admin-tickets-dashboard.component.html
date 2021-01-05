@@ -1,0 +1,219 @@
+<div id="dashboard" class="page-layout blank p-24 dashboard-w-100" fusePerfectScrollbar>
+    <div class="detail">
+        <div
+            class="my-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between-start"
+        >
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span>Work Flow overview</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="detail">
+            <div fxLayoutGap="24px" fxLayout="column" fxLayout.lt-sm="column">
+                <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <mat-card
+                        fxFlex="50"
+                        routerLink="all-tickets/open"
+                        class="widget-card p-20"
+                    >
+                        <div
+                            class="alignment"
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <p class="count m-0">10</p>
+                            <h3 class="m-0">Open</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        routerLink="all-tickets/Resolved"
+                        class="widget-card p-20"
+                    >
+                        <div
+                            class="alignment"
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <p class="count m-0">0</p>
+                            <h3 class="m-0">Resolved</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        routerLink="all-tickets/InProgress"
+                        class="widget-card p-20"
+                    >
+                        <div
+                            class="alignment"
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <p class="count m-0">2</p>
+                            <h3 class="m-0">In Progress</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        routerLink="all-tickets/Replied"
+                        class="widget-card p-20"
+                    >
+                        <div
+                            class="alignment"
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <p class="count m-0">1</p>
+                            <h3 class="m-0">Replied</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        routerLink="all-tickets/Deleted"
+                        class="widget-card p-20"
+                    >
+                        <div
+                            class="alignment"
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <p class="count m-0">0</p>
+                            <h3 class="m-0">Deleted</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        routerLink="all-tickets/OnHold"
+                        class="widget-card p-20"
+                    >
+                        <div
+                            class="alignment"
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <p class="count m-0">4</p>
+                            <h3 class="m-0">OnHold</h3>
+                        </div>
+                    </mat-card>
+                </div>
+                <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <mat-card
+                        fxFlex="50"
+                        routerLink="all-tickets/Edited"
+                        class="widget-card p-20"
+                    >
+                        <div
+                            class="alignment"
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <p class="count m-0">10</p>
+                            <h3 class="m-0">Edited</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        routerLink="all-tickets/Overdue"
+                        class="widget-card p-20"
+                    >
+                        <div
+                            class="alignment"
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <p class="count m-0">0</p>
+                            <h3 class="m-0">Overdue</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        routerLink="all-tickets/Escalation"
+                        class="widget-card p-20"
+                    >
+                        <div
+                            class="alignment"
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <p class="count m-0">2</p>
+                            <h3 class="m-0">Escalation</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        routerLink="all-tickets/Closed"
+                        class="widget-card p-20"
+                    >
+                        <div
+                            class="alignment"
+                            fxLayoutAlign="start"
+                            fxLayout="column"
+                        >
+                            <p class="count m-0">1</p>
+                            <h3 class="m-0">Closed</h3>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        style="visibility: hidden"
+                        class="widget-card p-20"
+                    >
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        style="visibility: hidden"
+                        class="widget-card p-20"
+                    >
+                    </mat-card>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Ticket's Stats</div>
+                            <div class="card-body">
+                                <div style="display: block">
+                                    <canvas
+                                        style="width: auto; height: 300px"
+                                        baseChart
+                                        [datasets]="lineChartData"
+                                        [labels]="lineChartLabels"
+                                        [colors]="lineChartColors"
+                                        [legend]="lineChartLegend"
+                                        [chartType]="lineChartType"
+                                        [plugins]="lineChartPlugins"
+                                    >
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Ticket's Stats</div>
+                            <div class="card-body">
+                                <div style="display: block">
+                                    <canvas
+                                        style="width: auto; height: 300px"
+                                        baseChart
+                                        [data]="doughnutChartData"
+                                        [labels]="doughnutChartLabels"
+                                        [chartType]="doughnutChartType"
+                                    >
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

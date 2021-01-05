@@ -1,0 +1,110 @@
+@import "src/@fuse/scss/fuse";
+.update-profile-form-dialog {
+  
+   
+    
+        width: 100% !important;
+        max-width: 100vw !important;
+        pointer-events: auto;
+        position: static;
+        height: 100%;
+    
+    //---- my css -----
+    //   .icon-text {
+    //       display: flex;
+    //   }
+      .udate-profile {
+          display:border;
+          border: 1px solid #064187;
+          border-radius: 5px;
+          .info {
+            font-size: 18px;
+            line-height: 31px;
+            mat-icon {
+                color:#054086;
+                margin-top:17px;
+            }
+            .icon-text {
+                display:flex;
+            }
+          }
+          h1 {
+              font-size: 21px;
+              color:#054086;
+              font-weight: 600;
+          }
+          p {
+            color: #2F353A;
+            font-size: 16px;
+          }
+          .info1 {
+              h2 {
+                  font-size: 21px;
+              color:#054086;
+              font-weight: 600;
+            }
+            p {
+                font-size: 16px;
+                line-height: 31px;
+            }
+          }
+          .onfo-bottom {
+             
+                  font-size: 16px;
+              
+          }
+      }
+    
+    //---------
+    .mat-dialog-container {
+        padding: 0;
+        border-radius: 10px;
+      
+    }
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+     
+    }
+    .primary-color-input,
+    .secondary-color-input {
+        padding: 6px 8px;
+    }
+    button {
+        border-radius: 5px;
+    }
+}
+
+.input-field {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 12px 12px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 4px;
+}
+
+:host/deep/ {
+    .input-group {
+        width: 100%;
+        place-content: flex-start;
+        align-items: flex-start;
+        flex-direction: row;
+        box-sizing: border-box;
+        display: flex;
+    }
+    *:not(mat-form-field)>input[type="text"] {
+        width: 90%;
+    }
+    .sort-code:not(mat-form-field)>input[type="text"] {
+        width: 100%;
+    }
+}
+
+.c-p-btn {
+    @include media-breakpoint('gt-sm') {
+        min-width: 150px;
+    }
+    border-radius: 5px;
+}
+

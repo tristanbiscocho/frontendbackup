@@ -1,0 +1,312 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span *ngIf="planDetail == undefined" class="title dialog-title"
+                >Add new plan</span
+            >
+            <span *ngIf="!!planDetail" class="title dialog-title"
+                >Edit plan</span
+            >
+            <button
+                mat-button
+                class="mat-icon-button"
+                (click)="dialogRef.close()"
+                aria-label="Close dialog"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <p-toast position="center"></p-toast>
+        <div *ngIf="showLoader">
+            <div class="loader1">
+                <div>
+                    <div class="lds-ripple">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form
+            name="planForm"
+            [formGroup]="planForm"
+            class="event-form w-100-p"
+            fxLayout="column"
+            fxFlex
+        >
+            <div>
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Plan</mat-label>
+                        <input
+                            matInput
+                            placeholder="Supplier Name"
+                            formControlName="Name"
+                            required
+                        />
+                        <mat-error
+                            *ngIf="planForm.get('Name').hasError('required')"
+                        >
+                            Plan is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Type Of Energy</mat-label>
+                        <mat-select
+                            placeholder="TypeOfEnergy"
+                            formControlName="TypeOfEnergy"
+                            required
+                        >
+                            <mat-option
+                                *ngFor="let fm of typeofEnergy"
+                                [value]="fm.Id"
+                            >
+                                {{ fm.Name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Energy Supplier</mat-label>
+                        <mat-select
+                            placeholder="EnergySupplier"
+                            formControlName="EnergySupplier"
+                            required
+                        >
+                            <mat-option
+                                *ngFor="let fm of energySuppliery"
+                                [value]="fm.Id"
+                            >
+                                {{ fm.Name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Tariff Type</mat-label>
+                        <mat-select
+                            placeholder="TariffType"
+                            formControlName="TariffType"
+                            required
+                        >
+                            <mat-option
+                                *ngFor="let fm of tariffType"
+                                [value]="fm.Id"
+                            >
+                                {{ fm.Name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Payment Method</mat-label>
+                        <mat-select
+                            placeholder="PaymentMethod"
+                            formControlName="PaymentMethod"
+                            required
+                        >
+                            <mat-option
+                                *ngFor="let fm of paymentMethod"
+                                [value]="fm.Id"
+                            >
+                                {{ fm.Name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>UnitRate</mat-label>
+                        <input
+                            matInput
+                            placeholder="UnitRate"
+                            formControlName="UnitRate"
+                            required
+                        />
+                        <mat-error
+                            *ngIf="
+                                planForm.get('UnitRate').hasError('required')
+                            "
+                        >
+                            UnitRate is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>StandingCharge</mat-label>
+                        <input
+                            matInput
+                            placeholder="StandingCharge"
+                            formControlName="StandingCharge"
+                            required
+                        />
+                        <mat-error
+                            *ngIf="
+                                planForm
+                                    .get('StandingCharge')
+                                    .hasError('required')
+                            "
+                        >
+                            StandingCharge is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Tariff End on</mat-label>
+                        <input
+                            matInput
+                            formControlName="TariffEnd"
+                            [matDatepicker]="picker"
+                        />
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Price Guaranteed Until End on</mat-label>
+                        <input
+                            matInput
+                            formControlName="PriceEnd"
+                            [matDatepicker]="picker1"
+                        />
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker1"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>ExitFees</mat-label>
+                        <input
+                            type="number"
+                            matInput
+                            placeholder="ExitFees"
+                            formControlName="ExitFees"
+                            required
+                        />
+                        <mat-error
+                            *ngIf="
+                                planForm.get('ExitFees').hasError('required')
+                            "
+                        >
+                            ExitFees is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Discounts</mat-label>
+                        <input
+                            type="number"
+                            matInput
+                            placeholder="Discounts"
+                            formControlName="Discounts"
+                            required
+                        />
+                        <mat-error
+                            *ngIf="
+                                planForm.get('Discounts').hasError('required')
+                            "
+                        >
+                            Discounts is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>AdditionCharges</mat-label>
+                        <input
+                            type="number"
+                            matInput
+                            placeholder="AdditionCharges"
+                            formControlName="AdditionCharges"
+                            required
+                        />
+                        <mat-error
+                            *ngIf="
+                                planForm
+                                    .get('AdditionCharges')
+                                    .hasError('required')
+                            "
+                        >
+                            AdditionCharges is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <div class="mb-16" fxLayoutGap="12px">
+                        <h3>Status *</h3>
+                        <div class="selection-wrapper">
+                            <mat-radio-group
+                                formControlName="Status"
+                                fxLayout="row"
+                                fxLayout.lt-md="column"
+                                fxLayoutAlign.lt-md="start
+                                center"
+                                fxLayoutAlign="space-between center"
+                                aria-label="Select an option"
+                            >
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="1">
+                                        <div fxLayoutAlign="start center">
+                                            <span
+                                                fxHide
+                                                fxShow.gt-sm
+                                                class="ml-8"
+                                                >Active</span
+                                            >
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+                                <div fxLayoutAlign="center center" class="p-12">
+                                    OR
+                                </div>
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="0">
+                                        <div
+                                            fxLayout.lt-md="column"
+                                            fxLayoutAlign="start center"
+                                        >
+                                            <span
+                                                fxHide
+                                                fxShow.gt-sm
+                                                class="ml-8"
+                                                >Inactive</span
+                                            >
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <button
+                        *ngIf="planDetail == undefined"
+                        mat-flat-button
+                        [disabled]="planForm.invalid"
+                        class="c-p-btn"
+                        (click)="savePlan()"
+                        color="accent"
+                    >
+                        Add Plan
+                    </button>
+                    &nbsp; &nbsp;
+                    <button
+                        *ngIf="!!planDetail"
+                        mat-flat-button
+                        [disabled]="planForm.invalid"
+                        class="c-p-btn"
+                        (click)="editPlan()"
+                        color="accent"
+                    >
+                        Update Plan
+                    </button>
+                    &nbsp; &nbsp;
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

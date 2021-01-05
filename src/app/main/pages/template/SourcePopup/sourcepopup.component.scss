@@ -1,0 +1,68 @@
+@import "src/@fuse/scss/fuse";
+
+.template-sourcecode-dialog {
+
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+
+    @include media-breakpoint-up('xs') {
+        width: 40%;
+    }
+
+    .mat-dialog-container {
+        padding: 0;
+        border-radius:5px !important;
+    }
+
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .primary-color-input,
+    .secondary-color-input {
+        padding: 6px 8px;
+    }
+    .bottomborder
+    {
+        border-bottom:0.5px solid rgba(0, 0, 0, 0.38);
+        line-height: 3;
+        padding:0px 12px !important;    
+    }
+    .paddingDialog
+    {
+        padding:24px 0px !important;
+    }
+    .headerName{
+        color:#1f2d45 !important;
+        font-weight:500;
+        border-bottom:0.5px solid #1f2d45 !important;
+    }
+    .toolBarSize
+        {
+        height:45px !important;
+    }
+    .toolBarTitle
+        {
+        font-size:17px;
+        font-weight:500px;
+    }
+    .bottomborder div
+        {
+        padding-top:5px;
+    }
+    .icnsize
+        {
+        font-size:20px;
+    }
+    .btnborder
+        {
+        border-radius: 5px !important; 
+    }
+}
+label
+{
+    font-weight:normal !important;
+}

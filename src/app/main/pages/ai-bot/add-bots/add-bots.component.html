@@ -1,0 +1,90 @@
+<div id="space-wrapper" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Add Bot</span>
+            </p>
+        </div>
+        <div class="content rounded-lg">
+            <form class="w-100-p p-md-5">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <mat-form-field
+                                    fxFlex="100"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Name</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Category Name"
+                                        required
+                                    />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                              <mat-form-field>
+                                  <mat-select placeholder="Publish Status">
+                                      <mat-option value=""
+                                          >Published</mat-option
+                                      >
+                                  </mat-select>
+                              </mat-form-field>
+                          </div>
+                            <div class="col-md-12">
+                                <mat-form-field
+                                    fxFlex="100"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Description</mat-label>
+                                    <textarea
+                                        matInput
+                                        rows="4"
+                                        placeholder="Description"
+                                        required
+                                    ></textarea>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="Select Language">
+                                        <mat-option value=""
+                                            >English</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6"></div>
+                            <div class="form-group col-6">
+                                <div style="float: right">
+                                    <a
+                                        [routerLink]="['/ai-bot']"
+                                        style="margin-left: 10px"
+                                        color="dark"
+                                        class="mat-focus-indicator mat-raised-button mat-button-base mat-info"
+                                        >Cancel</a
+                                    >
+                                    &nbsp;
+                                    <button
+                                        type="submit"
+                                        mat-flat-button
+                                        color="accent"
+                                        class="mat-focus-indicator mat-raised-button mat-button-base"
+                                    >
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

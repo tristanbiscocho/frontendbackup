@@ -1,0 +1,336 @@
+@import "src/@fuse/scss/fuse";
+.messageType {
+    display: flex;
+    font-size: 17px;
+    color: #38485f !important;
+    margin: 10px 5px;
+    line-height: 1.5;
+}
+
+.closebtn {
+    box-shadow: none !important;
+    height: 25px !important;
+    width: 25px !important;
+    line-height: 25px !important;
+    margin:10px;
+}
+
+.closebtn .mat-button-wrapper {
+    padding: 0px !important;
+}
+
+.closebtn .mat-icon {
+    font-size: 12px;
+    color: #fff;
+}
+
+.messageType .mat-icon {
+    color: #38485f !important;
+}
+
+:host/deep/{
+    .mat-button-wrapper {
+        padding: 0 !important;
+  }
+}
+
+.headericn {
+    height: 40px;
+    width: 40px;
+    margin-right: 15px;
+}
+
+.page-layout.carded > .top-bg {
+    background-image: none !important;
+}
+
+.top-bg {
+   // background-color: #38485f !important;
+}
+
+.btnborder {
+    border-radius: 5px !important;
+}
+
+.bottomborder {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    line-height: 3;
+}
+
+.actionborder {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.actionborder div, .actionborder div button {
+    width: 100%;
+}
+
+.RadioHeader {
+    color: #1f2d45;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.Radiodescription {
+    font-size: 14px;
+    margin-left: 29px;
+}
+
+.mat-radio-outer-circle {
+    margin-top: -11px !important;
+}
+
+.btn:hover {
+    background-color: transparent !important;
+}
+
+label {
+    font-weight: normal !important;
+}
+
+.example-radio-group {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.example-radio-button {
+    margin: 5px;
+}
+
+.btn-primary {
+    background-color:mat-color($primary)!important;
+    border-color:mat-color($primary)!important;
+}
+
+.pmd-floating-action {
+    bottom: 0;
+    position: fixed;
+    margin: 3em;
+    right: 0;
+    text-align: center;
+}
+
+.pmd-floating-action-btn {
+    display: block;
+    position: relative;
+    transition: all .2s ease-out;
+}
+
+.pmd-floating-action-btn:before {
+    bottom: 10%;
+    content: attr(data-title);
+    opacity: 0;
+    position: absolute;
+    right: 100%;
+    transition: all .2s ease-out .5s;
+    white-space: nowrap;
+    background-color: #fff;
+    padding: 6px 12px;
+    border-radius: 2px;
+    color: #333;
+    font-size: 12px;
+    margin-right: 5px;
+    display: inline-block;
+    box-shadow: 0px 2px 3px -2px rgba(0, 0, 0, 0.18), 0px 2px 2px -7px rgba(0, 0, 0, 0.15);
+}
+
+.pmd-floating-action-btn:last-child:before {
+    font-size: 14px;
+    bottom: 25%;
+}
+
+.pmd-floating-action-btn:active, .pmd-floating-action-btn:focus, .pmd-floating-action-btn:hover {
+    box-shadow: 0px 5px 11px -2px rgba(0, 0, 0, 0.18), 0px 4px 12px -7px rgba(0, 0, 0, 0.15);
+}
+
+.pmd-floating-action-btn:not(:last-child) {
+    opacity: 0;
+    -ms-transform: translateY(20px) scale(0.3);
+    transform: translateY(20px) scale(0.3);
+    margin-bottom: 15px;
+    margin-left: 8px;
+    position: absolute;
+    bottom: 0;
+}
+
+.pmd-floating-action-btn:not(:last-child):nth-last-child(1) {
+    transition-delay: 50ms;
+}
+
+.pmd-floating-action-btn:not(:last-child):nth-last-child(2) {
+    transition-delay: 100ms;
+}
+
+.pmd-floating-action-btn:not(:last-child):nth-last-child(3) {
+    transition-delay: 150ms;
+}
+
+.pmd-floating-action-btn:not(:last-child):nth-last-child(4) {
+    transition-delay: 200ms;
+}
+
+.pmd-floating-action-btn:not(:last-child):nth-last-child(5) {
+    transition-delay: 250ms;
+}
+
+.pmd-floating-action-btn:not(:last-child):nth-last-child(6) {
+    transition-delay: 300ms;
+}
+
+.pmd-floating-action:hover .pmd-floating-action-btn, .menu--floating--open .pmd-floating-action-btn {
+    opacity: 1;
+    -ms-transform: none;
+    transform: none;
+    position: relative;
+    bottom: auto;
+}
+
+.pmd-floating-action:hover .pmd-floating-action-btn:before, .menu--floating--open .pmd-floating-action-btn:before {
+    opacity: 1;
+}
+
+.pmd-floating-hidden {
+    display: none;
+}
+
+.pmd-floating-action-btn.btn:hover {
+    overflow: visible;
+}
+
+.pmd-floating-action-btn .ink {
+    width: 50px;
+    height: 50px;
+}
+.loader {
+    border: 3px solid mat-color($primary); /* Light grey */
+    border-top: 6px solid transparent; /* Blue */
+    border-radius: 60%;
+    width: 70px;
+    height: 70px;
+    //margin-left: 125px;
+    animation: spin 2s linear infinite;
+}
+ :host/deep/{
+      .glyphicon
+{
+       color: white !important;
+    font-size: 12px !important;
+ }
+
+      .btn-group > .btn
+          {
+          height:22px !important;
+      }
+ }
+ .mat-form-field-invalid .mat-form-field-label
+{
+        color: rgba(0, 0, 0, 0.54) !important;
+}
+.mat-input-invalid .mat-input-ripple {
+       background-color: transparent !important;
+}
+.mat-form-field-invalid .mat-form-field-ripple {
+       background-color: transparent !important;
+}
+:host/deep/{
+.mat-form-field-ripple
+{
+    background-color: transparent !important
+}
+}
+mat-form-field.mat-focused,
+.mat-form-field.mat-form-field-invalid {
+  .mat-form-field-ripple {
+       background-color: transparent !important;
+}
+  }
+:host/deep/
+{
+    .ps__rail-y
+        {
+        top:0 !important;
+            width: 0 !important;
+    }
+    .ps__rail-y > .ps__thumb-y
+        {
+        width:0 !important;
+    }
+}
+
+    .ps__rail-y
+        {
+        top:0 !important;
+            width: 0 !important;
+    }
+    .ps__rail-y > .ps__thumb-y
+        {
+        width:0 !important;
+    }
+
+
+    #customer-bills {
+        width: 100%;
+        // background: url('/assets/images/backgrounds/images-2.jpg') no-repeat;
+        background-size: cover;
+        .content {
+            background: white;
+        }
+        .detail {
+            max-width: 1200px;
+            width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            @include media-breakpoint('xs') {
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+            }
+            @include media-breakpoint('sm') {
+                width: 100%;
+            }
+            .add-button {
+                position: absolute;
+                right: 10px;
+                z-index: 1111;
+            }
+            .header-title {
+                * {
+                    color: #ffe118;
+                }
+                p {
+                    font-size: 18px;
+                    cursor: pointer;
+                    label {
+                        cursor: pointer;
+                        color: #3A3A3A;
+                    }
+                    label:hover {
+                        text-decoration: underline;
+                        // border-bottom: 1.5px solid#B9B7B7;
+                    }
+                    span {
+                        font-size: 21px;
+                        font-weight: 500;
+                        letter-spacing: 0.5px;
+                    }
+                }
+             
+            }
+            .credits {
+                font-weight: bold;
+            }
+            .credit-card {
+                background: #f7f7f7;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+            .detail-img {
+                height: 120px;
+                place-content: center;
+                align-items: center;
+                flex-direction: row;
+                box-sizing: border-box;
+                display: flex;
+            }
+        }
+    }

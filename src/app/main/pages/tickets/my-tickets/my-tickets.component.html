@@ -1,0 +1,190 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <p-toast position="center"></p-toast>
+    <div class="detail" [ngStyle]="{ 'min-height': minheight }">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Tickets</span>
+            </p>
+        </div>
+        <div class="content" [ngStyle]="{ 'min-height': minheight }">
+            <div class="content-filter">
+                <div
+                    fxLayoutAlign="center center"
+                    fxLayout.lt-md="column"
+                    fxLayoutGap="15px"
+                    class="p-12"
+                >
+                    <mat-form-field fxFlex="20" class="search-input">
+                        <input
+                            id="search"
+                            #filter
+                            matInput
+                            [formControl]="searchTickets"
+                            placeholder="Name / Message / Status"
+                        />
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                    <!-- <mat-form-field fxFlex="15" fxFlex.lt-md="100">
+                        <mat-select
+                            [(ngModel)]="priority"
+                            placeholder="Priority"
+                        >
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="15" fxFlex.lt-md="100">
+                        <mat-select [(ngModel)]="status" placeholder="Status">
+                            <mat-option [value]="3">All</mat-option>
+                            <mat-option [value]="1">pending</mat-option>
+                            <mat-option [value]="2">Failed</mat-option>
+                            <mat-option [value]="4">Completed</mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+                    <div fxLayoutGap="15px" fxLayoutAlign="center center">
+                        <button
+                            mat-flat-button
+                            style="background: rgba(199, 203, 234, 0.2)"
+                            (click)="filterTickets()"
+                        >
+                            <mat-icon class="white-fg mt-8">
+                                swap_vert
+                            </mat-icon>
+                            <br />
+                            Filter
+                        </button>
+                        <button
+                            style="background: rgba(199, 203, 234, 0.2)"
+                            mat-flat-button
+                            (click)="clearTicketsFilter()"
+                        >
+                            <mat-icon class="white-fg mt-8"> cancel </mat-icon>
+                            <br />
+                            Clear
+                        </button>
+                        <button
+                            mat-flat-button
+                            style="background: rgba(199, 203, 234, 0.2)"
+                            (click)="addTicket()"
+                        >
+                            <mat-icon class="white-fg mt-8"> add </mat-icon>
+                            <br />
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="tickets?.length > 0">
+                <ngx-datatable
+                    class="material striped w-100-p"
+                    [rows]="tickets"
+                    [columnMode]="'force'"
+                    [headerHeight]="50"
+                    [scrollbarH]="true"
+                    [footerHeight]="50"
+                    [rowHeight]="'auto'"
+                    [limit]="10"
+                    [offset]="tableOffset"
+                    (page)="onChangePage($event)"
+                >
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="Ticket_Tittle"
+                        name="Name"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.Ticket_Tittle }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="Ticket_Message"
+                        name="Message"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <div [innerHtml]="row.Ticket_Message"></div>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="Agent_Id"
+                        name="Aggent"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <span *ngIf="row.Agent_Id">
+                                {{ row.Agent_Id }}
+                            </span>
+                            <span *ngIf="!row.Agent_Id"> Not Assign </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="Status"
+                        name="Status"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.Status }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="LastUpdate"
+                        name="Last Updated"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.LastUpdate | date:'mediumDate' }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [sortable]="false" name="Action">
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <button
+                                matTooltip="Edit Details"
+                                color="accent"
+                                (click)="editTicket(row)"
+                                mat-mini-fab
+                            >
+                                <mat-icon class="white-fg"> edit </mat-icon>
+                            </button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+            <div fxLayoutAlign="center center" *ngIf="tickets?.length == 0">
+                <h1
+                    style="
+                        text-align: center;
+                        font-size: medium;
+                        position: absolute;
+                        top: 50%;
+                    "
+                >
+                    No Data Found
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>

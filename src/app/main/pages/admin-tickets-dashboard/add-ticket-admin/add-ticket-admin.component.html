@@ -1,0 +1,115 @@
+<div id="space-wrapper" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div *ngIf="showLoader">
+        <div class="loader1">
+            <div>
+                <div class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-toast position="center"></p-toast>
+    <div class="detail" [ngStyle]="{ 'min-height': minheight }">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/admin-tickets-dashboard'"
+                    >Overview</label
+                >
+                <span>&nbsp;/&nbsp;</span>
+                <span> Add Tickets </span>
+            </p>
+        </div>
+        <div
+            class="content w-100-p"
+            fxLayoutAlign="center"
+            [ngStyle]="{ 'min-height': minheight }"
+        >
+            <form
+                class="form-wrapper"
+                *ngIf="addTicketForm"
+                [formGroup]="addTicketForm"
+            >
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field fxFlex="100" appearance="outline">
+                            <mat-label>Title</mat-label>
+                            <input
+                                matInput
+                                placeholder="Ticket title"
+                                required
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field
+                            fxFlex="100"
+                            fxFlex.lt-md="100"
+                            appearance="outline"
+                        >
+                            <mat-label>Category</mat-label>
+                            <mat-select placeholder="Category" required>
+                                <mat-option [value]="1">Billing</mat-option>
+                                <mat-option [value]="3"
+                                    >Administrative</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field
+                            fxFlex="100"
+                            fxFlex.lt-md="100"
+                            appearance="outline"
+                        >
+                            <mat-label>Priority</mat-label>
+                            <mat-select placeholder="Priority" required>
+                                <mat-option [value]="1">Top</mat-option>
+                                <mat-option [value]="1">Secondery</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field
+                            fxFlex="100"
+                            fxFlex.lt-md="100"
+                            appearance="outline"
+                        >
+                            <mat-label>Status</mat-label>
+                            <mat-select placeholder="Status" required>
+                                <mat-option [value]="1">Completed</mat-option>
+                                <mat-option [value]="1">Open</mat-option>
+                                <mat-option [value]="1">Resolved</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-9">
+                        <mat-form-field fxFlex="100" appearance="outline">
+                            <mat-label>Subject</mat-label>
+                            <input matInput placeholder="Subject" required />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-10">
+                        <app-quill-editor
+                            [control]="addTicketForm.controls.Ticket_Message"
+                            [placeholder]="placeholder"
+                        ></app-quill-editor>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <button mat-icon-button matTooltip="Attach a File">
+                            <mat-icon>attach_file</mat-icon> Choose a File
+                        </button>
+                    </div>
+                </div>
+                <p-toast position="center"></p-toast>
+                <div class="py-12" fxLayoutAlign="end end">
+                    <button mat-flat-button color="accent">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

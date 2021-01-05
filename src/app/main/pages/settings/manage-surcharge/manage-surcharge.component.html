@@ -1,0 +1,165 @@
+<div id="settings" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+
+        <div class="my-24" fxLayout.lt-sm="column" fxLayoutAlign="space-between start">
+
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <label [routerLink]="'/settings'">Settings</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span>Manage Surcharge</span>
+                </p>
+            </div>
+            <div>
+                <button mat-raised-button *ngIf="IsHistory != true" color="primary" (click)="IsHistory = true">
+                    View History
+                </button>
+                <button mat-raised-button *ngIf="IsHistory == true" color="primary" (click)="IsHistory = false">
+                    Hide History
+                </button>
+            </div>
+        </div>
+    </div>
+    <p-toast position="center"></p-toast>
+    <div class="content" fxLayoutAlign="center center">
+        <div class="detail">
+            <mat-card fxFlex="100" class="credit-card p-12">
+                    <mat-tab-group>
+                        <mat-tab label="Surcharge Electricity"> 
+                                <div *ngIf="ConsumptionHistory!=undefined" class="about-content p-24">
+                                        <div class="calender"   *ngFor="let history of ElectricityData;let i = index;trackBy: customTrackBy">
+                                            <div>
+                                                <div class="month" *ngIf="history.Month == 1">Jan</div>
+                                                <div class="month" *ngIf="history.Month == 2">Feb</div>
+                                                <div class="month" *ngIf="history.Month == 3">March</div>
+                                                <div class="month" *ngIf="history.Month == 4">April</div>
+                                                <div class="month" *ngIf="history.Month == 5">May</div>
+                                                <div class="month" *ngIf="history.Month == 6">June</div>
+                                                <div class="month" *ngIf="history.Month == 7">July</div>
+                                                <div class="month" *ngIf="history.Month == 8">Aug</div>
+                                                <div class="month" *ngIf="history.Month == 9">Sep</div>
+                                                <div class="month" *ngIf="history.Month == 10">Oct</div>
+                                                <div class="month" *ngIf="history.Month == 11">Nov</div>
+                                                <div class="month" *ngIf="history.Month == 12">Dec</div>
+                                                <mat-form-field class="w-100-p p-12">
+                                                    <input type="number"  min="0"  value="1" step="0.1" max="100" (input)="ValidateInput($event)" onKeyPress="if(this.value.length==3) return false;" matInput [(ngModel)]="history.Value">
+                                                    <span matSuffix>%</span>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="end" class="pr-24" style="clear: both;">
+                                        <button mat-flat-button color="accent" [disabled]="IsValid" (click)="updateElectricitySurcharge()">Update</button>
+                                    </div>
+                        </mat-tab>
+                        <mat-tab label="Surcharge dual fuel - Gas"> 
+                                <div *ngIf="ConsumptionHistory!=undefined"  class="about-content p-24">
+                                        <div class="calender"  *ngFor="let history of GasData;let i = index;trackBy: customTrackBy">
+                                            <div>
+                                                <div class="month" *ngIf="history.Month == 1">Jan</div>
+                                                <div class="month" *ngIf="history.Month == 2">Feb</div>
+                                                <div class="month" *ngIf="history.Month == 3">March</div>
+                                                <div class="month" *ngIf="history.Month == 4">April</div>
+                                                <div class="month" *ngIf="history.Month == 5">May</div>
+                                                <div class="month" *ngIf="history.Month == 6">June</div>
+                                                <div class="month" *ngIf="history.Month == 7">July</div>
+                                                <div class="month" *ngIf="history.Month == 8">Aug</div>
+                                                <div class="month" *ngIf="history.Month == 9">Sep</div>
+                                                <div class="month" *ngIf="history.Month == 10">Oct</div>
+                                                <div class="month" *ngIf="history.Month == 11">Nov</div>
+                                                <div class="month" *ngIf="history.Month == 12">Dec</div>
+                                                <mat-form-field class="w-100-p p-12">
+                                                    <input matInput  min="0" value="1" step="0.1" onKeyPress="if(this.value.length==3) return false;" step="1.1" max="100" (input)="ValidateGasInput($event)" type="number" [(ngModel)]="history.Value">
+                                                    <span matSuffix>%</span>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="end" style="clear: both;">
+                                        <button mat-flat-button color="accent" (click)="updateGasSurcharge()" [disabled]="IsValidGas">Update</button>
+                                    </div>
+                        </mat-tab>
+
+                        <mat-tab label="Surcharge dual fuel - Electricity"> 
+                            <div *ngIf="ConsumptionHistory!=undefined"  class="about-content p-24">
+                                    <div class="calender"  *ngFor="let history of elcOf_gas_elc;let i = index;trackBy: customTrackBy">
+                                        <div>
+                                            <div class="month" *ngIf="history.Month == 1">Jan</div>
+                                            <div class="month" *ngIf="history.Month == 2">Feb</div>
+                                            <div class="month" *ngIf="history.Month == 3">March</div>
+                                            <div class="month" *ngIf="history.Month == 4">April</div>
+                                            <div class="month" *ngIf="history.Month == 5">May</div>
+                                            <div class="month" *ngIf="history.Month == 6">June</div>
+                                            <div class="month" *ngIf="history.Month == 7">July</div>
+                                            <div class="month" *ngIf="history.Month == 8">Aug</div>
+                                            <div class="month" *ngIf="history.Month == 9">Sep</div>
+                                            <div class="month" *ngIf="history.Month == 10">Oct</div>
+                                            <div class="month" *ngIf="history.Month == 11">Nov</div>
+                                            <div class="month" *ngIf="history.Month == 12">Dec</div>
+                                            <mat-form-field class="w-100-p p-12">
+                                                <input matInput  min="1" step="0.1" value="1" onKeyPress="if(this.value.length==3) return false;" step="1.1" max="100" (input)="ValidateInputElcGas($event)" type="number" [(ngModel)]="history.Value">
+                                                <span matSuffix>%</span>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="end" style="clear: both;">
+                                    <button mat-flat-button color="accent" (click)="updateGasElecSurcharge()" [disabled]="IsValidElc">Update</button>
+                                </div>
+                    </mat-tab>
+                    </mat-tab-group>
+
+                    <div class="p-12" *ngIf="IsHistory == true" >
+                        <ngx-datatable class="material striped w-100-p" [rows]="historydetails" [columnMode]="'force'"
+                        [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+                        <ngx-datatable-column [sortable]="true" prop="Id" name="ID">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.Id}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true" prop="EnergyType" name="Energy Type">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <span *ngIf="row.EnergyType == 1">Duel Fuel  - <span *ngIf="row.SubEnergyType == 1">Gas</span><span *ngIf="row.SubEnergyType == 2">Electricity</span></span>
+                                <span *ngIf="row.EnergyType == 2">Electricity</span>
+
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true" prop="StartDate" name="Updated Date">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                               {{row.StartDate | date: 'dd / MM / yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="Month" name="Month">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <div class="month" *ngIf="row.Month == 1">Jan</div>
+                                <div class="month" *ngIf="row.Month == 2">Feb</div>
+                                <div class="month" *ngIf="row.Month == 3">March</div>
+                                <div class="month" *ngIf="row.Month == 4">April</div>
+                                <div class="month" *ngIf="row.Month == 5">May</div>
+                                <div class="month" *ngIf="row.Month == 6">June</div>
+                                <div class="month" *ngIf="row.Month == 7">July</div>
+                                <div class="month" *ngIf="row.Month == 8">Aug</div>
+                                <div class="month" *ngIf="row.Month == 9">Sep</div>
+                                <div class="month" *ngIf="row.Month == 10">Oct</div>
+                                <div class="month" *ngIf="row.Month == 11">Nov</div>
+                                <div class="month" *ngIf="row.Month == 12">Dec</div>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="true" prop="Value" name="Value">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                               {{row.Value}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                      
+                    </ngx-datatable>
+                    </div>
+            </mat-card>
+        </div>
+
+    </div>
+
+</div>

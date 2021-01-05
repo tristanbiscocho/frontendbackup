@@ -1,0 +1,42 @@
+@import "src/@fuse/scss/fuse";
+.supplier-terms-condition{
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+    @include media-breakpoint-up('xs') {
+        width: 800px;
+    }
+    .mat-dialog-container {
+        padding: 0;
+        border-radius: 10px;
+    }
+    .dialog-content-wrapper {
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .primary-color-input,
+    .secondary-color-input {
+        padding: 6px 8px;
+    }
+ td {
+     text-align: center;
+     padding: 4px 12px;
+     color: rgba(34, 52, 68, 1);
+     font-weight: bold;
+ }
+ th {
+     letter-spacing: 1px;
+     font-size: 16px;
+ }
+.border-td {
+    border-right:  2px solid rgba(34, 52, 68, 0.2);
+}
+.bottm-border {
+    border-bottom:  2px solid rgba(34, 52, 68, 0.2);
+}
+}
+
+
+  
+   

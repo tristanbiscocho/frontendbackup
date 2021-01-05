@@ -1,0 +1,39 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Select Partner</span>
+            <button mat-button class="mat-icon-button" (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+            <div>
+                <div>
+                    <p-toast position="center"></p-toast>
+                    <div fxLayoutAlign="center">
+                    <mat-form-field class="search-input">
+                            <input placeholder="Name / Email / city" matInput #filter [formControl]="searchPartner">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="my-12" *ngFor="let data of partnerList;index as i">
+                        <mat-checkbox [(ngModel)]="data.isChecked" [ngModelOptions]="{standalone: true}" (change)="selectedPartner($event, i)" class="my-12"  [value]="data.PartnerId">
+                            <b>{{data.PartnerName}}</b> - {{data.EmailAddress}} - {{data.City}}
+                        </mat-checkbox>
+                        <!-- <mat-checkbox fxFlex="50">Khushbu Thakkar</mat-checkbox>
+                        <mat-checkbox fxFlex="50">Kushal Shah</mat-checkbox> -->
+                    </div>
+                  
+                </div>
+                <div style="clear: both;" class="p-12" fxLayoutAlign="end end">
+                    <button mat-flat-button color="accent" (click)="savePartner()">
+                        Select now
+                    </button>
+                </div>
+            </div>
+    </div>
+
+
+</div>

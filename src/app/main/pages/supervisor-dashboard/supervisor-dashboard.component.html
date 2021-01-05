@@ -1,0 +1,121 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div
+            class="mb-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between start"
+        >
+            <div class="header-title">
+                <h1 class="mt-0">
+                    Welcome back, {{ this.currentUser.FirstName }}
+                    {{ this.currentUser.LastName }}!
+                </h1>
+                <h2>Dashboard</h2>
+            </div>
+        </div>
+    </div>
+    <div class="content" style="min-height: 80%" fxLayoutAlign="center center">
+        <div class="detail">
+            <div fxLayoutGap="24px" fxLayout="column" fxLayout.lt-sm="column">
+                <div
+                    fxLayout.lt-sm="column"
+                    fxLayout.lt-md="column"
+                    fxLayoutGap="24px"
+                >
+                    <mat-card
+                        fxFlex="50"
+                        class="credit-card p-20"
+                        fxLayout="column"
+                        [routerLink]="
+                            '/supervisor-partners/' +
+                            currentUser.CustomerId +
+                            '/' +
+                            0 +
+                            '/' +
+                            0
+                        "
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/partners.png"
+                                />
+                            </div>
+                        </mat-card>
+
+                        <div
+                            class="my-24 alignment"
+                            fxLayoutAlign="start end"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">My Partners</h3>
+                            <p
+                                *ngIf="counts"
+                                fxLayoutAlign="center center"
+                                class="count m-0"
+                            >
+                                {{ counts[0].PartnerCount }}
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        class="credit-card p-20"
+                        fxLayout="column"
+                        [routerLink]="'/invoice-list/' + 0"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/total-payments.png"
+                                />
+                            </div>
+                        </mat-card>
+
+                        <div
+                            class="my-24 alignment"
+                            fxLayoutAlign="start end"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">My Commission</h3>
+                            <p
+                                *ngIf="counts"
+                                fxLayoutAlign="center center"
+                                class="count m-0"
+                            >
+                                £ {{ counts[0].MyCommission }}
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        [routerLink]="'/my-profile'"
+                        fxFlex="50"
+                        class="credit-card p-20"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/profile.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="my-24 alignment"
+                            fxLayoutAlign="start end"
+                            fxLayout="column"
+                        >
+                            <h3 class="m-0">My Profile</h3>
+                            <p fxLayoutAlign="center center" class="count m-0">
+                                &nbsp;
+                            </p>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

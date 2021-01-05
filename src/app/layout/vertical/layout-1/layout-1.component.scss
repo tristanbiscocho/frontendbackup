@@ -1,0 +1,179 @@
+@import "src/@fuse/scss/fuse";
+
+vertical-layout-1 {
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+
+    #main {
+        position: relative;
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        min-width: 0;
+
+        // Container 1
+        > .container {
+            position: relative;
+            display: flex;
+            flex: 1 1 0%;
+            width: 100%;
+            min-height: 0;
+            min-width: 0;
+
+            // Container 2
+            > .container {
+                position: relative;
+                display: flex;
+                flex: 1 1 0%;
+                flex-direction: column;
+                min-width: 0;
+
+                // Container 3 (Scrollable)
+                > .container {
+                    position: relative;
+                    display: flex;
+                    flex: 1 1 0%;
+                    flex-direction: column;
+                    transform: translateZ(0);
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    -webkit-overflow-scrolling: touch;
+
+                    // Content component
+                    content {
+
+                        &.inner-scroll {
+                            flex: 1 1 0%;
+                            min-height: 0;
+
+                            > *:not(router-outlet) {
+                                flex: 1 1 0%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.webchat-button {
+    background-color: #000;
+    height: 72px;
+    display: none;
+}
+.webchat-button {
+    display: block;
+}
+.webchat-button__toggle {
+    color: #723cfb;
+    border: 2px solid #723cfb;
+    border-bottom: 0;
+    border-radius: 8px 8px 0 0;
+    font-size: 18px;
+    display: block;
+    transition: all .3s cubic-bezier(.78,0,.5,1);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    z-index: 101;
+}
+.button--white, .button--white:active, .button--white:focus, .button--white:hover {
+    background-color: #fff;
+}
+
+.button--white {
+    color: #494949;
+}
+.button {
+    background-color: #00de92;
+    padding: 18px 40px;
+    border-radius: 100px;
+    color: #000;
+    text-decoration: none;
+    transition: all .3s;
+    display: block;
+    text-align: center;
+    border: 0;
+    margin-bottom: 30px;
+}
+.button {
+    display: inline-block;
+}
+.button {
+    text-decoration: none;
+    padding-left: 40px;
+    padding-right: 45px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 2px solid #0e2b78;
+    border-bottom: 0;
+    border-radius: 8px 8px 0 0;
+    font-size: 19px;
+    display: block;
+    transition: all .3s cubic-bezier(.78,0,.5,1);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    z-index: 101;
+    cursor: pointer;
+
+}
+.button--white, .button--white:active, .button--white:focus, .button--white:hover {
+    background-color: #fff;
+}
+.button:last-child {
+    margin-bottom: 0;
+}
+.webchat-button__icon {
+    height: 25px;
+}
+.icon-left {
+    padding-right: 8px;
+}
+.icon-left, .icon-right {
+    display: inline-block;
+    position: relative;
+    top: .125em;
+}
+
+.button--white:hover {
+    text-decoration: none !important;
+}
+
+.btn-span {
+    font-family: 'Source Sans Pro', sans-serif !important;
+    font-size: 19px;
+    font-weight: 400;
+    letter-spacing: 0px;
+}
+
+.button--white i {
+    font-size: 23px;
+    padding-right: 5px;
+    color: #ffe118;
+    font-weight: 500;
+}
+
+.button--white:hover {
+    color: #0e2b78;
+    background-color: #f4f4f4;
+    -webkit-animation-name: hvr-back-pulse;
+    animation-name: hvr-back-pulse;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}

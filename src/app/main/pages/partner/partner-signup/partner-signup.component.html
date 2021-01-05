@@ -1,0 +1,154 @@
+<div id="login" #myList fxLayout="column">
+    <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="start center">
+            <div class="my-24">
+                    <img width="200" src="/assets/images/betterDeal/beterdeal_logo.png"/>
+                </div>
+        <div class="title">
+            Let's get started now!
+        </div>
+        <div class="title-detail">
+            Or <a class="title-detail" [routerLink]="'/login'" style="text-decoration:underline">Sign in</a> if
+            registered
+        </div>
+        <div id="login-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+            <p-toast position="center"></p-toast>
+
+            <form name="addPartner" class="event-form" [formGroup]="addPartner" >
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" fxFlex.lt-md="100" appearance="outline">
+                        <mat-label>Title</mat-label>
+                        <mat-select placeholder="Title" formControlName="Title" required>
+                            <mat-option [value]="1">Mr</mat-option>
+                        <mat-option [value]="3">Mrs</mat-option>
+                        <mat-option [value]="2">Miss</mat-option>
+                        <mat-option [value]="4">Ms</mat-option>
+                        <mat-option [value]="5">Dr</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="addPartner.get('Title').hasError('required')">
+                            Title is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>First name</mat-label>
+                        <input matInput  formControlName="FirstName" placeholder="First name" required>
+                        <mat-error *ngIf="addPartner.get('FirstName').hasError('required')">
+                            First name is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Last name</mat-label>
+                        <input matInput disabled  formControlName="LastName" placeholder="Last name" required>
+                        <mat-error *ngIf="addPartner.get('LastName').hasError('required')">
+                            Last name is required
+                        </mat-error>
+                    </mat-form-field>   
+                </div>
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Email address</mat-label>
+                        <input matInput disabled formControlName="EmailId" placeholder="Email address" [(ngModel)]="email_add" (change)="validateEmail()" required>
+                        <mat-error *ngIf="addPartner.get('EmailId').hasError('required')">
+                            Email is required
+                        </mat-error>
+                        <mat-error *ngIf="addPartner.get('EmailId').hasError('pattern')">
+                            Please enter a valid Email address.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div fxLayoutAlign="start start" fxFlex="50">
+                        <international-phone-number  [maxlength]="20"  fxLayoutAlign="start start" [ngModelOptions]="{standalone: true}" class="input-field" [(ngModel)]="phone_number" (change)="validatePhone()" placeholder="Enter Phone Number" [maxlength]="20" [required]="true" #phoneNumber="ngModel" name="phone_number"></international-phone-number>
+                    </div>
+                </div>
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" fxFlex.lt-md="100" appearance="outline">
+                        <mat-label>Date of birth</mat-label>
+                        <input (click)="picker.open()" matInput formControlName="DOB" [max]="maxDate" required [matDatepicker]="picker" placeholder="Date of birth">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="addPartner.get('DOB').hasError('required')">
+                            Date of birth is required.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input formControlName="Password"  matInput type="password" placeholder="Password" required>
+                        <mat-error *ngIf="addPartner.get('Password').hasError('required')">
+                            Password is required
+                        </mat-error>
+                        <mat-error *ngIf="!addPartner.get('Password').hasError('required') &&
+                        addPartner.get('Password').hasError('pattern')">
+                        Passwords must contain at least six characters, including uppercase, lowercase letters and numbers.
+        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field fxFlex="100" appearance="outline">
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="AddressLine1" placeholder="Address" required>
+                    
+                        <mat-error *ngIf="addPartner.get('AddressLine1').hasError('required')">
+                            Address is required
+                        </mat-error>
+                    </mat-form-field>
+                  
+                </div>
+
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>City</mat-label>
+                        <input matInput formControlName="City" placeholder="City" required>
+                        <mat-error *ngIf="addPartner.get('City').hasError('required')">
+                            City is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Postal Code</mat-label>
+                        <input matInput formControlName="PostCode" placeholder="Postal Code" required>
+                        <mat-error *ngIf="addPartner.get('PostCode').hasError('required')">
+                            Postal code is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <h3 class="mt-0">
+                    Payment Details
+                </h3>
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Sort Code (6 Digits)*</mat-label>
+                        <input matInput formControlName="SortCode" [textMask]="{mask: datemask}" [(ngModel)]="myModel" placeholder="Sort Code (6 Digits) *">
+                       </mat-form-field>
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Account Number (8 Digits)</mat-label>
+                        <input required type="number" formControlName="AccountNUmber" matInput
+                            placeholder="Account Number (8 Digits)"
+                            onKeyPress="if(this.value.length==8) return false;"
+                            oninput="validity.valid||(value='');" min="0" required>
+                    </mat-form-field>
+                </div>
+
+
+                <div fxLayoutGap="12px">
+                </div>  
+              
+                <!-- <div fxLayout="column" fxLayoutGap="12px">
+                    <mat-card *ngFor="let data of selectedPartners; index as i" class="p-4 px-12 w-50-p" fxLayoutAlign="space-between center">
+                        <div><b>{{data.PartnerName}}</b> <br/>{{data.EmailAddress}}<br/>{{data.City}}</div>
+                        <button *ngIf="!!data.Id" mat-icon-button (click)="removePartnerById(i, data.Id)">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                        <button *ngIf="data.Id == null || data.Id == undefined" mat-icon-button (click)="removePartner(i)">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </mat-card>
+                </div> -->
+                <div class="py-12" fxLayoutAlign="end end">
+                    <button  mat-flat-button [disabled]="addPartner.invalid" (click)="savePartner()" class="c-p-btn" color="accent">Save</button> 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+       

@@ -1,0 +1,171 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span *ngIf="partnerDetail == undefined" class="title dialog-title">Add Partner</span>
+            <span *ngIf="!!partnerDetail" class="title dialog-title">Edit Details</span>
+            <button mat-button class="mat-icon-button" (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showLoader">
+        <div class="loader1">
+            <div>
+                <div class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <form name="addPartner" [formGroup]="addPartner" class="event-form w-100-p" fxLayout="column" fxFlex>
+            <div>
+                <div>
+                    <p-toast position="center"></p-toast>
+                    <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="50" fxFlex.lt-md="100" appearance="outline">
+                            <mat-label>Title</mat-label>
+                            <mat-select placeholder="Title" formControlName="Title" required>
+                                <mat-option [value]="1">Mr</mat-option>
+                            <mat-option [value]="3">Mrs</mat-option>
+                            <mat-option [value]="2">Miss</mat-option>
+                            <mat-option [value]="4">Ms</mat-option>
+                            <mat-option [value]="5">Dr</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="addPartner.get('Title').hasError('required')">
+                                Title is required
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>First name</mat-label>
+                            <input matInput  formControlName="FirstName" placeholder="First name" >
+                            <mat-error *ngIf="addPartner.get('FirstName').hasError('required')">
+                                First name is required
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Last name</mat-label>
+                            <input matInput disabled  formControlName="LastName" placeholder="Last name" required>
+                            <mat-error *ngIf="addPartner.get('LastName').hasError('required')">
+                                Last name is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Email address</mat-label>
+                            <input matInput disabled formControlName="EmailId" placeholder="Email address" required>
+                            <mat-error *ngIf="addPartner.get('EmailId').hasError('required')">
+                                Email is required
+                            </mat-error>
+                            <mat-error *ngIf="addPartner.get('EmailId').hasError('pattern')">
+                                Please enter a valid Email address.
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div fxLayoutAlign="start start" fxFlex="50">
+                            <international-phone-number fxLayoutAlign="start start" [ngModelOptions]="{standalone: true}"  class="input-field" [(ngModel)]="phone_number" placeholder="Enter Phone Number" [maxlength]="20" [required]="true" #phoneNumber="ngModel" name="phone_number"></international-phone-number>
+                        </div>
+                    </div>
+                    <div>
+                        <mat-form-field fxFlex="60" fxFlex.lt-md="100" appearance="outline">
+                            <mat-label>Date of birth</mat-label>
+                            <input (click)="picker.open()" [disabled]="IsDisable" matInput formControlName="DOB" [max]="maxDate" required [matDatepicker]="picker" placeholder="Date of birth">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="addPartner.get('DOB').hasError('required')">
+                                Date of birth is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field fxFlex="100" appearance="outline">
+                            <mat-label>Address</mat-label>
+                            <input matInput formControlName="AddressLine1" placeholder="Address" required>
+                            <mat-error *ngIf="addPartner.get('AddressLine1').hasError('required')">
+                                Address is required
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>City</mat-label>
+                            <input matInput formControlName="City" placeholder="City" required>
+                            <mat-error *ngIf="addPartner.get('City').hasError('required')">
+                                City is required
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Postal Code</mat-label>
+                            <input matInput formControlName="PostCode" placeholder="Postal Code" required>
+                            <mat-error *ngIf="addPartner.get('PostCode').hasError('required')">
+                                Postal code is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                </div>
+                <div *ngIf="currentUser.RoleType == 1 || currentUser.RoleType == 5" fxLayoutAlign="start center" class="title-head">
+                    Payment Details
+                </div>
+                <div fxLayoutGap="12px" *ngIf="currentUser.RoleType == 1 || currentUser.RoleType == 5">
+                    <!-- <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Sort code (6 digits)</mat-label>
+                        <input formControlName="SortCode" type="number" oninput="validity.valid||(value='');" min="0" max="999999" matInput placeholder="Sort code (6 digits)" required>
+                        <mat-error *ngIf="addPartner.get('SortCode').hasError('required')">
+                            Sort code is required
+                        </mat-error>
+                    </mat-form-field> -->
+                    <!-- <mat-form-field fxFlex="50"  appearance="outline">
+                        <mat-label>Sort Code (6 Digits)*</mat-label>
+                        <input matInput formControlName="SortCode" [textMask]="{mask: datemask}" [(ngModel)]="myModel" placeholder="Sort Code (6 Digits) *">
+                         
+                       </mat-form-field> -->
+                       <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Sort Code (6 Digits)*</mat-label>
+                        <input matInput formControlName="SortCode" [textMask]="{mask: datemask}" [(ngModel)]="myModel"   placeholder="Sort Code (6 Digits) *">
+                         <!-- <input matInput [textMask]="{mask: datemask}"  placeholder="Sort Code (6 Digits) *" > -->
+                       </mat-form-field>
+                       <!-- <div fxLayoutAlign="start start" fxFlex="50">
+                        <p-inputMask class="input-field sort-code" formControlName="SortCode" mask="99-99-99" placeholder="Sort Code (6 Digits)" minlength="6"></p-inputMask>
+                    </div> -->
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Account Number (8 Digits)</mat-label>
+                        <input formControlName="AccountNUmber" type="number" onKeyPress="if(this.value.length==8) return false;"  oninput="validity.valid||(value='');" min="0"
+                        maxlength="8" minlength="8" matInput placeholder="Account Number (8 Digits)" required>
+                      
+                    </mat-form-field>
+                </div>
+
+
+                <div *ngIf="currentUser.RoleType == 1 || currentUser.RoleType == 5">
+                    <mat-form-field fxFlex="100" appearance="outline">
+                        <mat-label>Commission</mat-label>
+                       
+                        <input formControlName="ComissionPercentage"  matInput type="number" oninput="validity.valid||(value='');" placeholder="Commission" required>
+                           <span matPrefix>£</span>
+                        <mat-error *ngIf="addPartner.get('ComissionPercentage').hasError('required')">
+                            Comission is required
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+                <div>
+                    <button *ngIf=" partnerDetail == undefined" mat-flat-button [disabled]="addPartner.invalid" (click)="savePartner()" class="c-p-btn" color="accent">Add
+                    Partner</button> &nbsp; &nbsp;
+                    <button *ngIf=" !!partnerDetail " mat-flat-button [disabled]="phoneNumber.untouched && addPartner.pristine" (click)="editPartner()" class="c-p-btn" color="accent">Update
+                        Details</button> &nbsp; &nbsp;
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>

@@ -1,0 +1,128 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Generate Invoice for Supervisor</span>
+            <button mat-button class="mat-icon-button"
+                (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showLoader">
+            <div class="loader1">
+                <div>
+                    <div class="lds-ripple">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+        <div>
+            <p-toast position="center"></p-toast>
+
+            <form [formGroup]="addInvoiceForm">
+            <div fxLayoutGap="12px">
+
+                <mat-form-field fxFlex="50" fxFlex.lt-xs="column"
+                    fxFlex.lt-xs="column"
+                    appearance="outline">
+                    <mat-label>Start Date</mat-label>
+                    <input (click)="picker.open()" matInput (dateInput)="StartEvent('input', $event)" (dateChange)="StartEvent('change', $event)"
+                        [matDatepicker]="picker" formControlName="StartDate" [max]="startMaxDateValue" placeholder="Start Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="50" fxFlex.lt-xs="column"
+                    fxFlex.lt-xs="column"
+                    appearance="outline">
+                    <mat-label>End Date</mat-label>
+                    <input (click)="picker6.open()" matInput (dateInput)="endEvent('input', $event)" [min]="endMinValue" [max]="startMaxDateValue" (dateChange)="endEvent('change', $event)"
+                        [matDatepicker]="picker6" formControlName="EndDate" placeholder="End Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                    <mat-datepicker #picker6></mat-datepicker>
+                </mat-form-field>
+
+
+            </div>
+            <div>
+
+                <div fxLayout.lt-xs="row">
+                    <div fxFlex="70">
+                        <p class="font-weight-500">Total Customer Signed UP Completed</p>
+                    </div>
+                    <div fxFlex="30" fxLayoutAlign="center center">
+                        <p>{{details.NoOfReferral}}</p>
+                    </div>
+                </div>
+
+                <div fxLayout.lt-xs="row">
+                    <div fxFlex="70">
+                        <p class="font-weight-500">Commission per Customer</p>
+                    </div>
+                    <div fxFlex="30" fxLayoutAlign="center center">
+                        <p>{{details.comission}} GBP</p>
+                    </div>
+                </div>
+
+                <!-- <div fxLayout.lt-xs="row">
+                    <div fxFlex="50">
+                        <p class="font-weight-500">Refferal discount</p>
+                    </div>
+                    <div fxFlex="50" fxLayoutAlign="center center">
+                        <p>£20</p>
+                    </div>
+                </div> -->
+                <div fxLayout.lt-xs="row" class="font-size-18 m-0">
+                    <div fxFlex="70">
+                        <p class="font-weight-500">Total Commission for the Month</p>
+                    </div>
+                    <div fxFlex="30" fxLayoutAlign="center center">
+                        <p>{{details.TotalCommission}}</p>
+                    </div>
+                </div>
+
+            </div>
+            <div *ngIf="events == 'edit'" fxLayoutGap="12px">
+                <mat-form-field fxFlex="50" fxFlex.lt-xs="column"
+                fxFlex.lt-xs="column"
+                appearance="outline">
+                <mat-label>Transaction Id</mat-label>
+
+                <input matInput formControlName="TransactionId" placeholder="Transaction Id">
+                </mat-form-field>
+                <mat-form-field fxFlex="50" fxFlex.lt-xs="column"
+                fxFlex.lt-xs="column"
+                appearance="outline">
+                <mat-label>Transaction date</mat-label>
+                <input (click)="picker1.open()" matInput
+                    [matDatepicker]="picker1" formControlName="TransactionDate" [max]="startMaxDateValue" placeholder="Tansaction date">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            </div>
+            <div class="mt-16" fxLayoutAlign="end start">
+                <button (click)="addInvoice()" *ngIf="events != 'edit'" [disabled]="addInvoiceForm.invalid || IsZero == false"  mat-flat-button
+                    color="accent">
+                    Generate Invoice
+                </button>
+                <button (click)="editInvoice()" *ngIf="events == 'edit'" [disabled]="addInvoiceForm.invalid"  mat-flat-button
+                color="accent">
+                Payment made
+            </button>
+                &nbsp; &nbsp;
+            </div>
+        </form>
+        </div>
+
+    </div>
+
+
+
+
+
+
+</div>

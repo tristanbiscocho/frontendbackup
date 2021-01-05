@@ -1,0 +1,88 @@
+@import "src/@fuse/scss/fuse";
+#dashboard {
+    width: 100%;
+    // background: url('/assets/images/backgrounds/images-2.jpg') no-repeat;
+    background-size: cover;
+    .detail {
+        max-width: 1280px;
+        width: 1280px;
+        margin: 0 auto;
+        @include media-breakpoint('sm') {
+            width: 100%;
+        }
+        @include media-breakpoint('xs') {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+        }
+        .header-title {
+            * {
+                color: #ffe118;
+                font-size: 28px;
+                font-family: 'Roboto Condensed', sans-serif;
+            }
+            h2 {
+                font-size: 25px;
+            }
+        }
+        .credits {
+            font-weight: bold;
+        }
+        .credit-card {
+            background: #005a61;
+            color:white !important;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px 0px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;    
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+
+            h3 {
+                font-size: 18px;
+                font-family: 'Roboto Condensed', sans-serif;
+            }
+}
+        .detail-img {
+            height: 40px;
+            place-content: center;
+            align-items: center;
+            flex-direction: row;
+            box-sizing: border-box;
+            display: flex;
+            @include media-breakpoint('sm') {
+                height: auto;
+            }
+            @include media-breakpoint('xs') {
+                height: auto;
+            }
+        }
+        .count {
+            font-size: 22px;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 500;
+        }
+        
+    }
+}
+.image-card {
+    position: absolute;
+    top: -25px;
+    left: 20px;
+    background: #ffe118;
+    @include media-breakpoint('sm') {
+        padding: 10px;
+        top: -20px;
+    }
+    @include media-breakpoint('xs') {
+        top: -20px;
+        padding: 10px;
+    }
+    
+} 
+.alignment{
+    margin-left: 90px;
+    text-align: right;
+}
+

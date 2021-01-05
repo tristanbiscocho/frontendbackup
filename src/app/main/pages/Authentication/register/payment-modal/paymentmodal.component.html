@@ -1,0 +1,215 @@
+<div class="dialog-content-wrapper">
+    <!-- <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title"> </span> -->
+           
+        <!-- </div>
+    </mat-toolbar> -->
+    <div *ngIf="showLoader">
+        <div class="loader1">
+            <div>
+                <div class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-content class="m-0" fusePerfectScrollbar>
+        <div class="p-24 pt-0">
+            <div fxLayoutAlign="center center">
+                <img
+                    width="160"
+                    class="text-center"
+                    src="assets/images/logos/LowestTeriff.png"
+                />
+            </div>
+            <h1 fxLayoutAlign="center center">
+                Set up a Direct Debit with Lowest Tariff
+            </h1>
+    
+            <form [formGroup]="secondFormGroup">
+                <div fxLayoutGap="12px">
+                    <mat-form-field *ngIf="IsComName == false" fxFlex="50" appearance="outline">
+                        <mat-label>First name</mat-label>
+                        <input
+                            matInput
+                            placeholder="First name"
+                            required
+                             formControlName="fName"
+                        />
+                    </mat-form-field>
+                    <mat-form-field  *ngIf="IsComName == false" fxFlex="50" appearance="outline">
+                        <mat-label>Last name</mat-label>
+                        <input
+                            matInput
+                            placeholder="Last name"
+                            required
+                            formControlName="lname"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field  *ngIf="IsComName == true" fxFlex="100" appearance="outline">
+                        <mat-label>Company Name</mat-label>
+                        <input
+                            matInput
+                            placeholder="Company Name"
+                            required
+                            formControlName="comName"
+                        />
+                    </mat-form-field>
+                </div>
+                <div>
+                    <a style="cursor: pointer;" (click)="IsCompanyName()">Click here to use a <span *ngIf="IsComName == false">company name</span><span *ngIf="IsComName == true">your name</span></a>
+                </div><br/>
+                <div fxLayoutGap="12px">
+                    <mat-form-field  fxFlex="100" appearance="outline">
+                        <mat-label>Email address</mat-label>
+                        <input matInput  formControlName="email" placeholder="Email address" required >
+                    </mat-form-field>
+                    <!-- <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Account Name</mat-label>
+                        <input matInput placeholder="Account Name" required  formControlName="PaymentDetails_AccountName" >
+                    </mat-form-field> -->
+                  
+                </div>
+                <div fxLayoutGap="12px">
+                 
+                    <mat-form-field fxFlex="50" *ngIf="IsIBAN == true" appearance="outline">
+                        <mat-label>IBAN Number</mat-label>
+                        <input matInput  placeholder="IBAN Number" required  formControlName="IBAN_num" >
+                    </mat-form-field>
+                   
+                </div>
+              
+                <div fxLayoutGap="12px">
+                  
+                    <mat-form-field fxFlex="50" *ngIf="IsIBAN == false" appearance="outline">
+                        <mat-label>Sort Code (6 Digits)*</mat-label>
+                        <input matInput  [textMask]="{mask: datemask}"  formControlName="sCode"  placeholder="Sort Code (6 Digits) *">
+                       </mat-form-field>
+                    <mat-form-field fxFlex="50" *ngIf="IsIBAN == false" appearance="outline">
+                        <mat-label>Account Number (8 Digits)</mat-label>
+                        <input required type="number"  formControlName="accountNumber" matInput
+                            placeholder="Account Number (8 Digits)"
+                            onKeyPress="if(this.value.length==8) return false;"
+                            oninput="validity.valid||(value='');" min="0" required>
+                    </mat-form-field>
+                </div>
+              
+                <div *ngIf="IsIBAN == false">
+                    <a style="cursor: pointer;" (click)="ibanNumber()">Click here to enter IBAN</a>
+                </div>
+                <div *ngIf="IsIBAN == true">
+                    <a style="cursor: pointer;" (click)="ibanNumber()">Click here to enter local details</a>
+                </div>
+                <br/>
+               <div fxLayoutGap="12px">
+                <mat-form-field fxFlex="50" appearance="outline">
+                    <mat-label>Enter post code</mat-label>
+                    <input matInput  id="postalcode_text"  [(ngModel)]="PostCode"  placeholder="Enter post code" (change)="validatePostalcode()" formControlName="pcode"   required  >
+                
+                </mat-form-field>
+               
+               </div> 
+            
+            
+             
+               <div>
+                <mat-form-field fxFlex="100"  *ngIf="Isaddress == false"  appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <mat-select id="mat-select1" [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}"
+                        (selectionChange)="selectAddress($event)" placeholder="Address">
+                        <mat-option *ngFor="let add of Address" [value]="add['#cdata-section']">
+                            {{add["#cdata-section"]}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+               </div>
+               <div fxLayoutGap="12px" >
+             
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Billing address line 1*</mat-label>
+                        <input [readonly]="!Isaddress" matInput placeholder="Billing address line 1 *" 
+                            formControlName="BillingAddress1">
+                    </mat-form-field>
+               
+              
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Billing address line 2*</mat-label>
+                        <input matInput [readonly]="!Isaddress" placeholder="Billing address line 2 *" formControlName="BillingAddress2">
+                    </mat-form-field>
+               
+             
+               </div>
+
+              
+               <div fxLayoutGap="12px" >
+                
+                    <mat-form-field fxFlex="50" appearance="outline">
+                        <mat-label>Town or City *</mat-label>
+                        <input matInput [readonly]="!Isaddress" placeholder="Town or City *" formControlName="BillingCity">
+                    </mat-form-field>
+             
+                
+               </div>
+               <div>
+                <a style="cursor: pointer;" (click)="addressManuallay()">
+                    Click here to <span *ngIf="Isaddress == false">enter your address manually</span><span *ngIf="Isaddress == true">find your address</span>
+                </a>
+               </div><br/>
+                <div>
+                    <mat-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="isChecked" (change)="chnagedata($event)">
+                        More than one person is required to authorise Direct Debit
+                    </mat-checkbox>
+                    <div *ngIf="isChecked == true">
+                        <p>
+                            If more than one person is required to authorise Direct Debits on this account, we will need all
+                            signatories to sign a paper version of the Direct Debit mandate. We'll give you instructions on how to 
+                            do this after you complete this form.
+                            <br/>
+                            <br/>
+                            Note: if it's a joint account but you can authorise payments on your own, you should untick this box. 
+                            <br/>
+                        </p>
+                    </div>
+                </div>
+                <div class="my-8" fxLayoutGap="12px" fxLayoutAlign="end end">
+                    <button [disabled]="secondFormGroup.invalid" mat-flat-button (click)="confirmDetails()" color="accent">
+                        Set up Direct Debit
+                    </button>
+                    <button
+                    mat-flat-button color="accent"
+                    (click)="dialogRef.close()"
+                    aria-label="Close dialog"
+                >
+                   Close
+                </button>
+                </div>
+            </form>
+    
+        </div>
+        
+        <div class="footer px-24 py-12">
+            <div>
+                <div>
+                    <div fxLayoutAlign="start center">
+                        <div fxFlex="70">
+                            <p>Monti Trade BVBA t/a Lowest Tariff</p>
+                            <a href="mailto:support@lowesttariff.com">support@lowesttariff.com</a>
+                        </div>
+                        <div fxFlex="30" fxLayoutAlign=" end end">
+                            <img src="assets/images/logos/direct-debit.svg" />
+                        </div>
+                    </div>
+                    <br/>
+                    <p>By confirming you are agreeing to our <a href="https://lowesttariff.com/terms-and-conditions/" target="blank"> Website Terms & Conditions</a>. Lowest Tariff uses personal data as described in our  <a href="https://lowesttariff.com/privacy-policy/"  target="blank">Privacy Policy</a>. We use analytics cookies.
+                    Payments by GoCardless. <a href="https://gocardless.com/legal/" target="blank">Read the GoCardless privacy notice.</a></p>
+                    <p>
+                     Your payments are protected by the <a style="cursor: pointer" (click)="directDebit()">Direct Debit Guarantee</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

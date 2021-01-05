@@ -1,0 +1,220 @@
+<div id="add-customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="my-24" fxLayout.lt-sm="column" fxLayoutAlign="space-between
+            start">
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-customer-bill/'+ customerId + '/' + customerPageOffset + '/' + pageOffset">Customer Bills</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span *ngIf="!!bills">Add Customer Bill - {{bills.CustomerName}}</span>
+                </p>
+            </div>
+        </div>
+        <div>
+            <mat-card fxFlex="100" class="credit-card p-12 w-100-p"
+                fxLayout="column">
+                <div class="w-100-p pl-12 content-header" fxLayoutAlign="start
+                    center">
+
+                    <h3 *ngIf="!!bills" fxLayoutAlign="start center">
+                        <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                         Generate Bill
+                        For {{bills.CustomerName}}</h3>
+
+                </div>
+
+                <div class="w-100-p p-12">
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Duration</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p fxFlex="20" *ngIf="!!bills" fxFlex.lt-sm="100">{{bills.StartDate | date: 'dd / MM / yyyy'}}</p>
+                            <p fxFlex="20" *ngIf="!!bills" fxFlex.lt-sm="100">{{bills.EndDate | date: 'dd / MM / yyyy'}}</p>
+                        </div>
+                    </div>
+
+                    <!-- <div fxLayout.lt-sm="column" *ngIf="!!bills">
+                        <div fxFlex="50" fxFlex.lt-sm="100" *ngIf="!!bills.CustometMeterReadingDetail.GesReadingInfo">
+                            <p class="font-weight-500">Gas Meter Reading By Customer</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p *ngIf = "!!bills"><span *ngIf="!!bills.CustometMeterReadingDetail.GesReadingInfo">{{bills.CustometMeterReadingDetail.GesReadingInfo.ReadingValue}}</span></p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column" *ngIf="!!bills.CustometMeterReadingDetail">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Electricity Meter Reading value By Customer</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf = "!!bills"><span *ngIf="!!bills.CustometMeterReadingDetail.ElectricityReadingInfo">{{bills.CustometMeterReadingDetail.ElectricityReadingInfo.ReadingValue}} </span><span *ngIf="!!bills.CustometMeterReadingDetail.ElectricityReadingInfo && bills.CustometMeterReadingDetail.IsElectricMeterReading == true"><span *ngIf="!!bills.CustometMeterReadingDetail.ElectricityReadingInfo.LowReadingValue">- {{bills.CustometMeterReadingDetail.ElectricityReadingInfo.LowReadingValue}}</span></span></p>
+                            </div>
+                        </div> -->
+
+                    <!-- <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Meter redaing by supplier</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p>  - 151</p>
+                        </div>
+                    </div> -->
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Amount</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p *ngIf="!!packageDetails"><span>£ {{packageAmount}}</span></p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="start
+                        start" fxLayoutAlign="start center">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Estimated bill</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-form-field fxFlex="50" fxFlex.lt-sm="100">
+                                <mat-select [(ngModel)]="PackageId" disabled placeholder="Package Name">
+                                    <mat-option *ngFor="let add of packages"
+                                        [value]="add.Id">
+                                        {{add.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Amount</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p>£85</p>
+                        </div>
+                    </div> -->
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Type</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <mat-radio-group [(ngModel)]="typeOfBill" disabled aria-label="Select an option">
+                                <mat-radio-button [value]="2">Actual</mat-radio-button>&nbsp;
+                                <mat-radio-button [value]="1">Estimated</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Gas Reading Value</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p *ngIf="!!packageDetails"><span>{{gasReadingValue}}</span></p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Electricity Reading Value</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p *ngIf="!!packageDetails"><span>{{electryReading}}</span></p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Gas Previous Reading Value</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p *ngIf="!!packageDetails"><span>{{bills.CustometMeterReadingDetail.GasPerviousReadingValue}}</span></p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Electricity Previous  Reading Value</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p *ngIf="!!packageDetails"><span>{{bills.CustometMeterReadingDetail.ElectricityPreviousMeterReadingValue}}</span></p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Electricity Previous Low Meter Reading Value</p>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p *ngIf="!!packageDetails"><span>{{bills.CustometMeterReadingDetail.ElectricityPreviousLowMeterReadingValue}}</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout.lt-sm="column" class="p-12">
+                    <div fxFlex="80" fxFlex.lt-sm="100">
+                        <p class="font-size-18 font-weight-500 accent-fg">Adjustment
+                            of actual bill</p>
+                        <p class="font-size-16 font-weight-500 accent-fg">(When
+                            suppplier send actual bill then we will do manual
+                            adjustment for the same by adding or deducting it.)</p>
+                    </div>
+                    <div fxFlex="20" fxFlex.lt-sm="100">
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <input matInput type="number" (keyup)="addAmount($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- <div fxLayout.lt-sm="column" class="mx-12">
+                    <div fxFlex="80" fxFlex.lt-sm="100">
+                        <p class="font-size-16 font-weight-500 warn-fg m-0">Winter
+                            surcharge(-10%)</p>
+                    </div>
+                    <div fxFlex="20" fxFlex.lt-sm="100">
+                    <p class="font-size-20 font-weight-500 m-0">£8.50</p>
+                    </div>
+                </div> -->
+                <div fxLayout.lt-sm="column" class="mx-12">
+                    <div fxFlex="80" fxFlex.lt-sm="100">
+                        <p class="font-size-16 font-weight-500 m-0">Final Bill</p>
+                    </div>
+                    <div fxFlex="20" fxFlex.lt-sm="100">
+                        <p class="font-size-20 font-weight-500 m-0" *ngIf="!!finalBill">£<span >{{finalBill | number: '1.0-2'}}</span><span *ngIf="finalBill == undefined">£{{packageAmount | number: '1.0-2'}}</span></p>
+                    </div>
+                </div>
+                <div fxLayoutAlign="end end" fxLayoutGap="12px" class="p-12">
+                    <button mat-flat-button color="accent" [disabled]="finalBill == 0" (click)="generateBill()">
+                        Generate Bill
+                    </button>
+                    <!-- <button mat-flat-button color="accent">
+                        Request for Payment
+                    </button> -->
+                </div>
+
+                <!-- <div class="p-12" fxLayout.lt-sm="column">
+                    <div fxFlex="50" fxFlex.lt-sm="100">
+                        <p class="font-weight-500 font-size-18 m-0
+                            light-green-fg">Payment status</p>
+                    </div>
+                    <div fxLayout.lt-sm="column" fxFlex="50" fxFlex.lt-sm="100">
+                        <p class="m-0 light-green-fg" fxFlex.lt-sm="100"
+                            fxFlex="30"><span class="font-size-20
+                                font-weight-500">£<span *ngIf="!!finalBill">{{finalBill}}</span><span *ngIf="finalBill == undefined">{{packageAmount}}</span></span><br/>
+                                <Span class="font-size-13">Received</Span>
+                            </p>
+                            <p class="m-0 light-green-fg"><span
+                                    class="font-size-20 font-weight-500">16-05-2019
+                                    (TSR34D4526673)</span><br/>
+                                    <Span class="font-size-13">Payment received
+                                        date and transaction ID</Span>
+                                </p>
+                            </div>
+                        </div> -->
+
+                    </mat-card>
+                </div>
+
+            </div>
+        </div>

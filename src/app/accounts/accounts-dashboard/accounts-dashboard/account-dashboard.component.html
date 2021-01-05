@@ -1,0 +1,223 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+    
+        <div
+            class="my-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between
+      start"
+        >
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span>Overview</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="detail">
+            
+            <div fxLayout="column" fxLayoutAlign="start"
+                 fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start">
+
+                <!-- Widget 2 -->
+                <div class="widget" fxFlex="100" fxFlex.gt-sm="20">
+
+                    <div class="fuse-card auto-width mb-32" [ngClass.gt-sm]="'mb-0 mr-32'">
+
+                        <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+
+                            <div class="pr-16">
+                                <mat-icon style="font-size: 50px;" class="green-fg mr-4">person</mat-icon>
+                                
+                            </div>
+                            <div style="    margin-left: 10px;" class="py-4 font-size-16" fxLayout="row" fxLayoutAlign="start center">
+                 
+                                <div class="font-size-54 font-weight-300 line-height-1 mt-8">
+                                  <h2>Total Customer</h2>
+                                  <h2>  {{widgets?.widget2.conversion.value}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- / Widget 2 -->
+
+                <!-- Widget 3 -->
+                <div class="widget" fxFlex="100" fxFlex.gt-sm="20">
+
+                    <div class="fuse-card auto-width mb-32" [ngClass.gt-sm]="'mb-0 mr-32'">
+
+                        <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+
+                            <div class="pr-16">
+                                <mat-icon style="font-size: 50px;" class="yellow-fg mr-4">person</mat-icon>
+                                
+                            </div>
+                            <div style="    margin-left: 10px;" class="py-4 font-size-16" fxLayout="row" fxLayoutAlign="start center">
+                 
+                                <div class="font-size-54 font-weight-300 line-height-1 mt-8">
+                                  <h2>Total Supplier</h2>
+                                  <h2>  {{widgets?.widget2.conversion.value}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- / Widget 3 -->
+
+                <!-- Widget 4 -->
+                <div class="widget" fxFlex="100" fxFlex.gt-sm="20">
+
+                    <div class="fuse-card auto-width mb-32" [ngClass.gt-sm]="'mb-0 mr-32'">
+
+                        <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+
+                            <div class="pr-16">
+                                <mat-icon style="font-size: 50px;" class="blue-fg mr-4">find_in_page</mat-icon>
+                                
+                            </div>
+                            <div style="    margin-left: 10px;" class="py-4 font-size-16" fxLayout="row" fxLayoutAlign="start center">
+                 
+                                <div class="font-size-54 font-weight-300 line-height-1 mt-8">
+                                  <h2>Total Invoice</h2>
+                                  <h2>  {{widgets?.widget2.conversion.value}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="widget" fxFlex="100" fxFlex.gt-sm="20">
+
+                    <div class="fuse-card auto-width mb-32" [ngClass.gt-sm]="'mb-0 mr-32'">
+
+                        <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+
+                            <div class="pr-16">
+                                <mat-icon style="font-size: 50px;" class="red-fg mr-4">article</mat-icon>
+                                
+                            </div>
+                            <div style="    margin-left: 10px;" class="py-4 font-size-16" fxLayout="row" fxLayoutAlign="start center">
+                 
+                                <div class="font-size-54 font-weight-300 line-height-1 mt-8">
+                                  <h2>Total Bill</h2>
+                                  <h2>  {{widgets?.widget2.conversion.value}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="widget" fxFlex="100" fxFlex.gt-sm="20">
+
+                    <div class="fuse-card auto-width mb-32" [ngClass.gt-sm]="'mb-0 mr-32'">
+
+                        <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+
+                            <div class="pr-16">
+                                <mat-icon style="font-size: 50px;" class="gray-fg mr-4">receipt</mat-icon>
+                                
+                            </div>
+                            <div style="    margin-left: 10px;" class="py-4 font-size-16" fxLayout="row" fxLayoutAlign="start center">
+                 
+                                <div class="font-size-54 font-weight-300 line-height-1 mt-8">
+                                  <h2>Total Expense</h2>
+                                  <h2>  {{widgets?.widget2.conversion.value}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- / Widget 4 -->
+
+            </div>
+            <div fxLayoutGap="24px" fxLayout="column" fxLayout.lt-sm="column">
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Cash Flow</div>
+                            <div class="card-body">
+                                <div style="display: block">
+                                    <canvas
+                                        style="width: auto; height: 300px"
+                                        baseChart
+                                        [datasets]="lineChartData"
+                                        [labels]="lineChartLabels"
+                                        [colors]="lineChartColors"
+                                        [legend]="lineChartLegend"
+                                        [chartType]="linechartSecond"
+                                        [plugins]="lineChartPlugins"
+                                    >
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Accounts Stats</div>
+                            <div class="card-body">
+                                <div style="display: block">
+                                    <canvas
+                                        style="width: auto; height: 300px"
+                                        baseChart
+                                        [data]="doughnutChartData"
+                                        [labels]="doughnutChartLabels"
+                                        [chartType]="PIeChartType"
+                                    >
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Cash Flow</div>
+                            <div class="card-body">
+                                <div style="display: block">
+                                    <canvas
+                                        style="width: auto; height: 300px"
+                                        baseChart
+                                        [datasets]="lineChartData"
+                                        [labels]="lineChartLabels"
+                                        [colors]="lineChartColors"
+                                        [legend]="lineChartLegend"
+                                        [chartType]="lineChartType"
+                                        [plugins]="lineChartPlugins"
+                                    >
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Accounts Stats</div>
+                            <div class="card-body">
+                                <div style="display: block">
+                                    <canvas
+                                        style="width: auto; height: 300px"
+                                        baseChart
+                                        [data]="doughnutChartData"
+                                        [labels]="doughnutChartLabels"
+                                        [chartType]="doughnutChartType"
+                                    >
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

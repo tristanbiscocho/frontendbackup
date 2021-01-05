@@ -1,0 +1,188 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span *ngIf="type == 'edit'" class="title dialog-title">Edit profile</span>
+            <span *ngIf="type != 'edit'" class="title dialog-title">Change
+                password</span>
+            <button mat-button class="mat-icon-button"
+                (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showLoader">
+            <div class="loader1">
+                <div>
+                    <div class="lds-ripple">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <div *ngIf="type == 'edit'">
+            <form [formGroup]="createUserForm">
+                <div>
+                    <div>
+                        <p-toast position="center"></p-toast>
+                        <div fxLayoutGap="12px">
+                            <mat-form-field fxFlex="50" fxFlex.lt-md="100" appearance="outline">
+                                <mat-label>Title</mat-label>
+                                <mat-select required formControlName="Title" placeholder="Title">
+                                    <mat-option [value]="0">Mr</mat-option>
+                                    <mat-option [value]="2">Mrs</mat-option>
+                                    <mat-option [value]="1">Miss</mat-option>
+                                    <mat-option [value]="3">Ms</mat-option>
+                                    <mat-option [value]="4">Dr</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="50" appearance="outline">
+                                <mat-label>First name</mat-label>
+                                <input formControlName="FirstName" matInput placeholder="First name" required>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="50" appearance="outline">
+                                <mat-label>Last name</mat-label>
+                                <input formControlName="LastName" matInput placeholder="Last name" required>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayoutGap="12px">
+                            <mat-form-field fxFlex="50" appearance="outline">
+                                <mat-label>Email address</mat-label>
+                                <input formControlName="EmailAddress" matInput placeholder="Email address" required>
+                                <!-- <mat-error *ngIf="!loginFormErrors.email.required && loginForm.get('email').hasError('pattern')">
+                                            Please enter a valid Email address
+                                        </mat-error> -->
+                            </mat-form-field>
+        
+                            <div fxLayoutAlign="start start" fxFlex="50">
+                                <international-phone-number fxLayoutAlign="start start" class="input-field" [(ngModel)]="phone_number" [ngModelOptions]="{standalone: true}" placeholder="Enter Phone Number" [maxlength]="20"  [required]="true" #phoneNumber="ngModel" name="phone_number"></international-phone-number>
+        
+                            </div>
+                        </div>
+                        <div fxLayoutGap="12px">
+                            <mat-form-field fxFlex="50" fxFlex.lt-md="100" appearance="outline">
+                                <mat-label>Date of birth</mat-label>
+                                <input (click)="picker.open()" formControlName="DOB" [max]="maxYear" matInput [matDatepicker]="picker" placeholder="Date of birth">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                           
+                        </div>
+                      
+                        <div fxLayoutGap="12px">
+                            <mat-form-field fxFlex="50" appearance="outline">
+                                <mat-label>Employment status</mat-label>
+                                <mat-select formControlName="EmploymentStatusId" placeholder="Employment status">
+                                   
+                                        <mat-option *ngFor="let status of epmStatus" [value]="status.Id">{{status.Value}}</mat-option>
+                                   
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field *ngIf="currentUser.RoleType == 1 || currentUser.RoleType == 5" fxFlex="50" appearance="outline">
+                                <mat-label>Residental status</mat-label>
+                                <mat-select  [disabled]="IsDisable" formControlName="ResidentalStatusId" placeholder="Residental status">
+                                    <mat-option *ngFor="let add of resStatusL" [value]="add.Id">
+                                        {{add.Value}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+        
+                        <div fxLayoutGap="12px">
+                            <mat-form-field *ngIf="currentUser.RoleType == 1 || currentUser.RoleType == 5" fxFlex="50" appearance="outline">
+                                <mat-label>Time at current address</mat-label>
+                                <mat-select [disabled]="IsDisable" formControlName="TimeOfCurrentAddress" placeholder="Time at current address">
+                                    <mat-option *ngFor="let add of timeOfCurAdd" [value]="add.Id">
+                                        {{add.Value}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field *ngIf="currentUser.RoleType == 1 || currentUser.RoleType == 5" fxFlex="50" appearance="outline">
+                                <mat-label>Where did you hear about us?</mat-label>
+                                <mat-select  [disabled]="IsDisable" formControlName="WhereDidYouhearaboutUs" placeholder="No of rooms">
+                                    <mat-option *ngFor="let add of hearAbout" [value]="add.Id">
+                                        {{add.Value}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+        
+        
+                    </div>
+                    <!-- <div fxLayoutAlign="start center" class="title-head">
+                        Payment Details
+                    </div> -->
+                    <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Sort code (6 digits)</mat-label>
+                            <input formControlName="PaymentDetails_SortCode" mask="99-99-99"  oninput="validity.valid||(value='');"  matInput placeholder="Sort code (6 digits)" required>
+                        </mat-form-field>
+        
+                        <!-- <div fxLayoutAlign="start start" fxFlex="50">
+                                <p-inputMask formControlName="PaymentDetails_SortCode" class="input-field sort-code" mask="99-99-99" placeholder="Sort Code (6 Digits)"></p-inputMask>
+                            </div> -->
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Account Number (8 Digits)</mat-label>
+                            <input formControlName="PaymentDetails_AccountNumber" oninput="validity.valid||(value='');" min="0" maxlength="8" matInput placeholder="Account Number (8 Digits)" required>
+                        </mat-form-field>
+                    </div>
+                   
+                    <div  class="mb-24">
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Account Name</mat-label>
+                            <input formControlName="PaymentDetails_AccountName" matInput placeholder="Account Name" required>
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="currentUser.RoleType == 1 || currentUser.RoleType == 5" class="mb-24">
+                        <mat-checkbox formControlName="IsElectricMeterReading">
+                            Economy 7 or 10 meter?
+                        </mat-checkbox>
+                    </div>
+        
+                    <div>
+                        <button mat-flat-button class="c-p-btn" [disabled]="createUserForm.invalid" color="accent" (click)="saveUser()">Submit</button> &nbsp; &nbsp;
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div *ngIf="type != 'edit'">
+            <form [formGroup]="updatePasswordForm">
+            <div fxLayoutGap="12px" fxLayout="column">
+                <mat-form-field appearance="outline">
+                    <mat-label>Current Password</mat-label>
+                    <input type="password" formControlName="OldPassword" matInput placeholder="Current Password" >
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input required type="password" formControlName="NewPassword" matInput
+                    placeholder="Password" required (input)="confirmPassword()">
+                   
+                    <mat-error *ngIf="!updatePasswordForm.get('NewPassword').hasError('required') &&
+                    updatePasswordForm.get('NewPassword').hasError('pattern')">
+                    The password must be alphanumeric and with no special characters.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Password (Confirm)</mat-label>
+                    <input [ngStyle]="{'caret-color': '#f44336' }" required type="password" formControlName="confirmPassword" matInput
+                                        placeholder="Password (Confirm)" required (input)="confirmPassword()">
+                                        <mat-error *ngIf="isPasswordNotMatch == true" class="errror-position">
+                                            Passwords must match
+                                        </mat-error>
+               
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-flat-button class="c-p-btn"
+                    color="accent" [disabled]="updatePasswordForm.invalid || isPasswordNotMatch == true"  (click)="updatePassword()">Change
+                    Password</button> &nbsp; &nbsp;
+            </div>
+            </form>
+        </div>
+
+    </div>
+
+
+</div>

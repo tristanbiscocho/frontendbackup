@@ -1,0 +1,67 @@
+
+
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/supplier-settings'">Supplier Settings</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Types of Home</span>
+            </p>
+        </div>
+            <div class="content">
+
+
+                <div class="home-button">
+                    <button mat-fab class="add-button"
+                        (click)="addTypeOfHome()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <p-toast position="center"></p-toast>
+            <div *ngIf="typeOfHome?.length > 0">
+                <ngx-datatable class="material striped w-100-p" [rows]="typeOfHome"
+                [columnMode]="'force'" [headerHeight]="50" [scrollbarH]="true"
+                [footerHeight]="50" [rowHeight]="'auto'"
+                [limit]="10">
+                <ngx-datatable-column [sortable]="true" prop="Value"
+                    name="Type of home">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        {{row.Value}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [sortable]="true" prop="IsActive"
+                    name="Status">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        <span *ngIf="row.IsActive == true">Active</span>
+                        <span *ngIf="row.IsActive != true">Inactive</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [sortable]="false"
+                    name="Modify">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        <button matTooltip="Edit Type Of Home" color="accent"  (click)="edithome(row)" mat-mini-fab>
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button matTooltip="Delete Type Of Home" style="background-color: rgb(213, 78, 76);"  (click)="deleteHome(row)" mat-mini-fab>
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                    </ng-template>
+                </ngx-datatable-column>
+
+            </ngx-datatable>
+            </div>
+            <div fxLayoutAlign="center center" *ngIf="typeOfHome?.length == 0">
+                <h1 style="text-align:center;font-size: medium;position: absolute;
+                top: 50%;">No Data Found</h1>
+            </div>
+           
+       
+    </div>
+</div>

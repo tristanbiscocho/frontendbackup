@@ -1,0 +1,48 @@
+@import "src/@fuse/scss/fuse";
+.confirm-payment{
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+    @include media-breakpoint-up('xs') {
+        width: 600px;
+    }
+    .mat-dialog-container {
+        padding: 0;
+        border-radius: 10px;
+    }
+    .dialog-content-wrapper {
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .primary-color-input,
+    .secondary-color-input {
+        padding: 6px 8px;
+    }
+    button {
+        border-radius: 5px;
+    }
+    .mat-toolbar-single-row {
+        padding: 8px 16px;
+    }
+   .footer {
+       background: #F6F6F6;
+   }
+   .account-details {
+        background: #FDFDFE;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border: 1px solid #E5E6EB;
+}
+  p {
+      font-weight: lighter;
+    }
+
+    b{
+        font-weight: bold;
+    }
+}
+

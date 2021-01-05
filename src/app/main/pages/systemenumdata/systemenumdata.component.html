@@ -1,0 +1,104 @@
+<div id="settings" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+
+        <div class="my-24" fxLayout.lt-sm="column" fxLayoutAlign="space-between
+            start">
+
+            <div class="header-title">
+                <p class="m-0">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span>Configuration</span>
+                </p>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="content" fxLayoutAlign="center center">
+        <div class="detail">
+            <p-toast position="center"></p-toast>
+
+            <div class="content px-12 py-12 content-filter" fxLayoutAlign="center center">
+               
+                    <div class="search-input-wrapper mx-12 m-md-0"  fxLayout="row" fxLayoutAlign="start center">
+                            <label for="search" class="mr-8">
+                                <mat-icon class="secondary-text">search</mat-icon>
+                            </label>
+                            <mat-form-field floatPlaceholder="never" >
+                                <input #filter [formControl]="searchConfiguartion" id="search" matInput placeholder="Search by type">
+                            </mat-form-field>
+
+                            <button class="mx-12" mat-flat-button style="background: rgba(199, 203, 234, 0.2);"  (click)="opendialog(null)">
+                                <mat-icon class="white-fg mt-8">
+                                    add
+                                </mat-icon> <br />
+                                Add
+                            </button>
+                        </div>
+                      
+                        <!-- <button mat-fab class="mat-accent-bg" id="add-contact-button" style="float:right;z-index:111 !important"
+                        (click)="opendialog(null)" aria-label="add contact" matTooltip="{{getLanguage('RES_KEY_ADD_CONFIG')}}">
+                        <mat-icon>add</mat-icon> -->
+                    
+        
+            </div>
+            <ngx-datatable matSort class="material" [rows]="FilteredRows" [columnMode]="'force'" [headerHeight]="48"
+            [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [limit]="10">
+
+
+
+
+            <!--<ngx-datatable-column name="{{'ID' | translate}}">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <span class="block p-t-5">{{row.Id}}</span>
+                    </ng-template>
+                </ngx-datatable-column>-->
+            <ngx-datatable-column [sortable]="true" prop="Type" name="Type">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <span class="block p-t-5">{{row.Type}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column [sortable]="true" prop="Value" name="Value">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <span class="block p-t-5">{{row.Value}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column [sortable]="true" prop="Order" name="Order">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <span class="block p-t-5">{{row.Seq}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <!-- <ngx-datatable-column name="Sequence">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <span class="block p-t-5">{{row.Seq}}</span>
+                                        </ng-template>
+            </ngx-datatable-column> -->
+
+
+
+            <ngx-datatable-column [sortable]="false" name="Action">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <a href="javascript:void(0)" attr.data-ID="{{row.ID}}">
+                        <button matTooltip="Edit Configuration" color="accent"  (click)="opendialog(row)" aria-label="Week" mat-mini-fab>
+                            <mat-icon>mode_edit</mat-icon>
+                        </button>
+                    </a>
+                    <a href="javascript:void(0)" attr.data-productId="{{row.ID}}" class="icon edit-product" >
+                        <button matTooltip="Delete Configuration"  style="background-color: rgb(213, 78, 76);" (click)="deletecity(row)" aria-label="Week" mat-mini-fab>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </a>
+                </ng-template>
+            </ngx-datatable-column>
+
+
+
+        </ngx-datatable>
+
+            
+        </div>
+
+    </div>
+
+</div>

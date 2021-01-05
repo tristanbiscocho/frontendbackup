@@ -1,0 +1,725 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+.container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0px !important;
+}
+
+/*****************************First Section*******************************/
+.Heading{
+    color: #2c2a79;
+    font-size: 35px;
+    font-family: 'Roboto Condensed', sans-serif;
+    line-height: 1;
+}
+
+.author-name{
+    color: #4f5052;
+    font-size: 25px;
+    font-weight: 900;
+    margin: 0%;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-top: 1%;
+}
+
+.account{
+    color: #4f5052;
+    font-size: 25px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 900;
+}
+
+.energy{
+    color: #77787b;
+    font-size:15px;
+    margin: 0%;
+    font-weight: bold;
+    letter-spacing: normal;
+}
+
+.address{
+    color: #4f5052;
+    font-size: 20px;
+}
+
+.bill,.billing{
+    color: #4f5052;
+    font-size:12px;
+    margin: 0%;
+    font-weight: 900;
+}
+
+.date{
+    color: #77787b;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 1%;
+}
+
+.logo{
+    width: 80%;
+}
+
+.phone{
+    color: #4f5052;
+    font-size:20px;
+    font-weight: 600;
+}
+
+.h-acdet{
+    color: #77787b;
+    font-size: 11px;
+    margin-top: 1%;
+    margin-bottom: 7%;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.bor-bott{
+    border-bottom: 1px solid #8d8c8d;
+}
+
+/*****************************Second Section*******************************/
+.cont-2{
+    background-color: #e7e8e9;
+}
+
+/*.row.no-pad > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}*/
+.table-shadow{
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 16px 18px 72px -10px rgba(141,140,141,1);
+}
+
+.estimated-hading,.statement-hading{
+    font-size: 20px;
+}
+
+.table-top-radi{
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.table-color {
+    background-color: #f3f5f7;
+}
+
+.table-hadi-data{
+    font-size: 14px;
+    color: #808285;
+}
+
+.row-hadi-data{
+    font-size: 18px;
+}
+
+.table-bor-bott{
+    border-bottom: 0.5px solid #c0c0c0;
+    vertical-align: bottom;
+}
+
+.table-bott-radi{
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.meter-read-back-color{
+    background-color: #e7e8e9;
+    border-bottom: 5px solid #a7a9ac;
+}
+
+.table-section-border{
+    border-bottom: 1px solid #8d8c8d;
+}
+
+/*****************************Third Section*******************************/
+
+.verticle-txt{
+    // transform: rotate(90deg);
+    // transform-origin: top left;
+    // margin-left: 4rem;
+    // color: #852c98;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    padding-bottom: 20px;
+    padding-right: 20px;
+    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif!important;
+}
+
+
+
+  .state-table-radi{
+    border-radius: 20px;
+    background-color: #3e8bca;
+  }
+
+  .state-data{
+    text-align: left;
+    font-size: small;
+  }
+
+  .state-end-value{
+    text-align: right;
+    font-size: large;
+  }
+
+  .state-end-data{
+    text-align: left;
+    font-size: large;
+  }
+
+  .state-value{
+    text-align: right;
+    font-size: small;
+  }
+
+  .state-bott-bor{
+      font-weight: bold;
+      border-bottom: 2px solid #abd1f9;
+  }
+
+/*****************************Fourth Section*******************************/
+.pay-message{
+    font-size: 25px;
+}
+
+.b-pay-due{
+    color: #414142;
+}
+
+/*.triangle-right {
+	width: 0;
+	height: 0;
+	border-top: 25px solid transparent;
+	border-left: 50px solid #555;
+    border-bottom: 25px solid transparent;
+    float: right;
+}*/
+
+.pay-mess{
+    font-size: 11px;
+    color: #414142;
+}
+
+.month{
+    color: #00569d;
+    font-size: large;
+    margin: 0%;
+}
+
+.sin-date{
+    color: #00569d;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 60px;
+    margin: 0%;
+    padding: 0%;
+}
+
+#talkbubble {
+    width: 95%;
+    height: auto;
+    background: #57b947;
+    position: relative;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius:15px;
+  }
+  #talkbubble:before {
+    content: "";
+    position: absolute;
+    left: 98%;
+    top: 9px;
+    border-left: 20px solid #57b947;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-top: 20px solid transparent;
+  }
+
+/*****************************Fourth Section*******************************/
+.speak-team{
+    color: #3e8bca;
+    font-size: 19px;
+}
+
+.support-link{
+    color: #373737;
+    font-size: 25px;
+}
+
+.company-address{
+    font-size: 18px;
+}
+
+/*****************************Media Section*******************************/
+
+ /* Extra small devices (phones, 600px and down) */
+ @media only screen and (max-width: 600px) {
+    .logo{
+        width: 160px;
+    }
+    .Heading{
+        font-size: 30px;
+    }
+    .state-data{
+        margin-left: 0%;
+        font-size: small;
+    }
+    
+    .state-end-value{
+        margin-left: auto;
+        font-size: large;
+    }
+    
+    .state-end-data{
+        margin-left:0%;
+        font-size: large;
+    }
+    
+    .state-value{
+        margin-left: auto;
+        font-size: small;
+    }
+
+    .support-link{
+        font-size: 15px;
+    }
+    
+ }
+
+ /* Small devices (portrait tablets and large phones, 600px and up) */
+ @media only screen and (min-width: 600px) {
+    .state-data{
+        margin-left: 0%;
+        font-size: small;
+    }
+    
+    .state-end-value{
+        margin-left: auto;
+        font-size: large;
+    }
+    
+    .state-end-data{
+        margin-left:0%;
+        font-size: large;
+    }
+    
+    .state-value{
+        margin-left: auto;
+        font-size: small;
+    }
+    
+ }
+ 
+ /* Medium devices (landscape tablets, 768px and up) */
+ @media only screen and (min-width: 768px) {
+ }
+ 
+ /* Large devices (laptops/desktops, 992px and up) */
+ @media only screen and (max-width: 992px) {
+    .support-link{
+        font-size: 20px;
+    }
+ }
+ 
+ /* Extra large devices (large laptops and desktops, 1200px and up) */
+ @media only screen and (min-width: 1200px) {
+    
+ } 
+
+
+
+
+ @import "src/@fuse/scss/fuse";
+
+invoice-modern {
+
+    #invoice {
+
+        &.modern {
+            padding: 0;
+
+            .invoice-container {
+                padding: 64px;
+                width: 100%;
+                @include media-breakpoint('sm') {
+                    padding: 24px;
+                }
+                @include media-breakpoint('xs') {
+                    padding: 24px;
+                }
+                .card {
+                    width: 100%;
+                    min-width: 100%;
+                    max-width: 100%;
+                    padding: 88px;
+                    @include media-breakpoint('sm') {
+                        padding: 12px;
+                    }
+                    @include media-breakpoint('xs') {
+                        padding: 12px;
+                    }
+                    overflow: hidden;
+                    background: #FFFFFF;
+                    @include mat-elevation(7);
+
+                    .header {
+
+                        .ids {
+                            line-height: 22px;
+                            color: rgba(0, 0, 0, 0.54);
+                            width: 50%;
+
+                            .detail {
+                                width: 230px;
+                            }
+
+                            .seller {
+                                margin-bottom: 80px;
+
+                                .logo {
+                                    width: 156px;
+                                }
+                            }
+
+                            .client {
+
+                                .label {
+                                    width: 156px;
+                                    font-size: 24px;
+                                    font-weight: 300;
+                                }
+                            }
+
+                            .divider {
+                                width: 1px;
+                                margin: 0 48px;
+                                background-color: rgba(0, 0, 0, 0.12);
+                                height: 144px;
+                            }
+                        }
+
+                        .summary {
+                            font-size: 15px;
+
+                            .label {
+                                color: rgba(0, 0, 0, 0.54);
+                                text-align: right;
+                                padding-right: 16px;
+                            }
+
+                            .value {
+                                color: rgba(0, 0, 0, 1);
+                            }
+
+                            .code {
+                                font-size: 35px;
+                                font-weight: 300;
+
+                                td {
+                                    padding-bottom: 32px;
+                                }
+                            }
+                        }
+                    }
+
+                    .content {
+
+                        .invoice-table {
+                            margin-top: 96px;
+                            font-size: 15px;
+                            color: rgba(0, 0, 0, 0.87);
+
+                            thead {
+
+                                tr {
+
+                                    th {
+                                        color: rgba(0, 0, 0, 0.87);
+                                        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+                                    }
+                                }
+                            }
+
+                            tbody {
+
+                                tr {
+
+                                    td {
+                                        color: rgba(0, 0, 0, 0.87);
+                                        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+                                    }
+                                }
+                            }
+
+                            .title {
+                                font-size: 17px;
+                            }
+
+                            .detail {
+                                margin-top: 8px;
+                                font-size: 12px;
+                                color: rgba(0, 0, 0, 0.54);
+                                max-width: 360px;
+                            }
+                        }
+
+                        .invoice-table-footer {
+                            margin: 32px 0 96px 0;
+
+                            tr {
+
+                                td {
+                                    text-align: right;
+                                    font-size: 17px;
+                                    font-weight: 500;
+                                    color: rgba(0, 0, 0, 0.54);
+                                    border-bottom: none;
+                                    padding: 8px 8px;
+
+                                    &:first-child {
+                                        text-align: left;
+                                    }
+                                }
+
+                                &.discount {
+
+                                    td {
+                                        padding-bottom: 32px;
+                                    }
+                                }
+
+                                &.total {
+
+                                    td {
+                                        padding: 32px 8px;
+                                        // border-top: 1px solid rgba(0, 0, 0, 0.12);
+                                        font-size: 35px;
+                                        font-weight: 300;
+                                        color: rgba(0, 0, 0, 1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .footer {
+
+                        .note {
+                            font-size: 15px;
+                            font-weight: 500;
+                            margin-bottom: 24px;
+                        }
+
+                        // IE10 fix
+                        .logo, .small-note {
+                            -ms-flex: 0 1 auto;
+                        }
+
+                        .logo {
+                            width: 32px;
+                            min-width: 32px;
+                            margin-right: 24px;
+                        }
+
+                        .small-note {
+                            font-size: 12px;
+                            font-weight: 500;
+                            color: rgba(0, 0, 0, 0.54);
+                            line-height: 18px;
+                        }
+                    }
+                }
+            }
+        }
+ /* PRINT STYLES */
+ @media print {
+
+    /* Invoice Specific Styles */
+    #invoice {
+
+        &.modern {
+            background: white;
+
+            .invoice-container {
+                padding: 0;
+
+                .card {
+                    width: 100%;
+                    min-width: 0;
+                    background: none;
+                    padding: 0;
+                    box-shadow: none;
+
+                    .header {
+
+                        .ids {
+
+                            .detail {
+                                width: 120pt;
+                            }
+
+                            .seller {
+                                margin-bottom: 8pt;
+
+                                .logo {
+                                    width: 60pt;
+                                }
+                            }
+
+                            .client {
+
+                                .label {
+                                    width: 60pt;
+                                    font-size: 16pt;
+                                }
+                            }
+
+                            .divider {
+                                margin: 0 12pt;
+                                height: 100pt;
+                            }
+                        }
+
+                        .summary {
+                            font-size: 10pt;
+
+                            .code {
+                                font-size: 18pt;
+
+                                td {
+                                    padding-bottom: 10pt;
+                                }
+                            }
+                        }
+                    }
+
+                    .content {
+
+                        .invoice-table {
+                            margin-top: 16pt;
+
+                            thead {
+
+                                tr {
+
+                                    th {
+                                        font-size: 10pt;
+                                        max-width: 60pt;
+
+                                        &:first-child {
+                                            padding-left: 0;
+                                        }
+
+                                        &:last-child {
+                                            padding-right: 0;
+                                        }
+                                    }
+                                }
+                            }
+
+                            tbody {
+
+                                tr {
+
+                                    td {
+
+                                        &:first-child {
+                                            padding-left: 0;
+                                        }
+
+                                        &:last-child {
+                                            padding-right: 0;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .title {
+                                font-size: 10pt;
+                            }
+
+                            .detail {
+                                margin-top: 4pt;
+                                font-size: 9pt;
+                                max-width: none;
+                            }
+                        }
+
+                        .invoice-table-footer {
+                            margin: 16pt 0;
+
+                            tr {
+
+                                td {
+                                    font-size: 13pt;
+                                    padding: 4pt 4pt;
+
+                                    &:first-child {
+                                        text-align: left;
+                                        padding-left: 0;
+                                    }
+
+                                    &:last-child {
+                                        padding-right: 0;
+                                    }
+                                }
+
+                                &.discount {
+
+                                    td {
+                                        padding-bottom: 16pt;
+                                    }
+                                }
+
+                                &.total {
+
+                                    td {
+                                        padding: 16pt 4pt 0 4pt;
+                                        font-size: 16pt;
+
+                                        &:first-child {
+                                            padding-left: 0;
+                                        }
+
+                                        &:last-child {
+                                            padding-right: 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .footer {
+
+                        .note {
+                            font-size: 10pt;
+                            margin-bottom: 8pt;
+                        }
+
+                        .logo {
+                            font-size: 14pt;
+                            margin-right: 8pt;
+                        }
+
+                        .small-note {
+                            font-size: 8pt;
+                            line-height: normal;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+    }
+}

@@ -1,0 +1,96 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" *ngIf="supplierDetails == undefined">Add plan</span>
+            <span class="title dialog-title" *ngIf="!!supplierDetails">Edit plan</span>
+            <button mat-button class="mat-icon-button" (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showLoader">
+        <div class="loader1">
+            <div>
+                <div class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <form [formGroup]="AddPlanForm">
+        <div>
+            <div>
+                <p-toast position="center"></p-toast>
+
+                <div fxLayoutGap="12px">
+                    <mat-form-field fxFlex="100" appearance="outline">
+                        <mat-label>Plan title</mat-label>
+                        <input matInput placeholder="Plan title" formControlName="PlanName" required>
+                    </mat-form-field>
+                </div>
+
+                <div class="mb-16" fxLayoutGap="12px">
+                    <h3>
+                        Type
+                    </h3>
+                    <div class="selection-wrapper">
+                        <mat-radio-group formControlName="PlanType" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="start center" fxLayoutAlign="space-between center" aria-label="Select an option">
+                            <div fxFlex="50" class="radio-button">
+                                <mat-radio-button [value]="1">
+                                    <div fxLayoutAlign="start center">
+                                        <span fxHide fxShow.gt-sm class="ml-8">Yearly</span>
+                                    </div>
+                                </mat-radio-button>
+                            </div>
+                            <div fxLayoutAlign="center center" class="p-12">OR</div>
+                            <div fxFlex="50" class="radio-button">
+                                <mat-radio-button [value]="2">
+                                    <div fxLayout.lt-md="column" fxLayoutAlign="start center">
+                                        <span fxHide fxShow.gt-sm class="ml-8">Quarterly</span>
+                                    </div>
+                                </mat-radio-button>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mb-16" fxLayoutGap="12px">
+                <h3>
+                    Status
+                </h3>
+                <div class="selection-wrapper">
+                    <mat-radio-group formControlName="Status" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="start center" fxLayoutAlign="space-between center" aria-label="Select an option">
+                        <div fxFlex="50" class="radio-button">
+                            <mat-radio-button [value]="1">
+                                <div fxLayoutAlign="start center">
+                                    <span fxHide fxShow.gt-sm class="ml-8">Active</span>
+                                </div>
+                            </mat-radio-button>
+                        </div>
+                        <div fxLayoutAlign="center center" class="p-12">OR</div>
+                        <div fxFlex="50" class="radio-button">
+                            <mat-radio-button [value]="0">
+                                <div fxLayout.lt-md="column" fxLayoutAlign="start center">
+                                    <span fxHide fxShow.gt-sm class="ml-8">Inactive</span>
+                                </div>
+                            </mat-radio-button>
+                        </div>
+                    </mat-radio-group>
+                </div>
+
+            </div>
+            <div>
+                <button mat-flat-button class="c-p-btn" *ngIf="supplierDetails == undefined" color="accent" [disabled]="AddPlanForm.invalid" (click)="addPlan()">Add Plan</button> &nbsp; &nbsp;
+                <button mat-flat-button class="c-p-btn" *ngIf="!!supplierDetails" color="accent" [disabled]="AddPlanForm.invalid || AddPlanForm.pristine" (click)="editPlan()">Edit Plan</button> &nbsp; &nbsp;
+
+            </div>
+        </div>
+    </form>
+    </div>
+
+
+</div>

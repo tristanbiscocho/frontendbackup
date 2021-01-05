@@ -1,0 +1,256 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="language-absolute-class">
+        <app-language-change></app-language-change>
+    </div>
+    <div class="detail">
+        <div
+            class="mb-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between start"
+        >
+            <div class="header-title">
+                <!-- <h1 class="mt-0">Welcome back, Mark Thomas!</h1> -->
+
+                <h1 class="mt-0">Welcome back, {{ userName }}!</h1>
+                <h2>Dashboard</h2>
+            </div>
+
+            <mat-card
+                fxFlex="20"
+                style="border-radius: 0px"
+                class="p-0 credit-card"
+                fxLayoutGap="12px"
+                fxLayout="row"
+                [routerLink]="
+                    '/reff-Customer/  ' +
+                    currentUser.Id +
+                    '/' +
+                    currentUser.FirstName +
+                    '/' +
+                    2
+                "
+            >
+                <div fxFlex="30" class="bg-theme p-12">
+                    <img width="50" src="assets/images/logos/creadit.png" />
+                </div>
+
+                <div class="py-4" fxLayoutAlign="center end" fxLayout="column">
+                    <h1 class="m-0 credits">€{{ currentUser.UserCredit }}</h1>
+                    <h3 class="m-0">Your Vouchers</h3>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <div class="content" style="min-height: 70%" fxLayoutAlign="center center">
+        <div class="detail">
+            <div fxLayoutGap="24px" fxLayout="column">
+                <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <mat-card
+                        [routerLink]="'/mails/inbox'"
+                        fxFlex="50"
+                        style="cursor: pointer"
+                        class="credit-card p-20"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/message.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="my-24 alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <p
+                                fxLayoutAlign="center center"
+                                class="count my-12"
+                            >
+                                Messages
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        [routerLink]="'/my-profile'"
+                        fxFlex="50"
+                        style="cursor: pointer"
+                        class="credit-card p-20"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/profile.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="my-24 alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <p
+                                fxLayoutAlign="center center"
+                                class="count my-12"
+                            >
+                                My Profile
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/switch-history'"
+                        fxFlex="50"
+                        style="cursor: pointer"
+                        class="credit-card p-20"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/switches.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="my-24 alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <p
+                                fxLayoutAlign="center center"
+                                class="count my-12"
+                            >
+                                My Switches
+                            </p>
+                        </div>
+                    </mat-card>
+                </div>
+                <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <mat-card
+                        [routerLink]="'/my-referrals'"
+                        fxFlex="50"
+                        style="cursor: pointer"
+                        class="credit-card p-20"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/referrals.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="my-24 alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <p
+                                fxLayoutAlign="center center"
+                                class="count my-12"
+                            >
+                                My Referrals
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        (click)="navigate()"
+                        fxFlex="50"
+                        style="cursor: pointer"
+                        class="credit-card p-20"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/configuration.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="my-24 alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <p
+                                fxLayoutAlign="center center"
+                                class="count my-12"
+                            >
+                                Support
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card fxFlex="50" style="visibility: hidden"></mat-card>
+                </div>
+
+                <!-- <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <mat-card
+                        (click)="navigate()"
+                        fxFlex="50"
+                        style="cursor: pointer"
+                        class="credit-card p-20"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/configuration.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="my-24 alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <p
+                                fxLayoutAlign="center center"
+                                class="count my-12"
+                            >
+                                Support
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        [routerLink]="'/my-tickets'"
+                        fxFlex="50"
+                        style="cursor: pointer"
+                        class="credit-card p-20"
+                        fxLayout="column"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/referrals.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div
+                            class="my-24 alignment-card-text"
+                            
+                            fxLayout="column"
+                        >
+                            <p
+                                fxLayoutAlign="center center"
+                                class="count my-12"
+                            >
+                                My Tickets
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card fxFlex="50" style="visibility: hidden"></mat-card>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

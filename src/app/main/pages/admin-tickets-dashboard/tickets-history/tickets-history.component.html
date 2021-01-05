@@ -1,0 +1,151 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Activities</span>
+            <button
+                mat-button
+                class="mat-icon-button"
+                (click)="dialogRef.close()"
+                aria-label="Close dialog"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showLoader">
+        <div class="loader1">
+            <div>
+                <div class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-content class="p-16 m-0" fusePerfectScrollbar>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="activity success ">
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <div class="user-name h2 font-weight-700">
+                                Demo User
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="badge bg-primary text-white">
+                                Created
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <div class="reply-text">
+                                Created a new Ticket set status as open.
+                                priority as urgent, as support
+                            </div>
+                            <div class="reply-date">
+                                <b>Aug, 18 2020 2:15 PM</b>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="badge bg-danger text-white">
+                                Priority - Urgent
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity blue ">
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <div class="user-name h2 font-weight-700">
+                                Demo User
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="badge bg-primary text-white">
+                                Created
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <div class="reply-text">
+                                Created a new Ticket set status as open.
+                                priority as urgent, as support
+                            </div>
+                            <div class="reply-date">
+                                <b>Aug, 18 2020 2:15 PM</b>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="badge bg-danger text-white">
+                                Priority - Urgent
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity success ">
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <div class="user-name h2 font-weight-700">
+                                Demo User
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="badge bg-primary text-white">
+                                Created
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <div class="reply-text">
+                                Created a new Ticket set status as open.
+                                priority as urgent, as support
+                            </div>
+                            <div class="reply-date">
+                                <b>Aug, 18 2020 2:15 PM</b>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="badge bg-danger text-white">
+                                Priority - Urgent
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity blue ">
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <div class="user-name h2 font-weight-700">
+                                Demo User
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="badge bg-primary text-white">
+                                Created
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <div class="reply-text">
+                                Created a new Ticket set status as open.
+                                priority as urgent, as support
+                            </div>
+                            <div class="reply-date">
+                                <b>Aug, 18 2020 2:15 PM</b>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="badge bg-danger text-white">
+                                Priority - Urgent
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,465 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard / </label>
+                <label [routerLink]="'/settings'">Settings / </label>
+                <label [routerLink]="'/template'">Templates / </label>
+                <span>Add workflow</span>
+            </p>
+        </div>
+        <div class="content">
+            <div>
+                <div *ngIf="this.workflowID && this.workflowdata == undefined" fxLayoutAlign="center center" class="h-100-p">
+                    <div class="loader"></div>
+                </div>
+                <div class="content" fusePerfectScrollbar *ngIf="!this.workflowID || (this.workflowID && this.workflowdata != undefined) ">
+                    <mat-horizontal-stepper [linear]="true" #stepper class="w-100-p">
+                        <!--stepper 1 (Baasic information)-->
+                        <mat-step [stepControl]="horizontalStepperformStep1">
+                            <form name="form" [formGroup]="horizontalStepperformStep1">
+                                <ng-template matStepLabel>Basic Information</ng-template>
+                                <div>
+                                    <div fxFlex="50">
+    
+                                        <div>
+                                            <mat-form-field fxFlex="100">
+                                                <mat-select placeholder="Module" formControlName="module"
+                                                    (selectionChange)="GetFeild()" [(ngModel)]="ObjValue" required>
+                                                    <mat-option *ngFor="let obj of this.Objects" [value]="obj.ID">
+                                                        {{obj.Description}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <mat-form-field fxFlex="100">
+                                                <input formControlName="name" [(ngModel)]="WorkFlowName" matInput
+                                                    placeholder="Name" required>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="w-100-p bottomborder" fxLayout="row" fxLayoutAlign="start center"
+                                            fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+                                            Status
+                                            <mat-slide-toggle formControlName="status" [(ngModel)]="Status"></mat-slide-toggle>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="50" class="pl-24">
+                                        <mat-form-field fxFlex="100">
+                                            <textarea matInput formControlName="description" [(ngModel)]="Description"
+                                                placeholder="Description" rows="8"></textarea>
+                                        </mat-form-field>
+                                    </div>
+    
+                                </div>
+    
+                                <br /><br />
+                                <div fxLayoutAlign="center center">
+                                    <button mat-raised-button color="primary" [disabled]="horizontalStepperformStep1.invalid || horizontalStepperformStep1.pristine"
+                                        matStepperNext>Next</button>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <!--/stepper 1 (Baasic information)-->
+                        <!--stepper 2 (Execute on)-->
+                        <mat-step [stepControl]="ExecutionOnForm">
+                            <form [formGroup]="ExecutionOnForm">
+                                <ng-template matStepLabel>Execute on</ng-template>
+                                <div class="w-100-p" fxLayoutAlign="center center">
+                                    <br />
+                                    <mat-radio-group (change)="Deselect()" [(ngModel)]="chooseexecution" class="mt-12"
+                                        formControlName="chooseexecution">
+                                        <mat-radio-button class="RadioHeader primary-fg" value="1">Event based</mat-radio-button>
+                                        <mat-radio-button class="RadioHeader primary-fg" value="2">Schedule workflow</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+    
+                                <mat-divider></mat-divider>
+                                <div style="height: 250px;">
+                                    <div *ngIf="chooseexecution=='1'">
+                                        <mat-radio-group formControlName="eventBased" [(ngModel)]="ExecutedOn">
+                                            <div class="radio">
+                                                <mat-radio-button [value]="2">
+                                                    <div class="RadioHeader  primary-fg">Create</div>
+                                                </mat-radio-button>
+                                                <div class="Radiodescription">Execute the workflow when a record is created in the Leads Module.</div>
+                                            </div><br />
+                                            <div class="radio">
+                                                <mat-radio-button [value]="4">
+                                                    <div class="RadioHeader  primary-fg">Edit</div>
+                                                </mat-radio-button>
+                                                <div class="Radiodescription">Execute the workflow when an Existing record is edited in the Leads Module.</div>
+                                            </div><br />
+                                            <div class="radio">
+                                                <mat-radio-button [value]="6">
+                                                    <div class="RadioHeader primary-fg">Delete</div>
+    
+                                                </mat-radio-button>
+                                                <div class="Radiodescription">Execute the workflow when a record is deleted in the Leads Module.</div>
+                                            </div><br />
+                                        </mat-radio-group><br />
+                                    </div>
+                                    <div *ngIf="chooseexecution=='2'">
+                                        <div class="w-100-p" fxLayout="row">
+                                            <div class="w-30-p p-12" style="border-right:1px solid #929292;height:250px;"
+                                                fxLayout="column">
+                                                <mat-radio-group class="example-radio-group" [(ngModel)]="schedulesetting"
+                                                    formControlName="CronType">
+                                                    <mat-radio-button class="example-radio-button" value="OneTime">
+                                                        One Time
+                                                    </mat-radio-button>
+                                                    <mat-radio-button class="example-radio-button" value="Daily">
+                                                       Daily
+                                                    </mat-radio-button>
+                                                    <mat-radio-button class="example-radio-button" value="Weekly">
+                                                        Weekly
+                                                    </mat-radio-button>
+                                                    <mat-radio-button class="example-radio-button" value="Monthly">
+                                                        Monthly
+                                                    </mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                            <div class="w-70-p p-12">
+    
+                                                <div class="timeZone">
+                                                    <div class="w-100-p" *ngIf="schedulesetting=='OneTime'">
+                                                        <mat-form-field class="pr-12 w-50-p">
+                                                            <input (click)="picker.open()" matInput [matDatepicker]="picker" placeholder="Start date"
+                                                                [(ngModel)]="date" formControlName="Date">
+                                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                            <mat-datepicker #picker></mat-datepicker>
+                                                        </mat-form-field>
+                                                        <mat-form-field class="w-40-p">
+                                                            <input matInput placeholder="Time"
+                                                                formControlName="Time" [(ngModel)]="time" type="time">
+                                                        </mat-form-field>
+                                                    </div>
+    
+                                                    <div *ngIf="schedulesetting=='Daily'">
+                                                        <span>Enter time:</span>
+                                                        <mat-form-field class="w-40-p">
+                                                            <input matInput placeholder="Time"
+                                                                formControlName="TimeDaily" [(ngModel)]="dailytime" type="time">
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div *ngIf="schedulesetting=='Weekly'">
+                                                        <mat-form-field class="w-90-p">
+                                                            <mat-select placeholder="Select a day"
+                                                                [(ngModel)]="dayweekly" formControlName="DayWeekly">
+                                                                <mat-option *ngFor="let dd of week" [value]="dd">{{dd}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field><br />
+                                                        <mat-form-field class="w-90-p">
+                                                            <input matInput placeholder="Time"
+                                                                formControlName="TimeWeekly" [(ngModel)]="timeweekly" type="time">
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div *ngIf="schedulesetting=='Monthly'">
+                                                        <div class="w-100-p">
+                                                            <span class="w-10-p">Every months:</span>
+                                                            <mat-form-field class="w-90-p">
+                                                                <mat-select placeholder="Week"
+                                                                    formControlName="DayMonthly" [(ngModel)]="daymonthly">
+                                                                    <mat-option *ngFor="let weekday of week" [value]="weekday">{{weekday}}</mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field><br />
+                                                            <mat-form-field class="w-90-p">
+                                                                <input matInput placeholder="Time"
+                                                                    formControlName="TimeMonthly" [(ngModel)]="timemonthly"
+                                                                    type="time">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <mat-divider></mat-divider>
+                                <br />
+                                <br />
+                                <div fxLayoutAlign="center center">
+                                    <button mat-raised-button matStepperPrevious color="basic" class="btnborder">Previous</button>&nbsp;
+                                    <button *ngIf="chooseexecution=='1'" mat-raised-button matStepperNext [disabled]="ExecutionOnForm.invalid || ExecutionOnForm.pristine || ExecutedOn==null"
+                                        (click)="doSomething($event)" color="primary" class="btnborder">Next</button>
+                                    <button *ngIf="chooseexecution=='2'" mat-raised-button matStepperNext [disabled]="(ExecutionOnForm.invalid || ExecutionOnForm.pristine ||schedulesetting==null)"
+                                        color="primary" class="btnborder">Next</button>
+                                </div>
+    
+                                <br />
+                            </form>
+                        </mat-step>
+                        <!--/stepper 2 (Execute on)-->
+                        <!--stepper 3 (Rule Criteria)-->
+                        <mat-step [stepControl]="horizontalStepperformStep3">
+                            <ng-template matStepLabel>Rule criteria</ng-template>
+                            <div id="builder">
+                                
+                            </div>
+                            <br />
+                            <br />
+                            <div fxLayoutAlign="center center">
+                                <button mat-raised-button color="basic" class="btnborder" mat-button matStepperPrevious>Previous</button>
+                                &nbsp; &nbsp;
+                                <button mat-raised-button color="primary" class="btnborder" mat-button matStepperNext>Next</button>
+    
+                            </div>
+                            <br />
+                        </mat-step>
+                        <!--/stepper 3 (Rule Criteria)-->
+                        <!--stepper 4 (Action)-->
+                        <mat-step [stepControl]="horizontalStepperformStep4">
+                            <ng-template matStepLabel>Action</ng-template>
+                            <div>
+                                <div>
+                                    <div class="menu pmd-floating-action" role="navigation">
+                                        <a (click)="AddEmailAction()" href="javascript:void(0);" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default"
+                                            data-title="Email">
+                                            <span class="pmd-floating-hidden">Email</span>
+                                            <i class="material-icons">mail</i>
+                                        </a>
+                                        <a (click)="AddSMSAction()" href="javascript:void(0);" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default"
+                                            data-title="SMS">
+                                            <span class="pmd-floating-hidden">SMS</span>
+                                            <i class="material-icons">speaker_notes</i>
+                                        </a>
+                                        <a (click)="AddPushNotification()" href="javascript:void(0);" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default"
+                                            data-title="Push Notification">
+                                            <span class="pmd-floating-hidden">Push notification</span>
+                                            <i class="material-icons">notifications_active</i>
+                                        </a>
+                                        <a class="pmd-floating-action-btn btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-primary"
+                                            data-title="Add" href="javascript:void(0);">
+                                            <span class="pmd-floating-hidden">ADD</span>
+                                            <i class="material-icons pmd-sm">add</i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div *ngIf="!this.workflowID">
+                                    <div fxFlex="45" class="ml-24" style="border:0.5px solid rgba(0, 0, 0, 0.12)">
+                                        <div class="w-100-p pl-12" style="background-color:#f4f4f4;line-height:3;border-left:0.5px solid rgba(0, 0, 0, 0.12)">
+                                            <span class="primary-fg">Action list</span>
+    
+                                        </div>
+                                        <div *ngFor="let action of this.EMAILEventConfiguration; let i = index;trackBy: customTrackBy">
+                                            <div *ngIf="action.ActionType ==1" style="cursor:pointer" (click)="AddConfigData(action)"
+                                                fxLayout="row" fxLayoutAlign="space-between center">
+                                                <div>
+                                                    <p class="messageType">
+                                                        <mat-icon style="margin-right:5px;">email</mat-icon>{{action.Name}}
+                                                    </p>
+                                                </div>
+    
+                                                <div fxLayoutAlign="end center">
+                                                    <button (click)="Delete(action)" mat-mini-fab class="mat-icon-button closebtn mat-primary-bg">
+                                                        <mat-icon>close</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+    
+                                            <mat-divider *ngIf="action.ActionType ==1"></mat-divider>
+                                            <div *ngIf="action.ActionType ==2" style="cursor:pointer" (click)="AddConfigData(action)"
+                                                fxLayout="row" fxLayoutAlign="space-between center">
+                                                <div>
+                                                    <p class="messageType">
+                                                        <mat-icon style="margin-right:5px;">comment</mat-icon>{{action.Name}}
+                                                    </p>
+                                                </div>
+                                                <div fxLayoutAlign="end center">
+                                                    <button (click)="Delete(action)" mat-mini-fab class="mat-icon-button closebtn mat-primary-bg">
+                                                        <mat-icon>close</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <mat-divider *ngIf="action.ActionType ==2"></mat-divider>
+                                            <div *ngIf="action.ActionType ==3" style="cursor:pointer" (click)="AddConfigData(action)"
+                                                fxLayout="row" fxLayoutAlign="space-between center">
+                                                <div>
+                                                    <p class="messageType">
+                                                        <mat-icon style="margin-right:5px;">comment</mat-icon>{{action.Name}}
+                                                    </p>
+                                                </div>
+                                                <div fxLayoutAlign="end center">
+                                                    <button (click)="Delete(action)" mat-mini-fab class="mat-icon-button closebtn mat-primary-bg">
+                                                        <mat-icon>close</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <mat-divider *ngIf="action.ActionType ==3"></mat-divider>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="45" class="ml-24" style="border:0.5px solid rgba(0, 0, 0, 0.12)">
+                                        <div class="w-100-p pl-12" style="background-color:#f4f4f4;line-height:3">
+                                            <span class="primary-fg">Configuration</span>
+                                        </div>
+    
+                                        <div *ngFor="let choice of this.EMAILEventConfiguration; let i = index;trackBy: customTrackBy">
+                                            <div *ngIf="this.currentactionid == this.EMAILEventConfiguration[i].ActionID">
+                                                <div class="pl-12 pr-12">
+                                                    <mat-form-field fxFlex="100" class="example-full-width">
+                                                        <input matInput [(ngModel)]="this.EMAILEventConfiguration[i].Name"
+                                                            (change)="ChangeName(choice)" placeholder="Configuration name">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="pl-12 pr-12">
+                                                    <button mat-mini-fab style="float:right" (click)="addFiled()">
+                                                        <mat-icon>add</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="pl-12 pr-12">
+    
+                                                    <mat-form-field fxFlex="100" class="example-full-width">
+                                                        <input matInput [(ngModel)]="this.EMAILEventConfiguration[i].TO"
+                                                            placeholder="Send to">
+    
+    
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="pl-12 pr-12">
+                                                    <mat-form-field fxFlex="100" class="example-full-width">
+                                                        <mat-select placeholder="Template" [(ngModel)]="this.EMAILEventConfiguration[i].Template">
+                                                            <mat-option *ngFor="let template of this.Templates" [value]="template.ID">
+                                                                {{template.Name}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="pl-12 pr-12">
+                                                    <mat-form-field fxFlex="100" class="example-full-width">
+                                                        <input matInput [(ngModel)]="this.EMAILEventConfiguration[i].Additional_Data"
+                                                            placeholder="Additional data">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+    
+                                        </div>
+    
+                                        <br />
+    
+                                    </div>
+                                </div>
+    
+                                <!--EDIT ACTIONS-->
+                                <div *ngIf="this.workflowID && this.workflowdata != undefined && this.EMAILEventConfiguration !=undefined && this.EMAILEventConfiguration.length >0">
+    
+                                    <div fxFlex="45" class="ml-24" style="border:0.5px solid rgba(0, 0, 0, 0.12)">
+                                        <div class="w-100-p pl-12" style="background-color:#f4f4f4;line-height:3;border-left:0.5px solid rgba(0, 0, 0, 0.12)">
+                                            <span class="primary-fg">Action list</span>
+    
+                                        </div>
+                                        <div *ngFor="let action of this.EMAILEventConfiguration; let i = index;trackBy: customTrackBy">
+    
+                                            <div *ngIf="action.Action_InputData.ActionType ==1" style="cursor:pointer"
+                                                (click)="EditConfigData(action)" fxLayout="row" fxLayoutAlign="space-between center">
+                                                <div>
+                                                    <p class="messageType">
+                                                        <mat-icon style="margin-right:5px;">email</mat-icon>{{action.Action_InputData.Name}}
+                                                    </p>
+                                                </div>
+    
+                                                <div fxLayoutAlign="end center">
+                                                    <button (click)="DeleteAction(action)" mat-mini-fab class="mat-icon-button closebtn">
+                                                        <mat-icon>close</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+    
+                                            <mat-divider *ngIf="action.Action_InputData.ActionType ==1"></mat-divider>
+                                            <div *ngIf="action.Action_InputData.ActionType ==2" style="cursor:pointer"
+                                                (click)="EditConfigData(action)" fxLayout="row" fxLayoutAlign="space-between center">
+                                                <div>
+                                                    <p class="messageType">
+                                                        <mat-icon style="margin-right:5px;">comment</mat-icon>{{action.Action_InputData.Name}}
+                                                    </p>
+                                                </div>
+                                                <div fxLayoutAlign="end center">
+                                                    <button (click)="DeleteAction(action)" mat-mini-fab class="mat-icon-button closebtn">
+                                                        <mat-icon>close</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <mat-divider *ngIf="action.Action_InputData.ActionType ==2"></mat-divider>
+                                            <div *ngIf="action.Action_InputData.ActionType ==3" style="cursor:pointer"
+                                                (click)="EditConfigData(action)" fxLayout="row" fxLayoutAlign="space-between center">
+                                                <div>
+                                                    <p class="messageType">
+                                                        <mat-icon style="margin-right:5px;">notifications_active</mat-icon>{{action.Action_InputData.Name}}
+                                                    </p>
+                                                </div>
+                                                <div fxLayoutAlign="end center">
+                                                    <button (click)="DeleteAction(action)" mat-mini-fab class="mat-icon-button closebtn">
+                                                        <mat-icon>close</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="45" class="ml-24" style="border:0.5px solid rgba(0, 0, 0, 0.12)">
+                                        <div class="w-100-p pl-12" style="background-color:#f4f4f4;line-height:3">
+                                            <span class="primary-fg">Configuartion</span>
+                                        </div>
+    
+                                        <div *ngFor="let choice of this.EMAILEventConfiguration; let i = index;trackBy: customTrackBy">
+                                            <div *ngIf="this.currentactionid == this.EMAILEventConfiguration[i].Action_InputData.ActionID">
+                                                <div class="pl-12 pr-12">
+                                                    <mat-form-field fxFlex="100" class="example-full-width">
+                                                        <input matInput [(ngModel)]="this.EMAILEventConfiguration[i].Action_InputData.Name"
+                                                            (change)="ChangeName(choice)" placeholder="Configuration name">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="pl-12 pr-12">
+                                                    <button mat-mini-fab style="float:right" (click)="addFiled()">
+                                                        <mat-icon>add</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="pl-12 pr-12">
+    
+                                                    <mat-form-field fxFlex="100" class="example-full-width">
+                                                        <input matInput [(ngModel)]="this.EMAILEventConfiguration[i].Action_InputData.TO"
+                                                            placeholder="Send to">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="pl-12 pr-12">
+                                                    <mat-form-field fxFlex="100" class="example-full-width">
+                                                        <mat-select placeholder="Template" [(ngModel)]="this.EMAILEventConfiguration[i].Action_InputData.Template">
+                                                            <mat-option *ngFor="let template of this.Templates" [value]="template.ID">
+                                                                {{template.Name}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="pl-12 pr-12">
+                                                    <mat-form-field fxFlex="100" class="example-full-width">
+                                                        <input matInput [(ngModel)]="this.EMAILEventConfiguration[i].Action_InputData.Additional_Data"
+                                                            placeholder="Additional data">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+    
+                                        </div>
+    
+                                        <br />
+    
+                                    </div>
+                                </div>
+    
+                                <!-- EDIT ACtions Close-->
+                            </div>
+                            <br /><br />
+                            <div class="card" fxLayoutAlign="center center">
+                                <button mat-raised-button color="basic" class="btnborder" matStepperPrevious>Previous</button>&nbsp;
+                                <button *ngIf="!this.workflowID" mat-raised-button color="primary" [disabled]="Disable(this.EMAILEventConfiguration) || this.EMAILEventConfiguration.length < 1"
+                                    class="btnborder" (click)="AddWorkFlow()">Add</button>
+                                <button *ngIf="this.workflowID" mat-raised-button color="primary" [disabled]="EditDisable(this.EMAILEventConfiguration) || this.EMAILEventConfiguration.length < 1"
+                                    class="btnborder" (click)="SaveWorkFlow()">Save</button>
+                            </div><br />
+                        </mat-step>
+                        <!--stepper 4 (action)-->
+                    </mat-horizontal-stepper>
+                    <!--<fuse-demo-content></fuse-demo-content>-->
+    
+                </div>
+            </div>
+            </div>
+            </div>
+            </div>

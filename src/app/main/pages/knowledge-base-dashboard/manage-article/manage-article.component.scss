@@ -1,0 +1,55 @@
+@import "src/@fuse/scss/fuse";
+#manage-article {
+    width: 100%;
+    background-size: cover;
+    .detail {
+        max-width: 1280px;
+        width: 1280px;
+        margin: 0 auto;
+        @include media-breakpoint("sm") {
+            width: 100%;
+        }
+        @include media-breakpoint("xs") {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+        }
+        .header-title {
+            * {
+                color: #ffe118;
+                font-size: 28px;
+                font-family: "Roboto Condensed", sans-serif;
+            }
+            h2 {
+                font-size: 25px;
+            }
+        }
+        .widget-card {
+            background: #f7f7f7;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0px;
+            min-height: 140px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+            h3 {
+                font-size: 18px;
+                font-family: "Roboto Condensed", sans-serif;
+            }
+            .count {
+                font-size: 46px;
+                color: #005a61;
+                font-weight: 800;
+                line-height: 60px;
+            }
+        }
+    }
+    .activity {
+        .recent-activity {
+            padding-bottom: 20px;
+            padding-top: 20px;
+        }
+    }
+}

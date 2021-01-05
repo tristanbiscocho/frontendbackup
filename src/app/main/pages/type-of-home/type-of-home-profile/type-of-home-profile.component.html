@@ -1,0 +1,42 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Add New Type Of Home</span>
+            <button mat-button class="mat-icon-button"
+                (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <p-toast position="center"></p-toast>
+            <form name="addTypeOfhomeForm" [formGroup]="addTypeOfhomeForm" class="event-form w-100-p" fxLayout="column" fxFlex>
+        <div fxLayout.lt-sm="column">
+            <mat-form-field fxFlex="100"
+                appearance="outline">
+                <mat-label>House type</mat-label>
+                <input matInput placeholder="House type" formControlName="en" required>
+            </mat-form-field>
+        </div>
+
+        <div fxLayoutGap="50px">
+
+            <label class="example-margin"><b>Status</b></label>
+
+            <mat-radio-group aria-label="Select an option" formControlName="IsActive" fxLayoutGap="10px">
+                <mat-radio-button [value]="true">Active</mat-radio-button>
+                <mat-radio-button [value]="false">Inactive</mat-radio-button>
+            </mat-radio-group>
+
+        </div>
+
+        <div mat-dialog-content class="py-24 m-0"
+            fusePerfectScrollbar>
+            <button mat-flat-button class="c-p-btn" color="accent" *ngIf="details == undefined" (click)="saveHome()"  [disabled]="addTypeOfhomeForm.invalid"> Submit now </button> &nbsp; &nbsp;
+            <button mat-flat-button class="c-p-btn" color="accent" *ngIf="!!details" (click)="editHome()"  [disabled]="addTypeOfhomeForm.invalid"> Edit details </button> &nbsp; &nbsp;
+
+        </div>
+        </form>
+    </div>
+</div>

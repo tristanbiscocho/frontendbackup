@@ -1,0 +1,275 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" *ngIf="formDetail == undefined"
+                >Add new package</span
+            >
+            <span class="title dialog-title" *ngIf="!!formDetail"
+                >Edit package</span
+            >
+            <button
+                mat-button
+                class="mat-icon-button"
+                (click)="dialogRef.close()"
+                aria-label="Close dialog"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showLoader">
+        <div class="loader1">
+            <div>
+                <div class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-toast position="center"></p-toast>
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <form
+            name="addPackage"
+            [formGroup]="addPackage"
+            class="event-form w-100-p"
+            fxLayout="column"
+            fxFlex
+        >
+            <div>
+                <div>
+                    <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Name of package</mat-label>
+                            <input
+                                matInput
+                                placeholder="Name"
+                                formControlName="Name"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Type Of Energy</mat-label>
+                            <mat-select
+                                placeholder="Type Of Energy"
+                                formControlName="TypeOfEnergy"
+                                required
+                            >
+                                <mat-option [value]="1">
+                                    Gas & Electricity
+                                </mat-option>
+                                <mat-option [value]="2">
+                                    Electricity
+                                </mat-option>
+                                <mat-option [value]="3"> Gas </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayoutGap="12px">
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Type of house</mat-label>
+                            <mat-select
+                                placeholder="Type of house"
+                                formControlName="TypeOfHouse"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let data of typeOfHome"
+                                    [value]="data.Id"
+                                >
+                                    {{ data.Value }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Family member</mat-label>
+                            <mat-select
+                                placeholder="Family member"
+                                formControlName="FamilyMembers"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let fm of familyMembers"
+                                    [value]="fm.Id"
+                                >
+                                    {{ fm.Value }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>No of rooms</mat-label>
+                            <mat-select placeholder="No of rooms" formControlName="NoOfRooms" required>
+                                <mat-option *ngFor="let nor of numberOfRooms" [value]="nor.Id">
+                                    {{nor.Value}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field> -->
+                    </div>
+                    <mat-checkbox
+                        *ngIf="
+                            addPackage &&
+                            addPackage.get('TypeOfEnergy').value != 3
+                        "
+                        id="PeakOffPeakCheck"
+                        (change)="handleSelected($event)"
+                        class="amateur"
+                        color="primary"
+                        formControlName="PeakOffPeakCheck"
+                        >Do you have Peak / Off peak meter</mat-checkbox
+                    >
+                    <div fxLayoutGap="12px" style="margin-top: 10px">
+                        <!-- <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Amount</mat-label>
+                            <input matInput placeholder="Amount" formControlName="Amount" type="number" oninput="validity.valid||(value='');" min="0" required>
+                        </mat-form-field> -->
+                        <mat-form-field
+                            fxFlex="50"
+                            appearance="outline"
+                            *ngIf="
+                                addPackage &&
+                                addPackage.get('TypeOfEnergy').value != 3
+                            "
+                        >
+                            <mat-label
+                                >Estimated Unit for Electricity</mat-label
+                            >
+                            <input
+                                matInput
+                                placeholder="Estimated Unit for Electricity"
+                                (input)="ValidateInput($event)"
+                                formControlName="ElectricityPackageAmount"
+                                type="number"
+                                min="0"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-form-field
+                            *ngIf="
+                                (addPackage &&
+                                    addPackage.get('TypeOfEnergy').value ==
+                                        3) ||
+                                addPackage.get('TypeOfEnergy').value == 1
+                            "
+                            fxFlex="50"
+                            appearance="outline"
+                        >
+                            <mat-label>Estimated Unit for Gas </mat-label>
+                            <input
+                                matInput
+                                placeholder="Estimated Unit for Gas"
+                                (input)="ValidateInput($event)"
+                                formControlName="GasPackageAmount"
+                                type="number"
+                                min="0"
+                                required
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div fxLayoutGap="12px" *ngIf="peakOffPekCost == true">
+                        <!-- <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label>Amount</mat-label>
+                            <input matInput placeholder="Amount" formControlName="Amount" type="number" oninput="validity.valid||(value='');" min="0" required>
+                        </mat-form-field> -->
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label
+                                >Estimated Unit for Peak Electricity</mat-label
+                            >
+                            <input
+                                matInput
+                                placeholder="Estimated Unit for Electricity"
+                                (input)="ValidateInput($event)"
+                                formControlName="PeakElectricity"
+                                type="number"
+                                min="0"
+                            />
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50" appearance="outline">
+                            <mat-label
+                                >Estimated Unit for Off Peak
+                                Electricity</mat-label
+                            >
+                            <input
+                                matInput
+                                placeholder="Estimated Unit for Gas"
+                                (input)="ValidateInput($event)"
+                                formControlName="OffPeakElectricity"
+                                type="number"
+                                min="0"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="mb-16" fxLayoutGap="12px">
+                        <h3 class="mt-0">Status</h3>
+                        <div class="selection-wrapper">
+                            <mat-radio-group
+                                formControlName="Status"
+                                fxLayout="row"
+                                fxLayout.lt-md="column"
+                                fxLayoutAlign.lt-md="start center"
+                                fxLayoutAlign="space-between center"
+                                aria-label="Select an option"
+                                required
+                            >
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="1">
+                                        <div fxLayoutAlign="start center">
+                                            <span
+                                                fxHide
+                                                fxShow.gt-sm
+                                                class="ml-8"
+                                                >Active</span
+                                            >
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+                                <div fxLayoutAlign="center center" class="p-12">
+                                    OR
+                                </div>
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="2">
+                                        <div
+                                            fxLayout.lt-md="column"
+                                            fxLayoutAlign="start center"
+                                        >
+                                            <span
+                                                fxHide
+                                                fxShow.gt-sm
+                                                class="ml-8"
+                                                >Inactive</span
+                                            >
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button
+                        mat-flat-button
+                        *ngIf="!formDetail"
+                        class="c-p-btn"
+                        color="accent"
+                        [disabled]="addPackage.invalid || IsValid"
+                        (click)="savePackage()"
+                    >
+                        Add package
+                    </button>
+                    &nbsp; &nbsp;
+                    <button
+                        mat-flat-button
+                        *ngIf="!!formDetail"
+                        class="c-p-btn"
+                        color="accent"
+                        [disabled]="addPackage.invalid || IsValid"
+                        (click)="editPackage()"
+                    >
+                        Edit package
+                    </button>
+                    &nbsp; &nbsp;
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

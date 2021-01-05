@@ -1,0 +1,352 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Total Payments</span>
+            </p>
+        </div>
+        <div class="content">
+            <div class="content-filter">
+                <div
+                    fxLayoutAlign="center center"
+                    fxLayout="column"
+                    class="p-12
+                content-filter"
+                >
+                    <!-- search -->
+                    <div
+                        fxLayout.lt-sm="column"
+                        class="px-12 w-100-p"
+                        fxLayoutGap="12px"
+                        fxLayoutAlign="center
+                    center"
+                    >
+                        <mat-form-field fxFlex="30" class="search-input">
+                            <input
+                                matInput
+                                placeholder="Bill No / Name / Email / Amount"
+                                [formControl]="searchUser"
+                            />
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                        <!-- date picker -->
+
+                        <mat-form-field fxFlex="15">
+                            <input (click)="picker.open()"
+                                matInput
+                                [matDatepicker]="picker"
+                                placeholder="From
+                            date"
+                                [(ngModel)]="fromDate"
+                                [max]="toDate"
+                            />
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="picker"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="15">
+                            <input (click)="picker1.open()"
+                                matInput
+                                [matDatepicker]="picker1"
+                                placeholder="To
+                            date"
+                                [(ngModel)]="toDate"
+                                [min]="fromDate"
+                            />
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="picker1"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50">
+                            <mat-select
+                                placeholder="Payment status"
+                                [(ngModel)]="chooseStatus"
+                            >
+                                <mat-option value="1">Pending</mat-option>
+                                <mat-option value="2">Completed</mat-option>
+                                <mat-option value="3">Overdue</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50">
+                            <mat-select
+                                placeholder="Supplier"
+                                [(ngModel)]="supplier"
+                            >
+                                <mat-option
+                                    *ngFor="let add of suppliers"
+                                    [value]="add.ID"
+                                >
+                                    {{ add.Name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="50">
+                            <mat-select
+                                placeholder="Paid By"
+                                [(ngModel)]="paidby"
+                            >
+                            <mat-option value="1">Gocardless</mat-option>
+                            <mat-option value="2">Stripe</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div fxLayout.lt-sm="column" fxLayoutGap="12px">
+                            <button
+                                mat-flat-button
+                                style="background: rgba(199, 203, 234, 0.2);"
+                                (click)="gettransactionDetail()"
+                            >
+                                <mat-icon class="white-fg mt-8">
+                                    swap_vert
+                                </mat-icon>
+                                <br />
+                                Filter
+                            </button>
+                            <button
+                                style="background: rgba(199, 203, 234, 0.2);"
+                                mat-flat-button
+                                (click)="clearF()">
+                                <mat-icon class="white-fg mt-8">
+                                    cancel
+                                </mat-icon>
+                                <br />
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                    <!-- dropdown -->
+                </div>
+            </div>
+            <div *ngIf="showLoader">
+                <div class="loader1">
+                    <div>
+                        <div class="lds-ripple">
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- table-->
+            <div *ngIf="transactions?.length > 0">
+                <ngx-datatable
+                class="material striped w-100-p"
+                [rows]="transactions"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [scrollbarH]="true"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [limit]="10"
+            >
+                <ngx-datatable-column
+                    [sortable]="true"
+                    prop="billNo"
+                    name="Bill
+                    no"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        {{ row.BillNo }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column
+                    [sortable]="true"
+                    prop="billDate"
+                    name="Payout Date"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template>
+                        {{ row.BillDate | date: "dd / MM / yyyy" }}<br/><br/>{{row.BillDate | date:"h:mm:ss"}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <!-- <ngx-datatable-column
+                    [sortable]="true"
+                    prop="month"
+                    name="Month"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        {{ row.CreatedOn | date: "MMM / yyyy" }}
+                    </ng-template>
+                </ngx-datatable-column> -->
+
+                <ngx-datatable-column
+                    [sortable]="true"
+                    prop="CustomerName"
+                    name="Customer Name / Email address"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        <br />
+                        <a  class="userName">{{ row.CustomerName }}</a><br /><br />{{ row.EmailAddress }}<br /><br />
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column
+                    [sortable]="true"
+                    prop="supplier"
+                    name="Supplier"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        <br /><br />
+                        <span fxLayout="row" fxLayoutAlign="center center">
+                            <div>
+                                <img class="mr-12"
+                                    width="25"
+                                    *ngIf="!!row.ElectricityCurrentSupplierName"
+                                    src="assets/images/betterDeal/electricity-1.png"
+                                />
+                            </div>
+                            <div>
+                                <p>{{ row.ElectricityCurrentSupplierName }}</p>
+                            </div>
+                        </span>
+                        <span fxLayout="row" fxLayoutAlign="center center">
+                            <div>
+                                <img class="mr-12"
+                                    width="25"
+                                    *ngIf="!!row.GasCurrentSupplierName"
+                                    src="assets/images/betterDeal/gas.png"
+                                />
+                            </div>
+                            <div>
+                                <p>
+                                    {{ row.GasCurrentSupplierName }}
+                                </p>
+                            </div>
+                        </span>
+
+                        <br /><br />
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column
+                    [sortable]="true"
+                    prop="Amount"
+                    name="Amount"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        £{{ row.Amount | number: "1.0-2" }}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column
+                [sortable]="true"
+                prop="PaidBy"
+                name="Paid By"
+            >
+                <ng-template
+                    let-row="row"
+                    let-value="value"
+                    ngx-datatable-cell-template
+                >
+                    {{row.PaidBy}}
+                </ng-template>
+            </ngx-datatable-column>
+
+          
+
+                <ngx-datatable-column
+                    [sortable]="true"
+                    prop="Status"
+                    name="Payment status"
+                >
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        ngx-datatable-cell-template
+                    >
+                        <div
+                            style="text-align: center;"
+                            *ngIf="row.Status == 1"
+                        >
+                        <mat-icon class="imagecolor">
+                            query_builder
+                        </mat-icon>
+                        <br />
+                            <span>Pending</span>
+                        </div>
+                        <div
+                            style="text-align: center;"
+                            *ngIf="row.Status == 2"
+                        >
+                            <mat-icon style="color: #5db461;"
+                                >check_circle_outline</mat-icon
+                            ><br />
+                            <span>Completed</span>
+                        </div>
+                        <div
+                            style="text-align: center;"
+                            *ngIf="row.StatusFromDebit == 'Failed'"
+                        >
+                            <span>Overdue</span>
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column 
+                [sortable]="true"
+                prop="PaidBy"
+                name="Payment Receipt"
+                
+            >
+                <ng-template
+                    let-row="row"
+                    let-value="value"
+                    ngx-datatable-cell-template
+                >
+                <button class="actionBtn" style="background: #ffe118;" (click)="openpaymentPopup(row)"  matTooltip="Payment Status" mat-mini-fab>
+                    <mat-icon>payment</mat-icon>
+                </button>
+                </ng-template>
+            </ngx-datatable-column>
+
+                <!-- <ngx-datatable-column [sortable]="false" name="More details">
+                    <ng-template let-row="row" let-value="value"
+                        ngx-datatable-cell-template>
+                        <button 
+                            mat-icon-button>
+                            <mat-icon>
+                                list_alt
+                            </mat-icon>
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column> -->
+            </ngx-datatable>
+            </div>
+            <div fxLayoutAlign="center center" *ngIf="transactions?.length == 0">
+                <h1 style="text-align:center;font-size: medium;position: absolute;
+                top: 50%;">No Data Found</h1>
+            </div>
+         
+        </div>
+    </div>
+</div>

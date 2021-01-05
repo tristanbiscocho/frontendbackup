@@ -1,0 +1,50 @@
+<div class="dialog-content-wrapper">
+    
+    <p-toast position="center"></p-toast>
+   
+    <div mat-dialog-content class="m-0 p-24" fusePerfectScrollbar>
+        
+        <div>
+            <h3 *ngIf="IsgasLessMeter == true" class="mb-4">
+                <b>Gas:</b>
+                <br/><br/>
+                Please advise why the current meter reading is lower than previously provided.<br/>
+            </h3>
+            <div *ngIf="IsgasLessMeter == true">
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Gas Meter Reading Reason</mat-label>
+                <textarea matInput placeholder="" required [(ngModel)]="gasReason"> </textarea>
+            </mat-form-field>
+        </div>
+
+        <h3 *ngIf="IselcLowLessMeter == true" class="mb-4">
+            <b>Electricity (Low):</b>
+            <br/><br/>
+            Please advise why the current meter reading is lower than previously provided.<br/>
+        </h3>
+        <div *ngIf="IselcLowLessMeter == true">
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Electricity Low Meter Reading Reason</mat-label>
+                <textarea matInput placeholder="" required [(ngModel)]="elecLowReason"> </textarea>
+            </mat-form-field>
+        </div>
+        <h3 *ngIf="IselcNrmlLessMeter == true" class="mb-4">
+            <b>Electricity (Normal):</b>
+            <br/><br/>
+            Please advise why the current meter reading is lower than previously provided.<br/>
+        </h3>
+        <div *ngIf="IselcNrmlLessMeter == true">
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Electricity Normal Meter Reading Reason</mat-label>
+                <textarea matInput placeholder="" required [(ngModel)]="elecNrmlReason"> </textarea>
+            </mat-form-field>
+        </div>
+        </div>
+        <div>
+            <button mat-flat-button (click)="AddReason()">
+                Submit
+            </button>
+        </div>
+    </div>
+ 
+</div>

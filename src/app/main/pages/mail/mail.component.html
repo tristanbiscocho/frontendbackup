@@ -1,0 +1,200 @@
+<div id="mail" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="language-absolute-class">
+        <app-language-change></app-language-change>
+    </div>
+    <div class="center">
+        <div class="content">
+            <div class="detail my-24">
+                <div class="header-title">
+                    <p>
+                        <label [routerLink]="'/dashboard'">Dashboard</label>
+                        <span>&nbsp;/&nbsp;</span>
+                        <span>Messages</span>
+                    </p>
+                </div>
+
+                <!-- CONTENT HEADER -->
+                <div
+                    class="header white-bg w-100-p"
+                    style="max-width: 100%"
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                >
+                    <div
+                        class="search-wrapper"
+                        fxFlex
+                        fxLayout="row"
+                        fxLayoutAlign="start center"
+                    >
+                        <!-- <button mat-icon-button class="sidebar-toggle" fxHide.gt-md
+                        (click)="toggleSidebar('mail-main-sidebar')">
+                    <mat-icon>menu</mat-icon>
+                </button> -->
+
+                        <div
+                            class="search"
+                            flex
+                            fxLayout="row"
+                            fxLayoutAlign="start center"
+                        >
+                            <mat-icon>search</mat-icon>
+                            <input
+                                [formControl]="searchInput"
+                                [placeholder]="
+                                    'MAIL.SEARCH_PLACEHOLDER' | translate
+                                "
+                                fxFlex
+                            />
+                        </div>
+                    </div>
+                </div>
+                <!-- / CONTENT HEADER -->
+
+                <!-- CONTENT CARD -->
+                <div
+                    class="content-card py-24"
+                    [ngClass]="{ 'current-mail-selected': currentMail }"
+                >
+                    <!-- CONTENT TOOLBAR -->
+                    <div class="toolbar px-24 py-8">
+                        <div
+                            class="mail-selection"
+                            fxFlex="row"
+                            fxLayoutAlign="start center"
+                        >
+                            <mat-menu #selectMenu="matMenu">
+                                <button mat-menu-item (click)="selectMails()">
+                                    All
+                                </button>
+                                <button mat-menu-item (click)="deselectMails()">
+                                    None
+                                </button>
+                                <button
+                                    mat-menu-item
+                                    (click)="selectMails('read', true)"
+                                >
+                                    Read
+                                </button>
+                                <button
+                                    mat-menu-item
+                                    (click)="selectMails('read', false)"
+                                >
+                                    Unread
+                                </button>
+                                <button
+                                    mat-menu-item
+                                    (click)="selectMails('starred', true)"
+                                >
+                                    Starred
+                                </button>
+                                <button
+                                    mat-menu-item
+                                    (click)="selectMails('starred', false)"
+                                >
+                                    Unstarred
+                                </button>
+                                <button
+                                    mat-menu-item
+                                    (click)="selectMails('important', true)"
+                                >
+                                    Important
+                                </button>
+                                <button
+                                    mat-menu-item
+                                    (click)="selectMails('important', false)"
+                                >
+                                    Unimportant
+                                </button>
+                            </mat-menu>
+
+                            <div
+                                class="toolbar-separator"
+                                *ngIf="hasSelectedMails"
+                            ></div>
+
+                            <button
+                                mat-icon-button
+                                (click)="setFolderOnSelectedMails(4)"
+                                *ngIf="hasSelectedMails"
+                            >
+                                <mat-icon class="secondary-text"
+                                    >delete</mat-icon
+                                >
+                            </button>
+
+                            <button
+                                mat-icon-button
+                                [matMenuTriggerFor]="folderMenu"
+                                *ngIf="hasSelectedMails"
+                            >
+                                <mat-icon class="secondary-text"
+                                    >folder</mat-icon
+                                >
+                            </button>
+                            <mat-menu #folderMenu="matMenu">
+                                <button
+                                    mat-menu-item
+                                    *ngFor="let folder of folders"
+                                    (click)="
+                                        setFolderOnSelectedMails(folder.id)
+                                    "
+                                >
+                                    {{ folder.title }}
+                                </button>
+                            </mat-menu>
+
+                            <button
+                                mat-icon-button
+                                [matMenuTriggerFor]="labelMenu"
+                                *ngIf="hasSelectedMails"
+                            >
+                                <mat-icon class="secondary-text"
+                                    >label</mat-icon
+                                >
+                            </button>
+                            <mat-menu #labelMenu="matMenu">
+                                <button
+                                    mat-menu-item
+                                    *ngFor="let label of labels"
+                                    (click)="
+                                        toggleLabelOnSelectedMails(label.id)
+                                    "
+                                >
+                                    {{ label.title }}
+                                </button>
+                            </mat-menu>
+                        </div>
+
+                        <div *ngIf="currentMail" fxHide.gt-xs>
+                            <button
+                                mat-icon-button
+                                (click)="deselectCurrentMail()"
+                            >
+                                <mat-icon class="secondary-text"
+                                    >arrow_back</mat-icon
+                                >
+                            </button>
+                        </div>
+                    </div>
+                    <!-- / CONTENT TOOLBAR -->
+
+                    <!-- CONTENT -->
+                    <div class="content" fxLayout="row">
+                        <mail-list
+                            fusePerfectScrollbar
+                            fxFlex.lt-md
+                            fxFlex="30"
+                        ></mail-list>
+                        <mail-details
+                            fusePerfectScrollbar
+                            fxFlex.lt-md
+                            fxFlex="70"
+                        ></mail-details>
+                    </div>
+                    <!-- / CONTENT -->
+                </div>
+                <!-- / CONTENT CARD -->
+            </div>
+        </div>
+    </div>
+</div>

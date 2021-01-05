@@ -1,0 +1,161 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <p-toast position="center"></p-toast>
+    <div class="detail" [ngStyle]="{ 'min-height': minheight }">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/accounts'">Accounts</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Partner</span>
+            </p>
+        </div>
+        <div class="content" [ngStyle]="{ 'min-height': minheight }">
+            <div class="content-filter">
+                <div
+                    fxLayoutAlign="center center"
+                    fxLayout.lt-md="column"
+                    fxLayoutGap="15px"
+                    class="p-12"
+                >
+                    <mat-form-field fxFlex="20" class="search-input">
+                        <input
+                            id="search"
+                            #filter
+                            matInput
+                            [formControl]="searchAgents"
+                            placeholder="Name / Email / Phone Number"
+                        />
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                    <div fxLayoutGap="15px" fxLayoutAlign="center center">
+                        <a
+                        [routerLink]="'/accounts/partner/create'"
+                            mat-flat-button
+                            style="background: rgba(199, 203, 234, 0.2)"
+                           
+                        >
+                            <mat-icon class="white-fg mt-8"> add </mat-icon>
+                            <br />
+                            Add
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="agents?.length > 0">
+                <ngx-datatable
+                    class="material striped w-100-p"
+                    [rows]="agents"
+                    [columnMode]="'force'"
+                    [headerHeight]="50"
+                    [scrollbarH]="true"
+                    [footerHeight]="50"
+                    [rowHeight]="'auto'"
+                    [limit]="10"
+                    [offset]="tableOffset"
+                    (page)="onChangePage($event)"
+                >
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="Name"
+                        name="Name"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.Name }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="Email"
+                        name="Email"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.Email }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="PhoneNumber"
+                        name="PhoneNumber"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.PhoneNumber }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="Status"
+                        name="Status"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.Status }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [sortable]="false" name="Action">
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                        <a
+                        matTooltip=" Details"
+                        color="accent"
+                        [routerLink]="'/accounts/partner/details'"
+                        mat-mini-fab
+                    >
+                        <mat-icon class="white-fg"> remove_red_eye </mat-icon>
+                    </a>
+                            <a
+                                matTooltip="Edit Details"
+                                color="accent"
+                                [routerLink]="'/accounts/partner/create'"
+                                mat-mini-fab
+                            >
+                                <mat-icon class="white-fg"> edit </mat-icon>
+                            </a>
+                          
+                     
+                            &nbsp;
+                            <button
+                                matTooltip="Delete"
+                                color="warn"
+                                (click)="deleteAgent(row)"
+                                mat-mini-fab
+                            >
+                                <mat-icon class="white-fg"> delete </mat-icon>
+                            </button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+            <div fxLayoutAlign="center center" *ngIf="agents?.length == 0">
+                <h1
+                    style="
+                        text-align: center;
+                        font-size: medium;
+                        position: absolute;
+                        top: 50%;
+                    "
+                >
+                    No Data Found
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <p-toast position="center"></p-toast>
+    <div class="detail" [ngStyle]="{'min-height': minheight}">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/supervisor-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>My Commission</span>
+            </p>
+        </div>
+        <div class="content" [ngStyle]="{'min-height': minheight}" >
+            <div fxLayoutAlign="center center" class="p-12 content-filter">
+                <div fxFlex="80" fxLayout.lt-md="column" fxLayoutGap="15px"
+                fxLayoutAlign="center center">
+                    <mat-form-field fxFlex="50" class="search-input">
+                        <input matInput placeholder="Transaction ID"
+                            [formControl]="searchUser">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                <!-- date picker -->
+    
+                <mat-form-field fxFlex="15">
+    
+                    <input (click)="picker.open()" matInput [matDatepicker]="picker"
+                        placeholder="From
+                        date" [(ngModel)]="fromDate" [max]="toDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+    
+                <mat-form-field fxFlex="15">
+    
+                    <input (click)="picker1.open()" matInput [matDatepicker]="picker1"
+                        placeholder="To
+                        date" [(ngModel)]="toDate" [min]="fromDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+    
+                <mat-form-field fxFlex="30">
+                    <mat-select placeholder="Status" [(ngModel)]="chooseStatus">
+                        <mat-option [value]="1">Pending</mat-option>
+                        <mat-option [value]="2">Completed</mat-option>
+                      
+                    </mat-select>
+                </mat-form-field>
+                <button mat-flat-button style="background: rgba(199, 203, 234, 0.2);" (click)="getInvoiceLists()">
+                    <mat-icon class="white-fg mt-8">
+                        swap_vert
+                    </mat-icon> <br />
+                    Filter
+                </button>
+                <button style="background: rgba(199, 203, 234, 0.2);" mat-flat-button  (click)="ClearInvoiceLists()">
+                    <mat-icon class="white-fg mt-8">
+                        cancel
+                    </mat-icon> <br />
+                    Clear
+                </button>
+                </div>
+              
+            <!-- <div fxLayout="row">
+                <div>
+                <button mat-flat-button color="accent" (click)="getInvoiceLists()">
+                    Filter
+                </button></div>&nbsp;<div>
+                <button mat-flat-button color="accent" (click)="ClearInvoiceLists()">
+                    Clear
+                </button></div>
+            </div> -->
+            </div>
+
+          
+
+            <!-- Table -->
+            <div *ngIf="invoices?.length > 0">
+                <ngx-datatable class="material striped w-100-p"  [offset]="pageOffset" (page)="onChange($event)" 
+                [selectAllRowsOnPage]="false" [rows]="invoices" [columnMode]="'force'" [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+    
+                    <ngx-datatable-column [sortable]="true" prop="TransactionDate" name="Date">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.TransactionDate | date : 'dd / MM / yyyy'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [sortable]="true" prop="TransactionId" name="Transaction ID">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.TransactionId}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [sortable]="true" prop="TotalCommission" name="Amount">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        £ {{row.TotalCommission}} 
+                    </ng-template>
+                </ngx-datatable-column>
+                    <ngx-datatable-column [sortable]="true" prop="Status" name="Status">
+                            <ng-template let-row="row" let-value="city" ngx-datatable-cell-template>
+                                    <span *ngIf="row.Status == 1">Pending</span>
+                                    <span *ngIf="row.Status == 2">Completed</span>
+                            </ng-template>
+                    </ngx-datatable-column>
+                
+                    <ngx-datatable-column [sortable]="false"  name="View Invoice">
+                        <ng-template let-row="row" let-value="city" ngx-datatable-cell-template>
+                           <button matTooltip="View Invoice" [routerLink]="'/invoices/'+ pageOffset + '/' + row.ID + '/' + currentUser.CustomerId + '/' + 12 " mat-mini-fab>
+                                <mat-icon class="white-fg">
+                                    list_alt
+                                </mat-icon>
+                           </button>
+                        </ng-template>
+                    </ngx-datatable-column>
+    
+                </ngx-datatable>
+            </div>
+
+            <div fxLayoutAlign="center center" *ngIf="invoices?.length == 0">
+                <h1 style="text-align:center;font-size: medium;position: absolute;
+            top: 50%;">No Data Found</h1>
+            </div>
+          
+        </div>
+    </div>
+</div>

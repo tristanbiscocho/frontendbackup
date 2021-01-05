@@ -1,0 +1,154 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Enter Meter Reading</span>
+            <button
+                mat-button
+                class="mat-icon-button"
+                (click)="dialogRef.close()"
+                aria-label="Close dialog"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+    <p-toast position="center"></p-toast>
+    <div *ngIf="showLoader">
+        <div class="loader1">
+            <div>
+                <div class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-content class="m-0 p-24" fusePerfectScrollbar>
+       
+                <div *ngIf="isEconomicMeter == false">
+                        <fieldset class="fdl p-24 my-24">
+                                <legend class="ledg">Enter meter reading for Electricity</legend>
+                    <form class="error-wrapper" [formGroup]="addElecForm">
+                            <p>
+                                    <b>Meter Reading Date:</b> {{maxDate | date: 'dd / MM / yyyy'}}
+                                </p>
+                            <div class="pt-8"  fxLayout.lt-md="column" fxLayoutGap="4px">
+                                    <!-- <mat-form-field fxFlex="50" *ngIf="isEconomicMeter == false" fxFlex.lt-sm="100"
+                                        appearance="outline">
+                                        <mat-label>Meter Reading</mat-label>
+                                        <input matInput type="text" formControlName="ReadingValue" maxlength="5" minlength="5" [(ngModel)]="ElectricityReading" placeholder="Meter Reading" (input)="cmpElcReading($event, 'elec')">
+                                        
+                                    </mat-form-field> -->
+                                    <ng-otp-input [(ngModel)]="ElectricityReading"    formControlName="ReadingValue" name="ReadingValue" ngDefaultControl  #ngOtpInputforhighreadingofelwectricity (onInputChange)="onOtpChangeforhighreadingofelectricity($event)"  [config]="config"></ng-otp-input>
+                              
+                                  
+                                </div>
+                                <mat-error *ngIf="IsLargeElcData == true" class="errror-position">
+                                        Current meter reading can not less than previous meter reading.
+                            </mat-error>
+                                <div class="pre-reading">
+                                        <b *ngIf="!!previousMeterReadingData.ElectricityPreviousMeterReadingValue">Previous Reading:</b> {{previousMeterReadingData.ElectricityPreviousMeterReadingValue}}
+                                </div>
+                    </form>
+                    </fieldset>
+                </div>
+           
+          
+                  <div *ngIf="isEconomicMeter == true" >
+                        <fieldset class="fdl p-24 my-24">
+                                <legend class="ledg">Enter meter reading for Electricity (Economy 7 or 10 meter)</legend>
+                        <form [formGroup]="addEconomicForm">
+                                    <p>
+                                        <b>Meter Reading Date:</b> {{maxDate | date: 'dd / MM / yyyy'}}
+                                    </p>
+                                    <div class="pt-8" fxLayout.lt-md="column" fxLayoutGap="4px">
+                                        <div fxFlex="50" class="error-wrapper" fxFlex.lt-sm="100">
+                                            <div class="low-meter">
+                                                <h2>Normal Reading</h2>
+                                             </div>
+                                            <ng-otp-input [(ngModel)]="ElectricityReading"    formControlName="ReadingValue" name="ReadingValue" ngDefaultControl  #ngOtpInputforhighreadingofelwectricity (onInputChange)="onOtpChangeforhighreadingofelectricity($event)"  [config]="config"></ng-otp-input>
+                                           
+                                            
+                                            <!-- <mat-form-field class="w-100-p"
+                                                appearance="outline">
+                                                <mat-label>Normal Meter Reading</mat-label>
+                                                <input matInput type="text" formControlName="ReadingValue" maxlength="5" minlength="5" (input)="cmpElcReading($event, 'nrml')" [(ngModel)]="ElectricityReading" placeholder="Normal Meter Reading">
+                                            </mat-form-field>
+                                            <mat-error *ngIf="IsLargeNrmlData == true" class="errror-position">
+                                                    Current meter reading can not less than previous meter reading.
+                                        </mat-error> -->
+                                            <div class="pre-reading">
+                                                    <b *ngIf="!!previousMeterReadingData.ElectricityPreviousMeterReadingValue">Previous Reading:</b> {{previousMeterReadingData.ElectricityPreviousMeterReadingValue}}
+                                            </div>
+                                        </div>
+                                    <div fxFlex="50" class="error-wrapper" fxFlex.lt-sm="100">
+                                        <div class="low-meter">
+                                       <h2>Low Reading</h2>
+                                    </div>
+                                        <ng-otp-input [(ngModel)]="LowReadingValue" formControlName="LowReadingValue" name="LowReadingValue"   ngDefaultControl   #ngOtpInputforlowreadingofelectricity (onInputChange)="onOtpChangeforlowreadingofelectricity($event)"  [config]="config"></ng-otp-input>
+                                       
+                                            <!-- <mat-form-field  class="w-100-p"
+                                            appearance="outline">
+                                            <mat-label>Low Meter Reading</mat-label>
+                                            <input matInput  type="text" formControlName="LowReadingValue" maxlength="5" minlength="5" (input)="cmpElcReading($event, 'low')" [(ngModel)]="LowReadingValue" placeholder="Low Meter Reading">
+                                            
+                                        </mat-form-field>
+                                        <mat-error *ngIf="IsLargeLowData == true" class="errror-position">
+                                            Current meter reading can not less than previous meter reading.
+                                            </mat-error> -->
+                                        <div class="pre-reading">
+                                            <b *ngIf="!!previousMeterReadingData.ElectricityPreviousLowMeterReadingValue">Previous Reading:</b> {{previousMeterReadingData.ElectricityPreviousLowMeterReadingValue}}
+                                        </div>
+                                    </div>
+                                   
+                                    </div>
+
+                               
+                        </form>
+                        </fieldset>
+                  </div>
+            <div *ngIf="userEnergyType == 1" label="Gas Meter Reading">
+                    <fieldset class="fdl p-24">
+                            <legend class="ledg">Enter meter reading for Gas</legend>
+                    <form class="error-wrapper"  [formGroup]="addGasForm">
+                            <p>
+                                    <b>Meter Reading Date:</b> {{maxDate | date: 'dd / MM / yyyy'}}
+                                </p>
+                    <div  class="pt-8" fxLayout.lt-md="column" fxLayoutGap="4px">
+                           
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <!-- <mat-form-field class="w-100-p"  appearance="outline">
+                                    <mat-label>Meter Reading</mat-label>
+                                    <ng-otp-input  #ngOtpInputforreadingofgas (onInputChange)="onOtpChangeforgasreading($event)"  [config]="config"></ng-otp-input>
+                                </mat-form-field> -->
+                                
+                                    <ng-otp-input [(ngModel)]="GasReading"  formControlName="ReadingValue" name="ReadingValue" ngDefaultControl #ngOtpInputforreadingofgas (onInputChange)="onOtpChangeforgasreading($event)"  [config]="config"></ng-otp-input>
+                               
+                               
+                                    <!-- <mat-form-field class="w-100-p"
+                                appearance="outline">
+                                <mat-label>Meter Reading</mat-label>
+                                <input matInput type="text"  
+                                formControlName="ReadingValue" minlength="4" maxlength="5" placeholder="Meter Reading" (input)="cmpElcReading($event, 'gas')" [(ngModel)]="GasReading" >
+        
+                            </mat-form-field>
+                            <mat-error *ngIf="IsLargeGasData == true" class="errror-position">
+                                    Current meter reading can not less than previous meter reading.
+                        </mat-error> -->
+                            <div class="pre-reading">
+                                    <b *ngIf="!!previousMeterReadingData?.GasPerviousReadingValue">Previous Reading:</b> {{previousMeterReadingData?.GasPerviousReadingValue}}
+                            </div>
+                            </div>
+            </div>
+        </form>
+        </fieldset>
+    </div>
+
+    <div class="mt-12" fxLayoutAlign="end end">
+        <button mat-flat-button color="accent" *ngIf="isEconomicMeter == true && EnergyType == 1" [disabled]="addGasForm.invalid || addEconomicForm.invalid || IsLargeGasData == true || IsLargeLowData == true || IsLargeNrmlData == true"  (click)="addgaesMeter()">Submit</button>
+        <button mat-flat-button color="accent" *ngIf="isEconomicMeter == false && EnergyType == 1" [disabled]="addGasForm.invalid || addElecForm.invalid || IsLargeGasData == true || IsLargeElcData == true"  (click)="addgasElecMeter()">Submit</button>
+        <button mat-flat-button color="accent" *ngIf="isEconomicMeter == true && EnergyType == 2" [disabled]="addEconomicForm.invalid || IsLargeLowData ==true || IsLargeNrmlData == true"  (click)="addEconomicMeter()">Submit</button>
+        <button mat-flat-button color="accent" *ngIf="isEconomicMeter == false && EnergyType == 2" [disabled]="addElecForm.invalid || IsLargeElcData ==true"  (click)="addElcMeter()">Submit</button>
+
+    </div>
+</div>

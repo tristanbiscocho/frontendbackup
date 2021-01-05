@@ -1,0 +1,234 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="language-absolute-class">
+        <app-language-change></app-language-change>
+    </div>
+    <p-toast position="center"></p-toast>
+    <div class="detail" [ngStyle]="{'min-height': minheight}">
+        <div class="header-title my-12">
+            <p *ngIf="(currentUser.RoleType == 1 || currentUser.RoleType == 5) && (IsPartner == null || IsPartner == undefined)">
+                <!-- <label [routerLink]="'/admin-dashboard'">Dashboard / </label> -->
+                <label [routerLink]="'/supervisor-detail/'+ supervisorId + '/' + 0">Supervisor Detail</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Customer - {{partnerName}}</span>
+            </p>
+            <p *ngIf="(currentUser.RoleType == 1 || currentUser.RoleType == 5) && !!IsPartner">
+                    <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <label [routerLink]="'/supervisor-partners/'+ supervisorId + '/' + pageOffset + '/' + 0">My Partners</label>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span>Customer - {{partnerName}}</span>
+                </p>
+            <p *ngIf="currentUser.RoleType == 4">
+                <label [routerLink]="'/supervisor-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/supervisor-partners/'+ currentUser.CustomerId + '/' + pageOffset + '/' + 0">My Partners</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Customer - {{partnerName}}</span>
+            </p>
+
+            <p *ngIf="currentUser.RoleType == 7">
+                <label [routerLink]="'/supervisor-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/supervisor-partners/'+ currentUser.CustomerId + '/' + pageOffset + '/' + 0">My Partners</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Customer - {{partnerName}}</span>
+            </p>
+
+
+            <p *ngIf="currentUser.RoleType == 3">
+                <label [routerLink]="'/contractor-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span *ngIf="flag == 1">Pending</span>
+                <span *ngIf="flag == 4">Completed</span>
+                <span *ngIf="flag == 2">Failed</span>
+            </p>
+
+            <p *ngIf="currentUser.RoleType == 6">
+                <label [routerLink]="'/contractor-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span *ngIf="flag == 1">Pending</span>
+                <span *ngIf="flag == 4">Completed</span>
+                <span *ngIf="flag == 2">Failed</span>
+            </p>
+
+            <p *ngIf="currentUser.RoleType == 2">
+                <label [routerLink]="'/dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/my-referrals'">My Referrals</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Customer - {{partnerName}}</span>
+            </p>
+        </div>
+        <div class="content" [ngStyle]="{'min-height': minheight}" >
+            <div class="content-filter p-12" fxLayoutAlign="center center">
+                <div  fxFlex="80" fxLayout.lt-md="column" fxLayoutGap="15px"
+                fxLayoutAlign="center center">
+                    <mat-form-field fxFlex="50" class="search-input">
+                        <input placeholder="Name / Email address" matInput #filter [formControl]="searchPartner">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="15">
+                            <input (click)="picker.open()" matInput [matDatepicker]="picker" placeholder="From
+                                Date" [(ngModel)]="fromDate" [max]="toDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+            
+                        <mat-form-field fxFlex="15">
+                            <input (click)="picker1.open()" matInput [(ngModel)]="toDate" [min]="fromDate" [matDatepicker]="picker1" placeholder="To Date">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                      <mat-form-field fxFlex="30" *ngIf="flag == 3 " fxFlex.lt-md="100">
+                        <mat-select [(ngModel)]="status" placeholder="Status">
+                                <mat-option [value]="3">All</mat-option>
+                            <mat-option [value]="1">pending</mat-option>
+                            <mat-option [value]="2">Failed</mat-option>
+                            <mat-option [value]="4">Completed</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="30" *ngIf="currentUser.RoleType == 2 && flag == 1" fxFlex.lt-md="100">
+                        <mat-select placeholder="Status" [(ngModel)]="status">
+                            <mat-option *ngFor="let add of statusData" [value]="add.Id">{{add.Value}}</mat-option>
+                    </mat-select>
+                        <!-- <mat-select [(ngModel)]="status" placeholder="Status">
+                                <mat-option [value]="47">Invited</mat-option>
+                            <mat-option [value]="48">Signup</mat-option>
+                        </mat-select> -->
+                    </mat-form-field>
+                    <div *ngIf="currentUser.RoleType != 2" fxLayoutGap="15px"  fxLayoutAlign="center center" >
+                        <button mat-flat-button style="background: rgba(199, 203, 234, 0.2);" (click)="filterCustomer()">
+                            <mat-icon class="white-fg mt-8">
+                                swap_vert
+                            </mat-icon> <br />
+                            Filter
+                        </button>
+                        <button style="background: rgba(199, 203, 234, 0.2);" mat-flat-button  (click)="clearFilter()">
+                            <mat-icon class="white-fg mt-8">
+                                cancel
+                            </mat-icon> <br />
+                            Clear
+                        </button>
+                    </div>
+                   <div *ngIf="currentUser.RoleType == 2" fxLayoutGap="15px"  fxLayoutAlign="center center">
+                    <button mat-flat-button style="background: rgba(199, 203, 234, 0.2);" (click)="filterRefCustomer()">
+                        <mat-icon class="white-fg mt-8">
+                            swap_vert
+                        </mat-icon> <br />
+                        Filter
+                    </button>
+                    <button style="background: rgba(199, 203, 234, 0.2);" mat-flat-button  (click)="clearRefFilter()">
+                        <mat-icon class="white-fg mt-8">
+                            cancel
+                        </mat-icon> <br />
+                        Clear
+                    </button>
+                   </div>
+                    <!-- <div fxLayout="row" *ngIf="currentUser.RoleType != 2">
+                        <button mat-flat-button color="accent" (click)="filterCustomer()">Filter</button>&nbsp;
+                        <button mat-flat-button color="accent" (click)="clearFilter()">Clear</button>
+                    </div>
+                    <div fxLayout="row" *ngIf="currentUser.RoleType == 2">
+                        <button mat-flat-button color="accent" (click)="filterRefCustomer()">Filter</button>&nbsp;
+                        <button mat-flat-button color="accent" (click)="clearRefFilter()">Clear</button>
+                    </div> -->
+                    <!-- <div>
+                            <button mat-fab (click)="addPartner()">
+                                <mat-icon class="white-fg">add</mat-icon>
+                            </button>
+                        </div> -->
+                </div>
+            </div>
+           
+
+          
+
+            <!-- Table -->
+            <div *ngIf="partnerList?.length > 0">
+                <ngx-datatable class="material striped w-100-p" *ngIf="currentUser.RoleType != 2" [offset]="pageOffset" (page)="onChange($event)" [rows]="partnerList" [columnMode]="'force'" [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+
+                    <!-- <ngx-datatable-column [sortable]="true" prop="CustomerName" name="Name">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.CustomerName}}
+                        </ng-template>
+                    </ngx-datatable-column> -->
+                    <ngx-datatable-column [sortable]="true" prop="EmailAddress" name="Email address">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.EmailAddress}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [sortable]="true" prop="SignUpDateTime" name="Sign up date">
+                        <ng-template let-row="row" let-value="city" ngx-datatable-cell-template>
+                            {{row.SignUpDateTime | date: 'dd / MM / yyyy'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [sortable]="true" prop="ReferralBonus" name="Referral bonus">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                £{{row.ReferralBonus}}
+                        </ng-template>
+                    </ngx-datatable-column>
+    
+                    <ngx-datatable-column [sortable]="true" prop="Status" name="Status">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.Status}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+            
+            <div *ngIf="partnerList?.length > 0">
+                <ngx-datatable class="material striped w-100-p" *ngIf="currentUser.RoleType == 2" [offset]="pageOffset" (page)="onChange($event)" [rows]="partnerList" [columnMode]="'force'" [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+
+                    <!-- <ngx-datatable-column [sortable]="true" prop="CustomerName" name="Name">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.ReferralName}}
+                        </ng-template>
+                    </ngx-datatable-column> -->
+                    <ngx-datatable-column [sortable]="true" prop="EmailAddress" name="Email address">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.EmailId}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column *ngIf="flag == 1" [sortable]="true" prop="InvitationSentDateTime" name="Invitation Date">
+                        <ng-template let-row="row" let-value="city" ngx-datatable-cell-template>
+                            {{row.InvitationSentDateTime | date: 'dd / MM / yyyy'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column *ngIf="flag == 2" [sortable]="true" prop="SignUpDateTime" name="Signup On Date">
+                        <ng-template let-row="row" let-value="city" ngx-datatable-cell-template>
+                            {{row.SignUpDateTime | date: 'dd / MM / yyyy'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [sortable]="true" prop="CustomerReferralBonus" name="Referral bonus">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <span class="referral-list" *ngIf="row.CustomerReferralBonus != null && row.CustomerReferralBonus != undefined">£{{row.CustomerReferralBonus}}</span>
+                                <span class="referral-list" *ngIf="row.CustomerReferralBonus == undefined">£0</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+    
+                    <ngx-datatable-column *ngIf="flag == 1" [sortable]="true" prop="Status" name="Status">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <span>Signup Pending</span>
+                            
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column *ngIf="flag == 2" [sortable]="true" prop="Status" name="Status">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <!-- <span *ngIf="row.IsDoneForSwitch == 0 && row.IsRejected == 0">In Progress</span>
+                            <span *ngIf="row.IsDoneForSwitch == 0 && row.IsRejected >= 1">Rejected</span>
+                            <span *ngIf="row.IsDoneForSwitch >= 1">Signup Completedd</span> -->
+                                {{row.CustomStatus}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+
+            <div fxLayoutAlign="center center" *ngIf="partnerList?.length == 0">
+                <h1 style="text-align:center;font-size: medium;position: absolute;
+                top: 50%;">No Data Found</h1>
+            </div>
+
+                </div>
+            
+    </div>
+</div>

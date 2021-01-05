@@ -1,0 +1,100 @@
+@import "src/@fuse/scss/fuse";
+.range-reason
+{
+
+    @include media-breakpoint ('sm'){
+        width: 100%;
+    }
+    @include media-breakpoint('xs') {
+        width: 100%;
+        .electricity {
+            margin-top: 10px;
+        }
+    }
+    @include media-breakpoint-up('xs') {
+        width: 600px;
+    }
+    .mat-dialog-container {
+        padding: 0;
+        border-radius: 10px;
+    }
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .primary-color-input,
+    .secondary-color-input {
+        padding: 6px 8px;
+    }
+    button {
+        border-radius: 5px;
+    }
+
+    .otp-input {
+        width: 30px !important;
+        height: 35px !important;
+        border-radius: 4px !important;
+        font-size: 15px !important;
+    }
+}
+
+.fdl
+{
+    border-color: #ffe118;
+    border-radius: 20px;
+   
+}
+.ledg
+{
+    padding: 0px 6px;
+    font-size: 17px;
+    color: #ffe118;
+}
+.input-field {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 18px 12px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 4px;
+}
+
+:host/deep/ {
+    .input-group {
+        width: 100%;
+        place-content: flex-start;
+        align-items: flex-start;
+        flex-direction: row;
+        box-sizing: border-box;
+        display: flex;
+    }
+    .input-field:not(mat-form-field)>input[type="text"] {
+        width: 90%;
+    }
+    .sort-code:not(mat-form-field)>input[type="text"] {
+        width: 100%;
+    }
+
+    
+}
+
+p-inputmask.ng-dirty.ng-invalid > .ui-inputtext{
+    border: none !important;
+}
+
+.pre-reading{
+    font-size: 15px;
+    padding-left: 10px;
+    margin-top: 20px;
+}
+
+.error-wrapper{
+    position: relative;
+    .errror-position{
+        position: absolute;
+        bottom: 22px;
+        left: 5px;
+    }
+}
+

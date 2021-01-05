@@ -1,0 +1,80 @@
+@import "src/@fuse/scss/fuse";
+.partner-profile-form-dialog{
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+    @include media-breakpoint-up('xs') {
+        width: 600px;
+    }
+    .mat-dialog-container {
+        padding: 0;
+        border-radius: 10px;
+    }
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .primary-color-input,
+    .secondary-color-input {
+        padding: 6px 8px;
+    }
+    button {
+        border-radius: 5px;
+    }
+    .mat-toolbar-single-row {
+        padding: 8px 16px;
+    }
+    .selection-wrapper {
+        border-radius: 10px;
+        border: 1px solid #ECECEC;
+        background: #F7F7F7;
+        padding: 12px;
+        .radio-button {
+            background: white;
+            padding: 12px;
+            border: 1px solid #ECECEC;
+            min-width: 120px;
+        }
+    }
+    :host/deep/{
+        .mat-form-field-appearance-outline .mat-form-field-prefix {
+            top: 0em !important;
+        }
+        }
+}
+
+.input-field {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 20px 12px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 4px;
+}
+.mat-form-field-appearance-outline .mat-form-field-prefix {
+    top: 0em !important;
+}
+:host/deep/ {
+    .input-group {
+        width: 100%;
+        place-content: flex-start;
+        align-items: flex-start;
+        flex-direction: row;
+        box-sizing: border-box;
+        display: flex;
+    }
+    *:not(mat-form-field)>input[type="text"] {
+        width: 90%;
+    }
+    .sort-code:not(mat-form-field)>input[type="text"] {
+        width: 100%;
+    }
+}
+
+
+.c-p-btn {
+    @include media-breakpoint('gt-sm') {
+        min-width: 150px;
+    }
+    border-radius: 5px;
+}

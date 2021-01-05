@@ -1,0 +1,230 @@
+<div id="customer-bills" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>My Bills</span>
+            </p>
+        </div>
+        <p-toast position="center"></p-toast>
+        <div class="content">
+            <div
+                fxLayoutAlign="center center"
+                fxLayout.lt-md="column"
+                fxLayoutGap="12px"
+                class="p-12 content-filter"
+            >
+                <mat-form-field>
+                    <input
+                        (click)="picker.open()"
+                        matInput
+                        [matDatepicker]="picker"
+                        placeholder="From Date"
+                        [(ngModel)]="FromDate"
+                    />
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input
+                        (click)="picker1.open()"
+                        matInput
+                        [matDatepicker]="picker1"
+                        placeholder="To Date"
+                        [(ngModel)]="ToDate"
+                    />
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker1"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+
+                <button
+                    mat-flat-button
+                    style="background: rgba(199, 203, 234, 0.2)"
+                    (click)="getBills(this.currentUser.CustomerId)"
+                >
+                    <mat-icon class="white-fg mt-8"> swap_vert </mat-icon>
+                    <br />
+                    Filter
+                </button>
+                <button
+                    style="background: rgba(199, 203, 234, 0.2)"
+                    mat-flat-button
+                    (click)="clearBills(this.currentUser.CustomerId)"
+                >
+                    <mat-icon class="white-fg mt-8"> cancel </mat-icon> <br />
+                    Clear
+                </button>
+            </div>
+            <div *ngIf="bills?.length > 0">
+                <ngx-datatable
+                    class="material striped w-100-p"
+                    [rows]="bills"
+                    [columnMode]="'force'"
+                    [headerHeight]="50"
+                    [scrollbarH]="true"
+                    [footerHeight]="50"
+                    [rowHeight]="'auto'"
+                    [limit]="10"
+                    [offset]="tableOffset"
+                    (page)="onChangePage($event)"
+                >
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="billNo"
+                        name="Bill
+                    no"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.BillNo }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="month"
+                        name="Month"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            {{ row.CreatedOn | date: "MMM" }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="ammount"
+                        name="Amount"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            £{{ row.Amount.toFixed(2) }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="Status"
+                        name="Status"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <span *ngIf="row.Status == 1">Pending</span>
+                            <span *ngIf="row.Status == 2">Completed</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="creditUsed"
+                        name="Credit used"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <span *ngIf="!!row.creditUsed"
+                                >£{{ row.creditUsed }}</span
+                            >
+                            <span *ngIf="row.creditUsed == undefined">£0</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column
+                        [sortable]="true"
+                        prop="type"
+                        name="Type"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                        >
+                            <span *ngIf="row.BillType == 1">Estimated</span>
+                            <span *ngIf="row.BillType == 2">Actual</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column
+                        [sortable]="false"
+                        width="200"
+                        name="View bill"
+                    >
+                        <ng-template
+                            let-row="row"
+                            let-value="value"
+                            ngx-datatable-cell-template
+                            style="display: flex"
+                        >
+                            <!-- <button mat-icon-button color="accent">
+                                <mat-icon>pageview</mat-icon>
+                            </button> -->
+                            <button
+                                [routerLink]="
+                                    '/invoices/' + row.Id + '/' + tableOffset
+                                "
+                                mat-mini-fab
+                                matTooltip="Download"
+                            >
+                                <mat-icon>cloud_download</mat-icon>
+                            </button>
+                            &nbsp;
+                            <!-- <button style="background: #3b91de;" mat-mini-fab *ngIf="row.Status != 2"  (click)="openCheckout(row)" matTooltip="Pay Now">
+                            <mat-icon>
+                                payment
+                            </mat-icon>
+                        </button> -->
+
+                            <button
+                                class="mat-raised-button mat-button-base mat-primary"
+                                mat-button
+                                *ngIf="row.Status != 2"
+                                (click)="openCheckout(row)"
+                            >
+                                <span class="mat-button-wrapper">Pay Now</span>
+                            </button>
+
+                            <button
+                                *ngIf="row.Status == 2"
+                                mat-mini-fab
+                                (click)="openpaymentPopup(row)"
+                                matTooltip="View Receipt"
+                            >
+                                <!-- <mat-icon>list_alt</mat-icon> -->
+                                <mat-icon>payment</mat-icon>
+                            </button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+            <div fxLayoutAlign="center center" *ngIf="bills?.length == 0">
+                <h1
+                    style="
+                        text-align: center;
+                        font-size: medium;
+                        position: absolute;
+                        top: 50%;
+                    "
+                >
+                    No Data Found
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>

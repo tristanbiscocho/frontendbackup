@@ -1,0 +1,43 @@
+@import "src/@fuse/scss/fuse";
+.app-paymentmodal{
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+    @include media-breakpoint-up('xs') {
+        width: 800px;
+    }
+    .mat-dialog-container {
+        padding: 0;
+        border-radius: 10px;
+    }
+    .dialog-content-wrapper {
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .primary-color-input,
+    .secondary-color-input {
+        padding: 6px 8px;
+    }
+    button {
+        border-radius: 5px;
+    }
+    .mat-toolbar-single-row {
+        padding: 8px 16px;
+    }
+   .footer {
+       background: #F6F6F6;
+   }
+
+
+}
+
+
+    .swal-wide {
+        text-align: start !important;
+    }
+
+    .swal-wide {
+        width: 50% !important;
+    }
+   

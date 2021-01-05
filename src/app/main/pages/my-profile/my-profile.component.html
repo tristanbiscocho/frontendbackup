@@ -1,0 +1,1537 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="language-absolute-class">
+        <app-language-change></app-language-change>
+    </div>
+    <div class="content">
+        <div class="detail my-24">
+            <div class="header-title">
+                <p>
+                    <label
+                        *ngIf="currentUser.RoleType == 2"
+                        [routerLink]="'/dashboard'"
+                        >Dashboard</label
+                    >
+                    <span *ngIf="currentUser.RoleType == 2">&nbsp;/&nbsp;</span>
+                    <label
+                        *ngIf="currentUser.RoleType == 4"
+                        [routerLink]="'/supervisor-dashboard'"
+                        >Dashboard</label
+                    >
+                    <span *ngIf="currentUser.RoleType == 4">&nbsp;/&nbsp;</span>
+                    <label
+                        *ngIf="currentUser.RoleType == 7"
+                        [routerLink]="'/supervisor-dashboard'"
+                        >Dashboard</label
+                    >
+                    <span *ngIf="currentUser.RoleType == 7">&nbsp;/&nbsp;</span>
+                    <label
+                        *ngIf="currentUser.RoleType == 3"
+                        [routerLink]="'/contractor-dashboard'"
+                        >Dashboard</label
+                    >
+                    <span *ngIf="currentUser.RoleType == 3">&nbsp;/&nbsp;</span>
+                    <label
+                        *ngIf="currentUser.RoleType == 6"
+                        [routerLink]="'/contractor-dashboard'"
+                        >Dashboard</label
+                    >
+                    <span *ngIf="currentUser.RoleType == 6">&nbsp;/&nbsp;</span>
+                    <label
+                        *ngIf="!!customerId"
+                        [routerLink]="'/admin-dashboard'"
+                        >Dashboard</label
+                    >
+                    <span *ngIf="!!customerId">&nbsp;/&nbsp;</span>
+                    <label
+                        *ngIf="!!customerId"
+                        [routerLink]="'/customer-list/' + pageOffset"
+                        >Customers</label
+                    >
+                    <span *ngIf="!!customerId">&nbsp;/&nbsp;</span>
+                    <span> My Profile</span>
+                </p>
+            </div>
+            <p-toast position="center"></p-toast>
+            <div fxLayout.lt-sm="column" fxLayoutGap="24px" fxLayout="column">
+                <!-- Customer Profile Start -->
+                <mat-card
+                    fxFlex="100"
+                    class="credit-card p-12 w-100-p"
+                    *ngIf="
+                        this.currentUser.RoleType == 2 ||
+                        currentUser.RoleType == 1 ||
+                        currentUser.RoleType == 5
+                    "
+                    fxLayout="column"
+                >
+                    <div
+                        class="w-100-p pl-12 content-header"
+                        fxLayoutAlign="start center"
+                    >
+                        <h3 fxLayoutAlign="start center">
+                            <!-- <mat-icon>keyboard_arrow_right</mat-icon>  -->
+                            Personal details
+                        </h3>
+                    </div>
+
+                    <div class="w-100-p p-12">
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Name</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    <span
+                                        *ngIf="customerDetail.Person.Title == 1"
+                                        >Miss
+                                    </span>
+                                    <span
+                                        *ngIf="customerDetail.Person.Title == 0"
+                                        >Mr
+                                    </span>
+                                    <span
+                                        *ngIf="customerDetail.Person.Title == 2"
+                                        >Mrs
+                                    </span>
+                                    <span
+                                        *ngIf="customerDetail.Person.Title == 3"
+                                        >Ms
+                                    </span>
+                                    <span
+                                        *ngIf="customerDetail.Person.Title == 4"
+                                        >Dr
+                                    </span>
+                                    {{ customerDetail.Person.FirstName }}
+                                    {{ customerDetail.Person.LastName }}
+                                </p>
+                            </div>
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Email address</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.Person.EmailAddress }}
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Mobile Number</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.Person.MobileNumber }}
+                                </p>
+                            </div>
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Date of birth</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{
+                                        customerDetail.Person.DOB
+                                            | date: "dd / MM / yyyy"
+                                    }}
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                currentUser.RoleType == 1 ||
+                                currentUser.RoleType == 5
+                            "
+                            fxLayout.lt-sm="column"
+                        >
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Employment status</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ EmployeeStatus[0].Value }}
+                                </p>
+                            </div>
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">
+                                    Residential Status
+                                </p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ ResidentialStatus[0].Value }}
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                currentUser.RoleType == 1 ||
+                                currentUser.RoleType == 5
+                            "
+                            fxLayout.lt-sm="column"
+                        >
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">
+                                    Time at Current Address
+                                </p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ Timeatcurrentaddress[0].Value }}
+                                </p>
+                            </div>
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">
+                                    Where did you hear about us?
+                                </p>
+                            </div>
+                            <div
+                                *ngIf="!!customerDetail"
+                                fxFlex="80"
+                                fxFlex.lt-sm="100"
+                            >
+                                <p *ngIf="Wheredidyouhereaboutus.length > 0">
+                                    {{ Wheredidyouhereaboutus[0].Value }}
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">
+                                    Economy 7 or 10 meter
+                                </p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    <span
+                                        *ngIf="
+                                            customerDetail.IsElectricMeterReading ==
+                                            true
+                                        "
+                                        >Yes</span
+                                    >
+                                    <span
+                                        *ngIf="
+                                            customerDetail.IsElectricMeterReading ==
+                                            false
+                                        "
+                                        >No</span
+                                    >
+                                </p>
+                            </div>
+                            <div fxFlex="30" fxFlex.lt-sm="100"></div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        *ngIf="
+                            currentUser.RoleType == 1 ||
+                            currentUser.RoleType == 5
+                        "
+                        class="w-100-p pl-12 content-header"
+                        fxLayoutAlign="start center"
+                    >
+                        <h3 fxLayoutAlign="start center">
+                            <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                            How would you describe your usage?
+                        </h3>
+                    </div>
+
+                    <div
+                        *ngIf="
+                            currentUser.RoleType == 1 ||
+                            currentUser.RoleType == 5
+                        "
+                        class="w-100-p p-12"
+                    >
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Type Of House</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ typeOfHouse[0].Value }}
+                                </p>
+                            </div>
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Family Members</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ familyMember[0].Value }}
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">No. Of Rooms</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ noOfRooms[0].Value }}
+                                </p>
+                            </div>
+                            <div fxFlex="30" fxFlex.lt-sm="100"></div>
+                            <div fxFlex="80" fxFlex.lt-sm="100"></div>
+                        </div>
+                    </div>
+
+                    <div
+                        *ngIf="
+                            currentUser.RoleType == 1 ||
+                            currentUser.RoleType == 5
+                        "
+                        class="w-100-p pl-12 content-header"
+                        fxLayoutAlign="start center"
+                    >
+                        <h3 fxLayoutAlign="start center">
+                            <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                            How Much Usage Of Electricity And Gas
+                        </h3>
+                    </div>
+
+                    <div
+                        *ngIf="
+                            currentUser.RoleType == 1 ||
+                            currentUser.RoleType == 5
+                        "
+                        class="w-100-p p-12"
+                    >
+                        <div *ngIf="customerDetail?.Economy_Elect_Meter == 2">
+                            <div fxLayout.lt-sm="column">
+                                <div fxFlex="30" fxFlex.lt-sm="100">
+                                    <p class="font-weight-500">
+                                        Use Of Electricity
+                                    </p>
+                                </div>
+                                <div
+                                    *ngIf="
+                                        !!customerDetail &&
+                                        customerDetail?.EnergyUsageID == 0
+                                    "
+                                    fxFlex="80"
+                                    fxFlex.lt-sm="100"
+                                >
+                                    <p *ngIf="!!customerDetail">
+                                        £{{
+                                            customerDetail?.ElectricityConsumption
+                                        }}
+                                    </p>
+                                </div>
+                                <div
+                                    *ngIf="
+                                        !!customerDetail &&
+                                        customerDetail?.EnergyUsageID == 1
+                                    "
+                                    fxFlex="80"
+                                    fxFlex.lt-sm="100"
+                                >
+                                    <p *ngIf="!!customerDetail">
+                                        kWh
+                                        {{
+                                            customerDetail?.ElectricityConsumption
+                                        }}
+                                    </p>
+                                </div>
+                                <div fxFlex="30" fxFlex.lt-sm="100">
+                                    <p class="font-weight-500">
+                                        Electricity Period
+                                    </p>
+                                </div>
+                                <div fxFlex="80" fxFlex.lt-sm="100">
+                                    <p *ngIf="!!customerDetail">
+                                        <span
+                                            *ngIf="
+                                                customerDetail?.ElectricityConsumptionPeriodID ==
+                                                1170
+                                            "
+                                            >Month</span
+                                        >
+                                        <span
+                                            *ngIf="
+                                                customerDetail?.ElectricityConsumptionPeriodID ==
+                                                1171
+                                            "
+                                            >Quarter</span
+                                        >
+                                        <span
+                                            *ngIf="
+                                                customerDetail?.ElectricityConsumptionPeriodID ==
+                                                1172
+                                            "
+                                            >Year</span
+                                        >
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="customerDetail?.Economy_Elect_Meter == 1">
+                            <div fxLayout.lt-sm="column">
+                                <div fxFlex="30" fxFlex.lt-sm="100">
+                                    <p class="font-weight-500">
+                                        Usage Of Day Electricity
+                                    </p>
+                                </div>
+                                <div
+                                    *ngIf="
+                                        !!customerDetail &&
+                                        customerDetail?.EnergyUsageID == 0
+                                    "
+                                    fxFlex="80"
+                                    fxFlex.lt-sm="100"
+                                >
+                                    <p *ngIf="!!customerDetail">
+                                        £{{
+                                            customerDetail?.Electricity_Day_Consumption
+                                        }}
+                                    </p>
+                                </div>
+                                <div
+                                    *ngIf="
+                                        !!customerDetail &&
+                                        customerDetail?.EnergyUsageID == 1
+                                    "
+                                    fxFlex="80"
+                                    fxFlex.lt-sm="100"
+                                >
+                                    <p *ngIf="!!customerDetail">
+                                        kWh
+                                        {{
+                                            customerDetail?.Electricity_Day_Consumption
+                                        }}
+                                    </p>
+                                </div>
+                                <div fxFlex="30" fxFlex.lt-sm="100">
+                                    <p class="font-weight-500">
+                                        Electricity Period
+                                    </p>
+                                </div>
+                                <div fxFlex="80" fxFlex.lt-sm="100">
+                                    <p *ngIf="!!customerDetail">
+                                        <span
+                                            *ngIf="
+                                                customerDetail?.Electricity_Day_ConsumptionPeriodID ==
+                                                1170
+                                            "
+                                            >Month</span
+                                        >
+                                        <span
+                                            *ngIf="
+                                                customerDetail?.Electricity_Day_ConsumptionPeriodID ==
+                                                1171
+                                            "
+                                            >Quarter</span
+                                        >
+                                        <span
+                                            *ngIf="
+                                                customerDetail?.Electricity_Day_ConsumptionPeriodID ==
+                                                1172
+                                            "
+                                            >Year</span
+                                        >
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="customerDetail?.Economy_Elect_Meter == 1">
+                            <div fxLayout.lt-sm="column">
+                                <div fxFlex="30" fxFlex.lt-sm="100">
+                                    <p class="font-weight-500">
+                                        Usage Of Night Electricity
+                                    </p>
+                                </div>
+                                <div
+                                    *ngIf="
+                                        !!customerDetail &&
+                                        customerDetail?.EnergyUsageID == 0
+                                    "
+                                    fxFlex="80"
+                                    fxFlex.lt-sm="100"
+                                >
+                                    <p *ngIf="!!customerDetail">
+                                        £{{
+                                            customerDetail?.Electricity_Night_Consumption
+                                        }}
+                                    </p>
+                                </div>
+                                <div
+                                    *ngIf="
+                                        !!customerDetail &&
+                                        customerDetail?.EnergyUsageID == 1
+                                    "
+                                    fxFlex="80"
+                                    fxFlex.lt-sm="100"
+                                >
+                                    <p *ngIf="!!customerDetail">
+                                        kWh
+                                        {{
+                                            customerDetail?.Electricity_Night_Consumption
+                                        }}
+                                    </p>
+                                </div>
+                                <div fxFlex="30" fxFlex.lt-sm="100">
+                                    <p class="font-weight-500">
+                                        Electricity Period
+                                    </p>
+                                </div>
+                                <div fxFlex="80" fxFlex.lt-sm="100">
+                                    <p *ngIf="!!customerDetail">
+                                        <span
+                                            *ngIf="
+                                                customerDetail?.Electricity_Night_ConsumptionPeriodId ==
+                                                1170
+                                            "
+                                            >Month</span
+                                        >
+                                        <span
+                                            *ngIf="
+                                                customerDetail?.Electricity_Night_ConsumptionPeriodId ==
+                                                1171
+                                            "
+                                            >Quarter</span
+                                        >
+                                        <span
+                                            *ngIf="
+                                                customerDetail?.Electricity_Night_ConsumptionPeriodId ==
+                                                1172
+                                            "
+                                            >Year</span
+                                        >
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Use Of Gas</p>
+                            </div>
+                            <div
+                                *ngIf="
+                                    !!customerDetail &&
+                                    customerDetail?.EnergyUsageID == 0
+                                "
+                                fxFlex="80"
+                                fxFlex.lt-sm="100"
+                            >
+                                <p *ngIf="!!customerDetail">
+                                    £{{ customerDetail?.GasConsumption }}
+                                </p>
+                            </div>
+                            <div
+                                *ngIf="
+                                    !!customerDetail &&
+                                    customerDetail?.EnergyUsageID == 1
+                                "
+                                fxFlex="80"
+                                fxFlex.lt-sm="100"
+                            >
+                                <p *ngIf="!!customerDetail">
+                                    kWh {{ customerDetail?.GasConsumption }}
+                                </p>
+                            </div>
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Gas Period</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    <span
+                                        *ngIf="
+                                            customerDetail?.GasConsumptionPeriodID ==
+                                            1170
+                                        "
+                                        >Month</span
+                                    >
+                                    <span
+                                        *ngIf="
+                                            customerDetail?.GasConsumptionPeriodID ==
+                                            1171
+                                        "
+                                        >Quarter</span
+                                    >
+                                    <span
+                                        *ngIf="
+                                            customerDetail?.GasConsumptionPeriodID ==
+                                            1172
+                                        "
+                                        >Year</span
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        *ngIf="
+                            currentUser.RoleType == 1 ||
+                            currentUser.RoleType == 5
+                        "
+                        class="w-100-p pl-12 content-header"
+                        fxLayoutAlign="start center"
+                    >
+                        <h3 fxLayoutAlign="start center">
+                            <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                            Current Supplier Details
+                        </h3>
+                    </div>
+
+                    <div
+                        *ngIf="
+                            currentUser.RoleType == 1 ||
+                            currentUser.RoleType == 5
+                        "
+                        class="w-100-p p-12"
+                    >
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">
+                                    Current Electricity Supplier Name
+                                </p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{
+                                        customerDetail?.CurrentElectricitySupplierName
+                                    }}
+                                </p>
+                            </div>
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">
+                                    Current Electricity Plan Name
+                                </p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{
+                                        customerDetail?.CurrentElectricityPlanName
+                                    }}
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">
+                                    Current Electricity Payment method
+                                </p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ paymentMethods[0].Value }}
+                                </p>
+                            </div>
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">
+                                    Current Gas Supplier Name
+                                </p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail?.CurrentGasSupplierName }}
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">
+                                    Current Gas Plan Name
+                                </p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail?.CurrentGasPlanName }}
+                                </p>
+                            </div>
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">
+                                    Current Gas Payment method
+                                </p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ paymentMethods[0].Value }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        *ngIf="currentUser.RoleType == 1"
+                        class="w-100-p pl-12 content-header"
+                        fxLayoutAlign="start center"
+                    >
+                        <h3 fxLayoutAlign="start center">
+                            <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                            Package Info
+                        </h3>
+                    </div>
+
+                    <div
+                        *ngIf="currentUser.RoleType == 1"
+                        fxLayout.lt-sm="column"
+                    >
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Package Name</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!customerDetail?.Package">
+                                {{ customerDetail?.Package?.Name }}
+                            </p>
+                        </div>
+
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">
+                                Electricity Package Amount
+                            </p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!customerDetail?.Package">
+                                {{
+                                    customerDetail?.Package
+                                        ?.ElectricityPackageAmount
+                                }}
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        *ngIf="currentUser.RoleType == 1"
+                        fxLayout.lt-sm="column"
+                    >
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Gas Package Amount</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!customerDetail?.Package">
+                                {{ customerDetail?.Package?.GasPackageAmount }}
+                            </p>
+                        </div>
+
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Standing Charge</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!customerDetail?.Package">
+                                {{
+                                    customerDetail?.Package?.StandingCharge
+                                        | number: "1.0-2"
+                                }}
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        *ngIf="currentUser.RoleType == 1"
+                        fxLayout.lt-sm="column"
+                    >
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Unit Rate</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!customerDetail?.Package">
+                                {{
+                                    customerDetail?.Package?.UnitRate
+                                        | number: "1.0-2"
+                                }}
+                            </p>
+                        </div>
+
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Night Rate</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!customerDetail?.Package">
+                                {{
+                                    customerDetail?.Package?.NightRate
+                                        | number: "1.0-2"
+                                }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- <div
+                        *ngIf="currentUser.RoleType == 1"
+                        class="w-100-p pl-12 content-header"
+                        fxLayoutAlign="start center"
+                    >
+                        <h3 fxLayoutAlign="start center">
+                          
+                            Current Pool Info
+                        </h3>
+                    </div> -->
+
+                    <div
+                        *ngIf="currentUser.RoleType == 1"
+                        fxLayout.lt-sm="column"
+                    >
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Pool Name</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!poolData">
+                                {{ poolData[0]?.FirstName }}
+                                {{ poolData[0]?.LastName }}
+                            </p>
+                        </div>
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Pool Email</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!poolData">
+                                {{ poolData[0]?.Email }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        *ngIf="currentUser.RoleType == 1"
+                        fxLayout.lt-sm="column"
+                    >
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Customer Pool On</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!poolData">
+                                {{
+                                    poolData[0]?.CustomerPoolOn
+                                        | date: "dd / MM / yyyy"
+                                }}
+                            </p>
+                        </div>
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Email verification On</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!poolData">
+                                {{
+                                    poolData[0]?.EmailVerificationOn
+                                        | date: "dd / MM / yyyy"
+                                }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        *ngIf="currentUser.RoleType == 1"
+                        class="w-100-p pl-12 content-header"
+                        fxLayoutAlign="start center"
+                    >
+                        <h3 fxLayoutAlign="start center">
+                            <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                            Address Details
+                        </h3>
+                    </div>
+
+                    <div
+                        *ngIf="currentUser.RoleType == 1"
+                        fxLayout.lt-sm="column"
+                    >
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Post Code</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!customerDetail">
+                                {{ customerDetail.PostCode }}
+                            </p>
+                        </div>
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Address</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!customerDetail">
+                                {{ customerDetail.AddressLine1 }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        *ngIf="currentUser.RoleType == 1"
+                        fxLayout.lt-sm="column"
+                    >
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">City</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!customerDetail">
+                                {{ customerDetail.City }}
+                            </p>
+                        </div>
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Country</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!customerDetail">
+                                {{ customerDetail.Country }}
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        *ngIf="currentUser.RoleType == 1"
+                        fxLayout.lt-sm="column"
+                    >
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Gas MPRN Number</p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!customerDetail">
+                                {{ customerDetail.GasMPRNnumber }}
+                            </p>
+                        </div>
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">
+                                Electricity Supply Number
+                            </p>
+                        </div>
+                        <div fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="!!customerDetail">
+                                {{ customerDetail.ElectricitySupplyNumber }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="w-100-p p-12">
+                        <div fxLayoutAlign="end center">
+                            <button
+                                mat-flat-button
+                                *ngIf="currentUser.RoleType == 2"
+                                class="c-p-btn"
+                                (click)="editProfile('chnage-password')"
+                                color="accent"
+                            >
+                                Change Password
+                            </button>
+                            &nbsp;&nbsp;
+                            <button
+                                mat-fab
+                                class="add-button"
+                                (click)="editProfileByuser('edit')"
+                            >
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            &nbsp;
+                        </div>
+                    </div>
+                </mat-card>
+                <mat-card
+                    fxFlex="100"
+                    class="credit-card p-12 w-100-p"
+                    *ngIf="this.currentUser.RoleType == 6"
+                    fxLayout="column"
+                >
+                    <div
+                        class="w-100-p pl-12 content-header"
+                        fxLayoutAlign="start center"
+                    >
+                        <h3 fxLayoutAlign="start center">Personal details</h3>
+                    </div>
+
+                    <div class="w-100-p p-12">
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Name</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    <span *ngIf="customerDetail.Title == 2"
+                                        >Miss
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 1"
+                                        >Mr
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 3"
+                                        >Mrs
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 4"
+                                        >Ms
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 5"
+                                        >Dr
+                                    </span>
+                                    {{ customerDetail.FirstName }}
+                                    {{ customerDetail.LastName }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Email address</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.EmailId }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Mobile Number</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.PhoneNo }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Date of birth</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{
+                                        customerDetail.DOB
+                                            | date: "dd / MM / yyyy"
+                                    }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Address</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.AddressLine1
+                                    }}<span
+                                        *ngIf="!!customerDetail.AddressLine2"
+                                        >, </span
+                                    >{{ customerDetail.AddressLine2
+                                    }}<span *ngIf="!!customerDetail.City"
+                                        >, </span
+                                    >{{ customerDetail.City
+                                    }}<span *ngIf="!!customerDetail.PostCode"
+                                        >, </span
+                                    >{{ customerDetail.PostCode }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Referral Code</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.ReferrerCode }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Dialer User Name</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.DialerUserName }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100-p p-12">
+                        <div fxLayoutAlign="end center">
+                            <button
+                                mat-flat-button
+                                class="c-p-btn"
+                                *ngIf="currentUser.RoleType == 6"
+                                (click)="editProfile('chnage-password')"
+                                color="accent"
+                            >
+                                Change Password
+                            </button>
+                            &nbsp;&nbsp;
+
+                            <button
+                                mat-fab
+                                class="add-button"
+                                *ngIf="currentUser.RoleType == 6"
+                                (click)="editPartner('edit')"
+                            >
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            &nbsp;
+                        </div>
+                    </div>
+                </mat-card>
+
+                <!-- Partner Profile Start -->
+                <mat-card
+                    fxFlex="100"
+                    class="credit-card p-12 w-100-p"
+                    *ngIf="this.currentUser.RoleType == 3"
+                    fxLayout="column"
+                >
+                    <div
+                        class="w-100-p pl-12 content-header"
+                        fxLayoutAlign="start center"
+                    >
+                        <h3 fxLayoutAlign="start center">
+                            <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                            Personal details
+                        </h3>
+                    </div>
+
+                    <div class="w-100-p p-12">
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Name</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    <span *ngIf="customerDetail.Title == 2"
+                                        >Miss
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 1"
+                                        >Mr
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 3"
+                                        >Mrs
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 4"
+                                        >Ms
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 5"
+                                        >Dr
+                                    </span>
+                                    {{ customerDetail.FirstName }}
+                                    {{ customerDetail.LastName }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Email address</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.EmailId }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Mobile Number</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.PhoneNo }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Date of birth</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{
+                                        customerDetail.DOB
+                                            | date: "dd / MM / yyyy"
+                                    }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Address</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.AddressLine1
+                                    }}<span
+                                        *ngIf="!!customerDetail.AddressLine2"
+                                        >, </span
+                                    >{{ customerDetail.AddressLine2
+                                    }}<span *ngIf="!!customerDetail.City"
+                                        >, </span
+                                    >{{ customerDetail.City
+                                    }}<span *ngIf="!!customerDetail.PostCode"
+                                        >, </span
+                                    >{{ customerDetail.PostCode }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Referral Code</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.ReferrerCode }}
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Dialer User Name</p>
+                            </div>
+                            <div fxFlex="50" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.DialerUserName }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100-p p-12">
+                        <div fxLayoutAlign="end center">
+                            <button
+                                mat-flat-button
+                                class="c-p-btn"
+                                *ngIf="currentUser.RoleType == 3"
+                                (click)="editProfile('chnage-password')"
+                                color="accent"
+                            >
+                                Change Password
+                            </button>
+                            &nbsp;&nbsp;
+
+                            <button
+                                mat-fab
+                                class="add-button"
+                                *ngIf="currentUser.RoleType == 3"
+                                (click)="editPartner('edit')"
+                            >
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            &nbsp;
+                        </div>
+                    </div>
+                </mat-card>
+                <!-- Partner Profile END -->
+
+                <!-- Customer Activity START -->
+                <mat-card
+                    fxFlex="100"
+                    class="credit-card p-12 w-100-p"
+                    *ngIf="
+                        currentUser.RoleType == 1 || currentUser.RoleType == 5
+                    "
+                    fxLayout="column"
+                >
+                    <div
+                        class="w-100-p pl-12 content-header"
+                        fxLayoutAlign="start center"
+                    >
+                        <h3 fxLayoutAlign="start center">
+                            <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                            Customer Activity
+                        </h3>
+                    </div>
+
+                    <div class="p-24">
+                        <div fxLayoutAlign="center center">
+                            <mat-form-field fxFlex="30" class="search-input">
+                                <input
+                                    matInput
+                                    #filter
+                                    placeholder="Search"
+                                    [formControl]="searchActivity"
+                                />
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div>
+
+                        <div *ngIf="!!activities">
+                            <ngx-datatable
+                                class="material striped w-100-p"
+                                [rows]="activities"
+                                [columnMode]="'force'"
+                                [headerHeight]="50"
+                                [scrollbarH]="true"
+                                [footerHeight]="50"
+                                [rowHeight]="'auto'"
+                                [limit]="10"
+                            >
+                                <ngx-datatable-column
+                                    [sortable]="true"
+                                    prop="date"
+                                    name="Dates"
+                                >
+                                    <ng-template
+                                        let-row="row"
+                                        let-value="value"
+                                        ngx-datatable-cell-template
+                                    >
+                                        {{ row.Date | date: "dd / MM / yyyy" }}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column
+                                    [sortable]="true"
+                                    prop="activity"
+                                    name="Activity details"
+                                >
+                                    <ng-template
+                                        let-row="row"
+                                        let-value="value"
+                                        ngx-datatable-cell-template
+                                    >
+                                        {{ row.activity }}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                        <div
+                            *ngIf="activities == null"
+                            fxLayoutAlign="center center"
+                        >
+                            <h1
+                                style="
+                                    text-align: center;
+                                    font-size: medium;
+                                    top: 50%;
+                                "
+                            >
+                                No Data Found
+                            </h1>
+                        </div>
+                    </div>
+                </mat-card>
+                <!-- Customer Activity END -->
+
+                <mat-card
+                    fxFlex="100"
+                    class="credit-card p-12 w-100-p"
+                    *ngIf="this.currentUser.RoleType == 7"
+                    fxLayout="column"
+                >
+                    <div
+                        class="w-100-p pl-12 content-header"
+                        fxLayoutAlign="start center"
+                    >
+                        <h3 fxLayoutAlign="start center">
+                            <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                            Personal details
+                        </h3>
+                    </div>
+
+                    <div class="w-100-p p-12">
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Name</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    <span *ngIf="customerDetail.Title == 22"
+                                        >Miss
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 1"
+                                        >Mr
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 3"
+                                        >Mrs
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 4"
+                                        >Ms
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 5"
+                                        >Dr
+                                    </span>
+                                    {{ customerDetail.FirstName }}
+                                    {{ customerDetail.LastName }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Email address</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.EmailId }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Mobile Number</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.PhoneNo }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Date of birth</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{
+                                        customerDetail.DOB
+                                            | date: "dd / MM / yyyy"
+                                    }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Address</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.AddressLine1 }},
+                                    {{ customerDetail.City }},
+                                    {{ customerDetail.PostCode }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="end center">
+                        <button
+                            mat-flat-button
+                            *ngIf="currentUser.RoleType == 7"
+                            class="c-p-btn"
+                            (click)="editProfile('chnage-password')"
+                            color="accent"
+                        >
+                            Change Password
+                        </button>
+                        &nbsp;&nbsp;
+                        <button
+                            mat-fab
+                            class="add-button"
+                            (click)="editSponsor('edit')"
+                        >
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        &nbsp;
+                    </div>
+                    <!-- </div> -->
+                </mat-card>
+
+                <!-- Supervisor Detail START -->
+                <mat-card
+                    fxFlex="100"
+                    class="credit-card p-12 w-100-p"
+                    *ngIf="this.currentUser.RoleType == 4"
+                    fxLayout="column"
+                >
+                    <div
+                        class="w-100-p pl-12 content-header"
+                        fxLayoutAlign="start center"
+                    >
+                        <h3 fxLayoutAlign="start center">
+                            <!-- <mat-icon>keyboard_arrow_right</mat-icon> -->
+                            Personal details
+                        </h3>
+                    </div>
+
+                    <div class="w-100-p p-12">
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Name</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    <span *ngIf="customerDetail.Title == 22"
+                                        >Miss
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 1"
+                                        >Mr
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 3"
+                                        >Mrs
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 4"
+                                        >Ms
+                                    </span>
+                                    <span *ngIf="customerDetail.Title == 5"
+                                        >Dr
+                                    </span>
+                                    {{ customerDetail.FirstName }}
+                                    {{ customerDetail.LastName }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Email address</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.EmailId }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Mobile Number</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.PhoneNo }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Date of birth</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{
+                                        customerDetail.DOB
+                                            | date: "dd / MM / yyyy"
+                                    }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column">
+                            <div fxFlex="30" fxFlex.lt-sm="100">
+                                <p class="font-weight-500">Address</p>
+                            </div>
+                            <div fxFlex="80" fxFlex.lt-sm="100">
+                                <p *ngIf="!!customerDetail">
+                                    {{ customerDetail.AddressLine1 }},
+                                    {{ customerDetail.City }},
+                                    {{ customerDetail.PostCode }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="end center">
+                        <button
+                            mat-flat-button
+                            *ngIf="currentUser.RoleType == 4"
+                            class="c-p-btn"
+                            (click)="editProfile('chnage-password')"
+                            color="accent"
+                        >
+                            Change Password
+                        </button>
+                        &nbsp;&nbsp;
+                        <button
+                            mat-fab
+                            class="add-button"
+                            (click)="editSponsor('edit')"
+                        >
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        &nbsp;
+                    </div>
+                    <!-- </div> -->
+                </mat-card>
+                <!-- Supervisor Derail END -->
+            </div>
+        </div>
+    </div>
+</div>

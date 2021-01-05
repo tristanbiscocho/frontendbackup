@@ -1,0 +1,131 @@
+<div id="supplier-detail" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div class="header-title my-12">
+            <p>
+                <label [routerLink]="'/admin-dashboard'">Dashboard</label>
+                <span>&nbsp;/&nbsp;</span>
+                <label [routerLink]="'/supplier/'+ supplierOffset">Suppliers</label>
+                <span>&nbsp;/&nbsp;</span>
+                <span>Supplier Details</span>
+            </p>
+        </div>
+
+        <div fxLayout="column" fxLayoutGap="24px">
+            <mat-card fxFlex="100" class="credit-card p-12 w-100-p" fxLayout="column">
+                <div class="w-100-p pl-12 content-header" fxLayoutAlign="start center">
+                    <h3 fxLayoutAlign="start center">
+                        <!-- <mat-icon>keyboard_arrow_right</mat-icon>  -->
+                        Supplier Details</h3>
+                </div>
+                <p-toast position="center"></p-toast>
+
+                <div class="w-100-p p-12">
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Supplier Name</p>
+                        </div>
+                        <div  *ngIf="!!supplierDetails" fxFlex="80" fxFlex.lt-sm="100">
+                            <p>{{supplierDetails.Name}}</p>
+                        </div>
+                    </div>
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Energy Type</p>
+                        </div>
+                        <div *ngIf="!!supplierDetails" fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="supplierDetails.EnergyTypeID ==  1">
+                                Gas & Electricity
+                            </p>
+                            <p *ngIf="supplierDetails.EnergyTypeID ==  2">
+                                Electricity
+                            </p>
+                            <p *ngIf="supplierDetails.EnergyTypeID ==  3">
+                                Gas
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- <div fxLayout.lt-sm="column">
+                        <div fxFlex="50" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Payment methods</p>
+                        </div>
+                        <div *ngIf="!!supplierDetails" fxFlex="50" fxFlex.lt-sm="100">
+                            <p *ngIf="supplierDetails.PaymentTypeId == 1">
+                                Debit
+                            </p>
+                            <p *ngIf="supplierDetails.PaymentTypeId == 2">
+                                Direct
+                            </p>
+                        </div>
+                    </div> -->
+
+                    <div fxLayout.lt-sm="column">
+                        <div fxFlex="30" fxFlex.lt-sm="100">
+                            <p class="font-weight-500">Status</p>
+                        </div>
+                        <div *ngIf="!!supplierDetails" fxFlex="80" fxFlex.lt-sm="100">
+                            <p *ngIf="supplierDetails.Status == 'True'">
+                                Inactive
+                            </p>
+                            <p *ngIf="supplierDetails.Status == 'False'">
+                                Active
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <div class="content p-12">
+
+                <div class="w-100-p pl-12 content-header mb-12" fxLayoutAlign="space-between center">
+                    <h3 fxLayoutAlign="start center">
+                        <!-- <mat-icon>keyboard_arrow_right</mat-icon>  -->
+                        Supplier Plan Details
+                    </h3>
+
+                    <button color="white" mat-fab (click)="addPlan()">
+                        <mat-icon color="accent">add</mat-icon>
+                    </button>
+
+                </div>
+                <div *ngIf="bills?.length > 0">
+                    <ngx-datatable class="material striped w-100-p" [rows]="bills" [columnMode]="'force'" [offset]="pageOffset" (page)="onChange($event)" [headerHeight]="50" [scrollbarH]="true" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+                        <ngx-datatable-column [sortable]="true" prop="planTitle" name="Plan title">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <p>{{row.PlanName}}</p>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true" prop="typeOfPlan" name="Type of plan">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.PlanTypeName}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="true" prop="status" name="Status">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <span *ngIf="row.Status == 1">Active</span>
+                                <span *ngIf="row.Status == 0">Inactive</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+    
+                        <ngx-datatable-column [sortable]="false" name="Edit details">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <button matTooltip="Edit Details" color="accent" (click)="editPlan(row)" matToolyip="Edit details" mat-mini-fab>
+                                    <mat-icon class="white-fg">edit</mat-icon>
+                                </button>
+                                <button matTooltip="Delete Plan" style="background-color: rgb(213, 78, 76);" (click)="deletePlan(row)" mat-mini-fab>
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </ng-template>
+                        </ngx-datatable-column>
+    
+                    </ngx-datatable>
+                </div>
+                <div fxLayoutAlign="center center" *ngIf="bills?.length == 0">
+                    <h1 style="text-align:center;font-size: medium;position: absolute;
+                    top: 50%;">No Data Found</h1>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+</div>

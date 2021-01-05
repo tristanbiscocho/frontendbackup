@@ -1,0 +1,1856 @@
+<div id="login" #myList fxLayout="column">
+    <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="start center">
+        <div class="my-24">
+            <img width="200" src="/assets/images/betterDeal/beterdeal_logo.png" />
+        </div>
+        <div class="title">Let's get started now!</div>
+        <div class="title-detail">
+            Or
+            <a
+                class="title-detail"
+                [routerLink]="'/login'"
+                style="text-decoration: underline"
+                >Sign in</a
+            >
+            if already registered
+        </div>
+        <div
+            id="login-form"
+            [@animate]="{
+                value: '*',
+                params: { duration: '300ms', y: '100px' }
+            }"
+        >
+            <p-toast position="center"></p-toast>
+
+            <mat-vertical-stepper
+                [linear]="true"
+                #stepper
+                (selectionChange)="setIndex($event)"
+                (click)="triggerClick()"
+            >
+                <mat-step [stepControl]="secondFormGroup">
+                    <form [formGroup]="secondFormGroup">
+                        <ng-template matStepLabel
+                            >What would you like to switch?</ng-template
+                        >
+                        <div class="selection-wrapper">
+                            <mat-radio-group
+                                formControlName="EnergyTypeID"
+                                [(ngModel)]="switchinType"
+                                fxLayout="row"
+                                fxLayout.lt-md="column"
+                                fxLayoutAlign.lt-md="start center"
+                                fxLayoutAlign="space-between center"
+                                aria-label="Select an option"
+                                required
+                                (change)="electricityTypeChange($event)"
+                            >
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="1">
+                                        <div fxLayoutAlign="start center">
+                                            <img
+                                                width="35"
+                                                src="assets/images/betterDeal/gas.png"
+                                            />
+                                            <img
+                                                width="35"
+                                                src="assets/images/betterDeal/electricity-1.png"
+                                            /><span
+                                                fxHide
+                                                fxShow.gt-sm
+                                                class="ml-8"
+                                                >Gas & Electricity</span
+                                            >
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+                                <div fxLayoutAlign="center center" class="p-12">
+                                    OR
+                                </div>
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="2">
+                                        <div
+                                            fxLayout.lt-md="column"
+                                            fxLayoutAlign="start center"
+                                        >
+                                            <img
+                                                width="35"
+                                                src="assets/images/betterDeal/electricity-1.png"
+                                            />
+                                            <span
+                                                fxHide
+                                                fxShow.gt-sm
+                                                class="ml-8"
+                                                >Electricity</span
+                                            >
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+                                <div fxLayoutAlign="center center" class="p-12">
+                                    OR
+                                </div>
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="3">
+                                        <div fxLayoutAlign="start center">
+                                            <img
+                                                width="35"
+                                                src="assets/images/betterDeal/gas.png"
+                                            />
+                                            <span
+                                                fxHide
+                                                fxShow.gt-sm
+                                                class="ml-8"
+                                                >Gas</span
+                                            >
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+                            </mat-radio-group>
+                        </div>
+                        <div class="title-head">
+                            What type of home do you have
+                        </div>
+                        <div class="selection-wrapper" style="margin-top: 10px">
+                            <ng-container *ngFor="let item of typeOfHouse">
+                                <div
+                                    required
+                                    fxFlex="50"
+                                    [ngClass]="{
+                                        'fx-active': homeSelection == item.Id
+                                    }"
+                                    class="radio-button fx-hover-building"
+                                    (click)="selectHomeType(item.Id)"
+                                >
+                                    <img
+                                        class="fx-image-center"
+                                        width="35"
+                                        src="assets/images/logos/medium.png"
+                                    /><span
+                                        fxHide
+                                        fxShow.gt-sm
+                                        class="ml-8 text-center"
+                                        >{{ item.Value }}</span
+                                    >
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="title-head">
+                            What size is your property?
+                        </div>
+                        <div class="selection-wrapper" style="margin-top: 10px">
+                            <mat-form-field fxFlex="50" appearance="outline">
+                                <mat-label>Number of bedrooms</mat-label>
+                                <mat-select
+                                    required
+                                    formControlName="NoOfRoomsId"
+                                    placeholder="No of rooms"
+                                >
+                                    <mat-option
+                                        *ngFor="let add of noOfRooms"
+                                        [value]="add.Id"
+                                    >
+                                        {{ add.Value }} bedroom
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="title-head">
+                            Was the house built before 2000?
+                        </div>
+                        <div class="selection-wrapper" style="margin-top: 10px">
+                            <mat-radio-group
+                                required
+                                formControlName="houseBuild"
+                                [(ngModel)]="houseBuild"
+                                fxLayout="row"
+                                fxLayout.lt-md="column"
+                                fxLayoutAlign.lt-md="start center"
+                                fxLayoutAlign="space-between center"
+                                aria-label="Select an option"
+                                required
+                                (change)="updateHouseBuild($event)"
+                            >
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="1">
+                                        <div fxLayoutAlign="start center">
+                                            <span
+                                                fxHide
+                                                fxShow.gt-sm
+                                                class="ml-8"
+                                                >Yes</span
+                                            >
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+
+                                <div fxFlex="50" class="radio-button">
+                                    <mat-radio-button [value]="2">
+                                        <div
+                                            fxLayout.lt-md="column"
+                                            fxLayoutAlign="start center"
+                                        >
+                                            <span
+                                                fxHide
+                                                fxShow.gt-sm
+                                                class="ml-8"
+                                                >No</span
+                                            >
+                                        </div>
+                                    </mat-radio-button>
+                                </div>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="p-12" fxLayoutAlign="end center">
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperPrevious
+                            >
+                                Back
+                            </button>
+                            &nbsp;
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperNext
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </form>
+                    <!-- {{electricityUse}} -->
+                </mat-step>
+                <mat-step [stepControl]="secondupFormGroup">
+                    <form [formGroup]="secondupFormGroup">
+                        <ng-template matStepLabel
+                            >Do you know how much you use or spend on your
+                            energy?</ng-template
+                        >
+                        <div *ngIf="partneradded == false">
+                            <!-- <div class="title-head">Do you know how much you use or spend on your energy?</div> -->
+                            <div class="selection-wrapper">
+                                <mat-radio-group
+                                    formControlName="EnergyUsageID"
+                                    (change)="electricityChange($event)"
+                                    aria-label="Select an option"
+                                    [(ngModel)]="electricityUse"
+                                    required
+                                >
+                                    <div class="energy-use-radio mb-12 p-0">
+                                        <mat-radio-button [value]="0">
+                                            <span
+                                                >I know how much I spend
+                                                (€)</span
+                                            >
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="energy-use-radio mb-12 p-0">
+                                        <mat-radio-button [value]="1">
+                                            <span
+                                                >I know how much I use
+                                                (kWh)</span
+                                            >
+                                        </mat-radio-button>
+                                    </div>
+
+                                    <div class="energy-use-radio p-0">
+                                        <mat-radio-button [value]="2">
+                                            <span>Help me estimate</span>
+                                        </mat-radio-button>
+                                    </div>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div *ngIf="partneradded == true">
+                            <div class="title-head">
+                                Do you know how much you use or spend on your
+                                energy?
+                            </div>
+                            <div class="selection-wrapper">
+                                <mat-radio-group
+                                    formControlName="EnergyUsageID"
+                                    (change)="electricityChange($event)"
+                                    aria-label="Select an option"
+                                    [(ngModel)]="electricityUse"
+                                    required
+                                >
+                                    <div class="energy-use-radio mb-12 p-0">
+                                        <mat-radio-button [value]="0">
+                                            <span
+                                                >I know how much I spend
+                                                (€)</span
+                                            >
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="energy-use-radio mb-12 p-0">
+                                        <mat-radio-button [value]="1">
+                                            <span
+                                                >I know how much I use
+                                                (kWh)</span
+                                            >
+                                        </mat-radio-button>
+                                    </div>
+
+                                    <div class="energy-use-radio p-0">
+                                        <mat-radio-button [value]="2">
+                                            <span>Help me estimate</span>
+                                        </mat-radio-button>
+                                    </div>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="title-head">
+                            How many occupants in the household?
+                        </div>
+                        <div class="selection-wrapper" style="margin-top: 10px">
+                            <mat-form-field fxFlex="50" appearance="outline">
+                                <mat-label>Occupants</mat-label>
+                                <mat-select
+                                    required
+                                    formControlName="FamilyMembersId"
+                                    placeholder="Family member"
+                                >
+                                    <mat-option
+                                        *ngFor="let add of familyMember"
+                                        [value]="add.Id"
+                                    >
+                                        {{ add.Value }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <div class="title-head">
+                                Do you have a Peak and Off Peak meter at home?
+                            </div>
+                            <div class="selection-wrapper">
+                                <mat-radio-group
+                                    formControlName="IsElectricMeterReading"
+                                    fxLayout.lt-sm="column"
+                                    [(ngModel)]="economicMeter"
+                                    aria-label="Select an option"
+                                    required
+                                >
+                                    <div fxFlex="50" class="energy-use-radio">
+                                        <mat-radio-button
+                                            (change)="radioChange(1)"
+                                            [value]="1"
+                                        >
+                                            <span>Yes</span>
+                                        </mat-radio-button>
+                                    </div>
+                                    <div fxFlex="50" class="energy-use-radio">
+                                        <mat-radio-button
+                                            (change)="radioChange(2)"
+                                            [value]="2"
+                                        >
+                                            <span>No</span>
+                                        </mat-radio-button>
+                                    </div>
+
+                                    <div fxFlex="50" class="energy-use-radio">
+                                        <mat-radio-button
+                                            (change)="radioChange(3)"
+                                            [value]="3"
+                                        >
+                                            <span>I don't know</span>
+                                        </mat-radio-button>
+                                    </div>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+
+                        <div class="p-12" fxLayoutAlign="end center">
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperPrevious
+                            >
+                                Back
+                            </button>
+                            &nbsp;
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperNext
+                                (click)="getSupplierforAll()"
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </form>
+                    <!-- {{electricityUse}} -->
+                </mat-step>
+
+                <mat-step
+                    *ngIf="electricityUse == 2"
+                    [stepControl]="partnerfifthFormGroup"
+                >
+                    <ng-template matStepLabel>
+                        How would you describe your usage?</ng-template
+                    >
+                    <form [formGroup]="partnerfifthFormGroup">
+                        <div>
+                            <div class="selection-wrapper">
+                                <mat-radio-group
+                                    formControlName="IsOtherDetails"
+                                    fxLayout.lt-sm="column"
+                                    [(ngModel)]="economicMeter"
+                                    aria-label="Select an option"
+                                    required
+                                >
+                                    <div fxFlex="50" class="energy-use-radio">
+                                        <mat-radio-button
+                                            (change)="otherdetailsChange(1)"
+                                            [value]="1"
+                                        >
+                                            <span>Low</span>
+                                        </mat-radio-button>
+                                    </div>
+                                    <div fxFlex="50" class="energy-use-radio">
+                                        <mat-radio-button
+                                            (change)="otherdetailsChange(2)"
+                                            [value]="2"
+                                        >
+                                            <span>Medium</span>
+                                        </mat-radio-button>
+                                    </div>
+
+                                    <div fxFlex="50" class="energy-use-radio">
+                                        <mat-radio-button
+                                            (change)="otherdetailsChange(3)"
+                                            [value]="3"
+                                        >
+                                            <span>High</span>
+                                        </mat-radio-button>
+                                    </div>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="p-12" fxLayoutAlign="end center">
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperPrevious
+                            >
+                                Back
+                            </button>
+                            &nbsp;
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperNext
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step
+                    *ngIf="partneradded == true"
+                    [stepControl]="partnerfifthFormGroup"
+                >
+                    <ng-template matStepLabel>
+                        How would you describe your usage?</ng-template
+                    >
+                    <form [formGroup]="partnerfifthFormGroup">
+                        <div class="selection-wrapper">
+                            <mat-radio-group
+                                formControlName="IsOtherDetails"
+                                fxLayout.lt-sm="column"
+                                [(ngModel)]="economicMeter"
+                                aria-label="Select an option"
+                                required
+                            >
+                                <div fxFlex="50" class="energy-use-radio">
+                                    <mat-radio-button
+                                        (change)="otherdetailsChange(1)"
+                                        [value]="1"
+                                    >
+                                        <span>Low</span>
+                                    </mat-radio-button>
+                                </div>
+                                <div fxFlex="50" class="energy-use-radio">
+                                    <mat-radio-button
+                                        (change)="otherdetailsChange(2)"
+                                        [value]="2"
+                                    >
+                                        <span>Medium </span>
+                                    </mat-radio-button>
+                                </div>
+
+                                <div fxFlex="50" class="energy-use-radio">
+                                    <mat-radio-button
+                                        (change)="otherdetailsChange(3)"
+                                        [value]="3"
+                                    >
+                                        <span>High</span>
+                                    </mat-radio-button>
+                                </div>
+                            </mat-radio-group>
+                        </div>
+                        <div fxLayoutAlign="end center">
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperPrevious
+                            >
+                                Back
+                            </button>
+                            &nbsp;
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperNext
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step
+                    *ngIf="electricityUse != '2'"
+                    [stepControl]="thirdFormGroup"
+                >
+                    <ng-template *ngIf="electricityUse == '0'" matStepLabel
+                        >I know how much I spend (€)</ng-template
+                    >
+                    <ng-template *ngIf="electricityUse == '1'" matStepLabel
+                        >I know how much I use (kWh)</ng-template
+                    >
+                    <ng-template *ngIf="electricityUse == '2'" matStepLabel
+                        >I'm not sure</ng-template
+                    >
+                    <form [formGroup]="thirdFormGroup">
+                        <div
+                            *ngIf="
+                                electricityUse == '0' || electricityUse == '1'
+                            "
+                        >
+                            <div
+                                fxLayoutAlign="start center"
+                                class="title-head"
+                            >
+                                Electricity
+                                <!-- {{electricityUse}} PeakUsage {{peakOffPeakType}} -->
+                            </div>
+                            <div fxLayout="row" fxLayoutGap="12px">
+                                <div fxFlex="50">
+                                    <mat-form-field
+                                        class="w-100-p"
+                                        appearance="outline"
+                                    >
+                                        <mat-label
+                                            *ngIf="
+                                                peakOffPeakType == 1 &&
+                                                electricityUse == 0
+                                            "
+                                        >
+                                            Peak Cost</mat-label
+                                        >
+                                        <mat-label
+                                            *ngIf="
+                                                peakOffPeakType == 2 &&
+                                                electricityUse == 0
+                                            "
+                                        >
+                                            Cost</mat-label
+                                        >
+                                        <mat-label
+                                            *ngIf="
+                                                peakOffPeakType == 1 &&
+                                                electricityUse == 1
+                                            "
+                                        >
+                                            Peak Units</mat-label
+                                        >
+                                        <mat-label
+                                            *ngIf="
+                                                peakOffPeakType == 2 &&
+                                                electricityUse == 1
+                                            "
+                                        >
+                                            Units</mat-label
+                                        >
+                                        <!-- <mat-label *ngIf="(peakOffPeakType==1||peakOffPeakType==2)&&electricityUse==1">  Usage</mat-label>
+                                        <mat-label *ngIf="(peakOffPeakType==1||peakOffPeakType==2)&&electricityUse==1">  Usage</mat-label> -->
+                                        <input
+                                            matInput
+                                            placeholder="Cost"
+                                            oninput="validity.valid||(value='');"
+                                            min="0"
+                                            type="number"
+                                            formControlName="ElectricityConsumption"
+                                        />
+                                        <span
+                                            matPrefix
+                                            *ngIf="electricityUse == 0"
+                                        >
+                                            €</span
+                                        >
+                                        <span
+                                            matPrefix
+                                            *ngIf="electricityUse == 1"
+                                            >kWh</span
+                                        >
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="50">
+                                    <mat-form-field
+                                        class="w-100-p"
+                                        appearance="outline"
+                                    >
+                                        <mat-label>Period</mat-label>
+                                        <mat-select
+                                            placeholder="Period"
+                                            formControlName="ElectricityConsumptionPeriodID"
+                                        >
+                                            <mat-option
+                                                *ngFor="let add of period"
+                                                [value]="add.Id"
+                                            >
+                                                {{ add.Value }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div
+                                *ngIf="peakOffPeakType == 1"
+                                fxLayout="row"
+                                fxLayoutGap="12px"
+                            >
+                                <div fxFlex="50">
+                                    <mat-form-field
+                                        class="w-100-p"
+                                        appearance="outline"
+                                    >
+                                        <mat-label
+                                            *ngIf="
+                                                peakOffPeakType == 1 &&
+                                                electricityUse == 0
+                                            "
+                                            >Off Peak Cost</mat-label
+                                        >
+                                        <mat-label
+                                            *ngIf="
+                                                peakOffPeakType == 2 &&
+                                                electricityUse != 0
+                                            "
+                                        >
+                                            Cost</mat-label
+                                        >
+                                        <mat-label
+                                            *ngIf="
+                                                peakOffPeakType == 1 &&
+                                                electricityUse == 1
+                                            "
+                                            >Off Peak Units</mat-label
+                                        >
+                                        <mat-label
+                                            *ngIf="
+                                                peakOffPeakType == 2 &&
+                                                electricityUse == 1
+                                            "
+                                        >
+                                            Units</mat-label
+                                        >
+                                        <input
+                                            matInput
+                                            placeholder="Peak"
+                                            oninput="validity.valid||(value='');"
+                                            min="0"
+                                            type="number"
+                                            formControlName="ElectricityConsumption"
+                                        />
+                                        <span
+                                            matPrefix
+                                            *ngIf="electricityUse == 0"
+                                        >
+                                            €</span
+                                        >
+                                        <span
+                                            matPrefix
+                                            *ngIf="electricityUse == 1"
+                                            >kWh</span
+                                        >
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div *ngIf="switchinType == '1'">
+                                <div
+                                    fxLayoutAlign="start center"
+                                    class="title-head"
+                                >
+                                    Gas
+                                </div>
+                                <div fxLayout="row" fxLayoutGap="12px">
+                                    <div fxFlex="50">
+                                        <mat-form-field
+                                            class="w-100-p"
+                                            appearance="outline"
+                                        >
+                                            <mat-label
+                                                *ngIf="electricityUse == 0"
+                                                >Cost</mat-label
+                                            >
+                                            <mat-label
+                                                *ngIf="electricityUse == 1"
+                                                >Units</mat-label
+                                            >
+                                            <input
+                                                matInput
+                                                placeholder="Cost"
+                                                oninput="validity.valid||(value='');"
+                                                min="0"
+                                                type="number"
+                                                formControlName="GasConsumption"
+                                            />
+                                            <span
+                                                matPrefix
+                                                *ngIf="electricityUse == 0"
+                                            >
+                                                €</span
+                                            >
+                                            <span
+                                                matPrefix
+                                                *ngIf="electricityUse == 1"
+                                                >kWh</span
+                                            >
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="50">
+                                        <mat-form-field
+                                            class="w-100-p"
+                                            appearance="outline"
+                                        >
+                                            <mat-label>Period</mat-label>
+                                            <mat-select
+                                                placeholder="Period"
+                                                formControlName="GasConsumptionPeriodID"
+                                            >
+                                                <mat-option
+                                                    *ngFor="let add of period"
+                                                    [value]="add.Id"
+                                                >
+                                                    {{ add.Value }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="electricityUse == '2'">
+                            <div class="selection-wrapper">
+                                <mat-radio-group
+                                    fxLayout="row"
+                                    fxLayout.lt-md="column"
+                                    formControlName="TypeOfHome"
+                                    fxLayoutAlign.lt-md="start center"
+                                    fxLayoutAlign="space-between center"
+                                    aria-label="Select an option"
+                                >
+                                    <div
+                                        fxFlex="50"
+                                        fxLayoutAlign="start
+                                        center"
+                                        class="radio-button"
+                                    >
+                                        <mat-radio-button [value]="0">
+                                            <div fxLayoutAlign="start center">
+                                                <!-- <img width="50" src="assets/images/logos/small.png" /> -->
+                                                <span
+                                                    fxHide
+                                                    fxShow.gt-sm
+                                                    class="ml-8"
+                                                    >Small</span
+                                                >
+                                            </div>
+                                        </mat-radio-button>
+                                    </div>
+                                    <div
+                                        fxLayoutAlign="center center"
+                                        class="p-12"
+                                    >
+                                        OR
+                                    </div>
+                                    <div
+                                        fxLayoutAlign="start center"
+                                        fxFlex="50"
+                                        class="radio-button"
+                                    >
+                                        <mat-radio-button [value]="1">
+                                            <div
+                                                fxLayout.lt-md="column"
+                                                fxLayoutAlign="start center"
+                                            >
+                                                <!-- <img width="50" src="assets/images/logos/medium.png" /> -->
+                                                <span
+                                                    fxHide
+                                                    fxShow.gt-sm
+                                                    class="ml-8"
+                                                    >Medium</span
+                                                >
+                                            </div>
+                                        </mat-radio-button>
+                                    </div>
+                                    <div
+                                        fxLayoutAlign="center center"
+                                        class="p-12"
+                                    >
+                                        OR
+                                    </div>
+                                    <div
+                                        fxLayoutAlign="start center"
+                                        fxFlex="50"
+                                        class="radio-button"
+                                    >
+                                        <mat-radio-button [value]="2">
+                                            <div
+                                                fxLayout.lt-md="column"
+                                                fxLayoutAlign="start center"
+                                            >
+                                                <!-- <img width="50" src="assets/images/logos/large.png" /> -->
+                                                <span
+                                                    fxHide
+                                                    fxShow.gt-sm
+                                                    class="ml-8"
+                                                    >Large</span
+                                                >
+                                            </div>
+                                        </mat-radio-button>
+                                    </div>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="p-12" fxLayoutAlign="end center">
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperPrevious
+                            >
+                                Back
+                            </button>
+                            &nbsp;
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperNext
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="fourthFormGroup">
+                    <ng-template matStepLabel
+                        >Who is your current supplier?</ng-template
+                    >
+                    <form [formGroup]="fourthFormGroup">
+                        <div *ngIf="bothSupplier == true">
+                            <mat-form-field
+                                class="w-100-p"
+                                appearance="outline"
+                            >
+                                <mat-label>Name of supplier</mat-label>
+                                <mat-select
+                                    placeholder="Name of supplier"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="bothSameSupplier"
+                                    (selectionChange)="getplanforboth($event)"
+                                    [required]="isBothSupplierReq"
+                                >
+                                    <mat-option
+                                        *ngFor="let add of suppliers"
+                                        [value]="add.id"
+                                    >
+                                        {{ add.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field
+                                class="w-100-p"
+                                appearance="outline"
+                            >
+                                <mat-label>Payment method</mat-label>
+                                <mat-select
+                                    placeholder="Payment method"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="bothSamePayment"
+                                    (selectionChange)="
+                                        getBothSupplierPlan($event)
+                                    "
+                                >
+                                    <mat-option
+                                        *ngFor="let add of dualPaymentData"
+                                        [value]="add.id"
+                                    >
+                                        {{ add.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field
+                                class="w-100-p"
+                                appearance="outline"
+                            >
+                                <mat-label>Plan, if known</mat-label>
+                                <mat-select
+                                    placeholder="Plan, if known"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="bothSameSupplierPlan"
+                                    [required]="isBothSupplierReq"
+                                >
+                                    <mat-option
+                                        *ngFor="
+                                            let add of supplierPlansboth;
+                                            let i = index
+                                        "
+                                        [value]="add.tariffId"
+                                    >
+                                        {{ add.tariffName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div *ngIf="bothSupplier == false">
+                            <div>
+                                <div
+                                    fxLayoutAlign="start center"
+                                    class="title-head"
+                                >
+                                    Electricity
+                                </div>
+                                <mat-form-field
+                                    class="w-100-p"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Name of supplier</mat-label>
+                                    <mat-select
+                                        placeholder="Name of supplier"
+                                        formControlName="ElectricityCurrentPlan_SupplierID"
+                                        (selectionChange)="
+                                            getSupplierElectricity($event)
+                                        "
+                                    >
+                                        <mat-option
+                                            *ngFor="let add of ElecSupplier"
+                                            [value]="add.id"
+                                        >
+                                            {{ add.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field
+                                    class="w-100-p"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Payment method</mat-label>
+                                    <mat-select
+                                        formControlName="ElectricityCurrentPlan_PlanPaymentID"
+                                        placeholder="Payment method"
+                                        (selectionChange)="
+                                            getElecSupplierPlan($event)
+                                        "
+                                    >
+                                        <mat-option
+                                            *ngFor="let add of paymentMethodElc"
+                                            [value]="add.id"
+                                        >
+                                            {{ add.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field
+                                    class="w-100-p"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Plan, if known</mat-label>
+                                    <mat-select
+                                        placeholder="Plan, if known"
+                                        formControlName="ElectricityCurrentPlan_PlanID"
+                                    >
+                                        <mat-option
+                                            *ngFor="
+                                                let add of supplierPlansElec
+                                            "
+                                            [value]="add.tariffId"
+                                        >
+                                            {{ add.tariffName }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="switchinType == '1'">
+                                <div
+                                    fxLayoutAlign="start center"
+                                    class="title-head"
+                                >
+                                    Gas
+                                </div>
+                                <mat-form-field
+                                    class="w-100-p"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Name of supplier</mat-label>
+                                    <mat-select
+                                        formControlName="GasCurrentPlan_SupplierID"
+                                        placeholder="Name of supplier"
+                                        (selectionChange)="setSupplier($event)"
+                                    >
+                                        <mat-option
+                                            *ngFor="let add of GasSupplier"
+                                            [value]="add.id"
+                                        >
+                                            {{ add.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field
+                                    class="w-100-p"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Payment method</mat-label>
+                                    <mat-select
+                                        formControlName="GasCurrentPlan_PlanPaymentID"
+                                        placeholder="Payment method"
+                                        (selectionChange)="
+                                            getGasSupplierPlan($event)
+                                        "
+                                    >
+                                        <mat-option
+                                            *ngFor="let add of GasPaymentData"
+                                            [value]="add.id"
+                                        >
+                                            {{ add.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field
+                                    class="w-100-p"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Plan, if known</mat-label>
+                                    <mat-select
+                                        formControlName="GasCurrentPlan_PlanID"
+                                        placeholder="Plan, if known"
+                                    >
+                                        <mat-option
+                                            *ngFor="let add of supplierPlans"
+                                            [value]="add.tariffId"
+                                        >
+                                            {{ add.tariffName }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div
+                            *ngIf="switchinType == 1"
+                            fxLayoutAlign="start start"
+                        >
+                            <mat-checkbox
+                                [ngModelOptions]="{ standalone: true }"
+                                [(ngModel)]="bothSupplier"
+                                (change)="isBothSupplier($event)"
+                                >Are you on a dual fuel tariff?
+                            </mat-checkbox>
+                        </div>
+
+                        <div fxLayoutAlign="end center">
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperPrevious
+                            >
+                                Back
+                            </button>
+                            &nbsp;
+                            <button
+                                *ngIf="bothSupplier == true"
+                                mat-flat-button
+                                color="accent"
+                                (click)="getUserCurrentTariff(stepper)"
+                            >
+                                Next
+                            </button>
+                            <button
+                                *ngIf="bothSupplier == false"
+                                mat-flat-button
+                                color="accent"
+                                (click)="getUserCurrentTariff(stepper)"
+                            >
+                                Next
+                            </button>
+                            <!-- matStepperNext -->
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Energy deal</ng-template>
+                    <div
+                        style="background: white"
+                        class="m-0 p-16"
+                        id="supplierDetails"
+                    >
+                        <h3
+                            *ngIf="!!energy1"
+                            style="color: #005a61; text-align: center"
+                        >
+                            Your new estimated annual energy costs are €{{
+                                energy1.bill | number: "1.2-2"
+                            }}. That's
+                            {{ energy1.savingPercentage | number: "1.2-2" }}%
+                            lower than your current plan.
+                        </h3>
+                        <br />
+                        <table
+                            *ngIf="!!energy1"
+                            style="width: 100%"
+                            cellspacing="0"
+                        >
+                            <tr>
+                                <th>Supplier</th>
+                                <th>Product Term</th>
+                                <th>Estimated Annual Cost</th>
+                                <th>Estimated Saving</th>
+                                <th>Exit Penalty</th>
+                            </tr>
+                            <tr colspan="2">
+                                <td class="bottm-border">
+                                    <!-- <img width="70" [src]="energy1.imageName" /> -->
+                                    <span>{{ energy1.supplierName }}</span>
+                                </td>
+                                <td class="border-td bottm-border">
+                                    {{ energy1.contractLength }} months
+                                </td>
+                                <td class="border-td" rowspan="2">
+                                    €{{ energy1.bill | number: "1.2-2" }}
+                                </td>
+                                <td class="border-td" rowspan="2">
+                                    €{{ energy1.saving | number: "1.2-2" }} ({{
+                                        energy1.savingPercentage
+                                            | number: "1.2-2"
+                                    }}%)
+                                </td>
+                                <td rowspan="2">0</td>
+                            </tr>
+                            <tr>
+                                <td class="border-td" colspan="2">
+                                    <img
+                                        width="200"
+                                        style="margin-top: 4px"
+                                        src="assets/images/logos/LowestTariff-plan.png"
+                                    />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h1 *ngIf="emergyType != 2" style="color: #005a61">
+                            About your Gas Tariff
+                        </h1>
+                        <br />
+                        <table
+                            *ngIf="emergyType != 2 && !!currentEnergyGas"
+                            id="customers"
+                        >
+                            <tr>
+                                <th>Rates inc VAT</th>
+                                <th class="existing-trf">Existing Tariff</th>
+                                <th>New Tariff</th>
+                            </tr>
+                            <tr>
+                                <td>Supplier</td>
+                                <td class="existing-trf">
+                                    {{ currentEnergyGas.supplierName }}
+                                </td>
+                                <td>{{ energy.supplierName }}</td>
+                            </tr>
+                            <tr>
+                                <td>Tariff name</td>
+                                <td class="existing-trf">
+                                    {{ currentEnergyGas.tariffName }}
+                                </td>
+                                <td>Lowest Tariff Bespoke Plan</td>
+                            </tr>
+                            <tr>
+                                <td>Tariff type</td>
+                                <td class="existing-trf">
+                                    {{ currentEnergyGas.tariffType }}
+                                </td>
+                                <td>{{ energy.tariffType }}</td>
+                            </tr>
+                            <tr>
+                                <td>Payment method</td>
+                                <td class="existing-trf">
+                                    {{ currentEnergyGas.paymentMethodName }}
+                                </td>
+                                <td>Monthly Direct Debit</td>
+                            </tr>
+                            <tr>
+                                <td>Unit rate</td>
+                                <td class="existing-trf">
+                                    {{
+                                        currentEnergyGas.pricePerUnit
+                                            | number: "1.2-2"
+                                    }}p per kWh
+                                </td>
+                                <td>
+                                    {{ energy.price1Gas | number: "1.2-2" }}p
+                                    per kWh
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Standing charge</td>
+                                <td class="existing-trf">
+                                    {{
+                                        currentEnergyGas.standingChargeDaily
+                                            | number: "1.2-2"
+                                    }}p per day
+                                </td>
+                                <td>
+                                    {{
+                                        energy.standingChargeGas
+                                            | number: "1.2-2"
+                                    }}p per day
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tariff ends on</td>
+                                <td class="existing-trf">12 Months</td>
+                                <td>12 Months</td>
+                            </tr>
+                            <tr>
+                                <td>Price guaranteed until</td>
+                                <td class="existing-trf">Permanently</td>
+                                <td>Permanently</td>
+                            </tr>
+                            <tr>
+                                <td>Exit fees</td>
+                                <td class="existing-trf">€ 0</td>
+                                <td>€ 0</td>
+                            </tr>
+                            <tr>
+                                <td>Discounts</td>
+                                <td class="existing-trf">€ 0</td>
+                                <td>€ 0</td>
+                            </tr>
+                            <tr>
+                                <td>Additional charges</td>
+                                <td class="existing-trf">€ 0</td>
+                                <td>€ 0</td>
+                            </tr>
+                            <!-- <tr>
+                                    <td>Average monthly direct debit</td>
+                                    <td>€ {{currentEnergyGas.bill | number : '1.2-2'}}</td>
+                                    <td>€ {{averageMonth | number : '1.2-2'}}</td>
+                                  </tr> -->
+                        </table>
+
+                        <br />
+                        <br />
+                        <h1 *ngIf="!!energy1" style="color: #005a61">
+                            About your Electricity Tariff
+                        </h1>
+                        <br />
+                        <table *ngIf="!!currentEnergyElc" id="customers">
+                            <tr>
+                                <th>Rates inc VAT</th>
+                                <th class="existing-trf">Existing Tariff</th>
+                                <th>New Tariff</th>
+                            </tr>
+                            <tr>
+                                <td>Supplier</td>
+                                <td class="existing-trf">
+                                    {{ currentEnergyElc.supplierName }}
+                                </td>
+                                <td>{{ energy.supplierName }}</td>
+                            </tr>
+                            <tr>
+                                <td>Tariff name</td>
+                                <td class="existing-trf">
+                                    {{ currentEnergyElc.tariffName }}
+                                </td>
+                                <td>Lowest Tariff Bespoke Plan</td>
+                            </tr>
+                            <tr>
+                                <td>Tariff type</td>
+                                <td class="existing-trf">
+                                    {{ currentEnergyElc.tariffType }}
+                                </td>
+                                <td>{{ energy.tariffType }}</td>
+                            </tr>
+                            <tr>
+                                <td>Payment method</td>
+                                <td class="existing-trf">
+                                    {{ currentEnergyElc.paymentMethodName }}
+                                </td>
+                                <td>Monthly Direct Debit</td>
+                            </tr>
+                            <tr *ngIf="peakOffPeakType != 1">
+                                <td>Unit rate</td>
+                                <td class="existing-trf">
+                                    {{
+                                        currentEnergyElc.pricePerUnit
+                                            | number: "1.2-2"
+                                    }}p per kWh
+                                </td>
+                                <td>
+                                    {{ energy.price1Elec | number: "1.2-2" }}p
+                                    per kWh
+                                </td>
+                            </tr>
+                            <tr *ngIf="peakOffPeakType == 1">
+                                <td>Peak Unit rate</td>
+                                <td class="existing-trf">
+                                    {{
+                                        currentEnergyElc.pricePerUnit
+                                            | number: "1.2-2"
+                                    }}p per kWh
+                                </td>
+                                <td>
+                                    {{ energy.price1Elec | number: "1.2-2" }}p
+                                    per kWh
+                                </td>
+                            </tr>
+                            <tr *ngIf="peakOffPeakType == 1">
+                                <td>Off Peak Unit rate</td>
+                                <td class="existing-trf">
+                                    {{
+                                        currentEnergyElc.pricePerUnit
+                                            | number: "1.2-2"
+                                    }}p per kWh
+                                </td>
+                                <td>
+                                    {{ energy.price1Elec | number: "1.2-2" }}p
+                                    per kWh
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Standing charge</td>
+                                <td class="existing-trf">
+                                    {{
+                                        currentEnergyElc.standingChargeDaily
+                                            | number: "1.2-2"
+                                    }}p per day
+                                </td>
+                                <td>
+                                    {{
+                                        energy.standingChargeElec
+                                            | number: "1.2-2"
+                                    }}p per day
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tariff ends on</td>
+                                <td class="existing-trf">12 months</td>
+                                <td>12 months</td>
+                            </tr>
+                            <tr>
+                                <td>Price guaranteed until</td>
+                                <td class="existing-trf">Permanently</td>
+                                <td>Permanently</td>
+                            </tr>
+                            <tr>
+                                <td>Exit fees</td>
+                                <td class="existing-trf">€ 0</td>
+                                <td>€ 0</td>
+                            </tr>
+                            <tr>
+                                <td>Discounts</td>
+                                <td class="existing-trf">€ 0</td>
+                                <td>€ 0</td>
+                            </tr>
+                            <tr>
+                                <td>Additional charges</td>
+                                <td class="existing-trf">€ 0</td>
+                                <td>€ 0</td>
+                            </tr>
+                            <!-- <tr>
+                                    <td>Average monthly direct debit</td>
+                                    <td>€ {{currentEnergyElc.bill | number : '1.2-2'}}</td>
+                                    <td>€ {{averageMonth | number : '1.2-2'}}</td>
+                                  </tr> -->
+                            <tr style="background: #005a61">
+                                <td>
+                                    <h3 style="color: #fff">
+                                        Average monthly Direct Debit (total
+                                        amount)
+                                    </h3>
+                                </td>
+                                <td
+                                    class="existing-trf"
+                                    *ngIf="!!currentEnergyElc"
+                                >
+                                    <h3 style="color: #fff">
+                                        € {{ avg | number: "1.2-2" }}
+                                    </h3>
+                                </td>
+                                <td>
+                                    <h3 style="color: #fff">
+                                        € {{ averageMonth | number: "1.2-2" }}
+                                    </h3>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div fxLayoutAlign="end end">
+                        <button
+                            mat-flat-button
+                            color="accent"
+                            matStepperPrevious
+                        >
+                            Back
+                        </button>
+                        &nbsp;
+                        <button
+                            mat-flat-button
+                            color="accent"
+                            (click)="NextStepper(stepper)"
+                        >
+                            Next
+                        </button>
+                    </div>
+                    <br />
+                    <div fxLayoutAlign="end end">
+                        <!-- <a style="cursor: pointer;" (click)="elecGasData()">Tariff information label</a>&nbsp;&nbsp; -->
+                        <a style="cursor: pointer" (click)="termsAndCondition()"
+                            >Terms and Conditions</a
+                        >
+                    </div>
+                    <br />
+                </mat-step>
+
+                <mat-step
+                    *ngIf="partneradded == false"
+                    [stepControl]="partnersixthFormGroup"
+                >
+                    <ng-template matStepLabel>Personal details</ng-template>
+
+                    <div class="title-head">
+                        Are you the owner or are you renting?
+                    </div>
+                    <div class="selection-wrapper" style="margin-top: 10px">
+                        <mat-radio-group
+                            fxLayout="row"
+                            fxLayout.lt-md="column"
+                            fxLayoutAlign.lt-md="start center"
+                            fxLayoutAlign="space-between center"
+                            aria-label="Select an option"
+                            required
+                        >
+                            <div fxFlex="50" class="radio-button">
+                                <mat-radio-button>
+                                    <div fxLayoutAlign="start center">
+                                        <span fxHide fxShow.gt-sm class="ml-8"
+                                            >OWner</span
+                                        >
+                                    </div>
+                                </mat-radio-button>
+                            </div>
+
+                            <div fxFlex="50" class="radio-button">
+                                <mat-radio-button>
+                                    <div
+                                        fxLayout.lt-md="column"
+                                        fxLayoutAlign="start center"
+                                    >
+                                        <span fxHide fxShow.gt-sm class="ml-8"
+                                            >Tenant</span
+                                        >
+                                    </div>
+                                </mat-radio-button>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+                    <form [formGroup]="partnersixthFormGroup">
+                        <div>
+                            <div fxLayoutGap="12px" fxLayoutAlign="start start">
+                                <mat-form-field
+                                    fxFlex="20"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Title</mat-label>
+                                    <mat-select
+                                        formControlName="Title"
+                                        placeholder="Title"
+                                    >
+                                        <mat-option [value]="0">Mr</mat-option>
+                                        <mat-option [value]="2">Mrs</mat-option>
+                                        <mat-option [value]="1"
+                                            >Miss</mat-option
+                                        >
+                                        <mat-option [value]="3">Ms</mat-option>
+                                        <mat-option [value]="4">Dr</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field
+                                    fxFlex="60"
+                                    appearance="outline"
+                                >
+                                    <mat-label>First name</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="First name"
+                                        required
+                                        formControlName="FirstName"
+                                    />
+                                </mat-form-field>
+                                <mat-form-field
+                                    fxFlex="60"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Family name</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Last name"
+                                        required
+                                        formControlName="LastName"
+                                    />
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayoutGap="12px">
+                                <mat-checkbox
+                                    [ngModelOptions]="{ standalone: true }"
+                                    style="margin-bottom: 15px"
+                                    fxFlex="50"
+                                    appearance="outline"
+                                    class="example-margin"
+                                    (change)="handleSelected($event)"
+                                    [(ngModel)]="checked"
+                                >
+                                    <mat-label
+                                        >I also want the name of my partner /
+                                        roommate to be stated on the
+                                        invoice</mat-label
+                                    >
+                                </mat-checkbox>
+                            </div>
+                            <div
+                                fxLayoutGap="12px"
+                                *ngIf="checked == true"
+                                style="margin-top: 15px"
+                            >
+                                <mat-form-field
+                                    fxFlex="50"
+                                    appearance="outline"
+                                >
+                                    <mat-label
+                                        >First Name Partner /
+                                        Co-Resident</mat-label
+                                    >
+                                    <input
+                                        matInput
+                                        placeholder="First Name Partner / Co-Resident"
+                                    />
+                                </mat-form-field>
+
+                                <mat-form-field
+                                    fxFlex="50"
+                                    appearance="outline"
+                                >
+                                    <mat-label
+                                        >Family Name Partner /
+                                        Roommate</mat-label
+                                    >
+                                    <input
+                                        matInput
+                                        placeholder="Family Name Partner / Roommate"
+                                    />
+                                </mat-form-field>
+                            </div>
+                            <div fxLayoutGap="12px" style="margin-top: 15px">
+                                <mat-form-field
+                                    fxFlex="50"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Email address</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Email address"
+                                        (change)="validateEmail()"
+                                        required
+                                        [(ngModel)]="email_add"
+                                        formControlName="EmailAddress"
+                                    />
+                                </mat-form-field>
+                                <mat-form-field
+                                    fxFlex="50"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Confirm Email address</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Email address"
+                                        required
+                                        [(ngModel)]="email_add"
+                                        formControlName="EmailAddress"
+                                    />
+                                </mat-form-field>
+                            </div>
+                            <div fxLayoutGap="12px">
+                                <div fxLayoutAlign="start start" fxFlex="50">
+                                    <international-phone-number
+                                        fxLayoutAlign="start
+                                        start"
+                                        class="input-field"
+                                        [(ngModel)]="phone_number"
+                                        (change)="validatePhone()"
+                                        placeholder="Enter Phone Number *"
+                                        [maxlength]="20"
+                                        [required]="true"
+                                        #phoneNumber="ngModel"
+                                        name="phone_number"
+                                        [ngModelOptions]="{ standalone: true }"
+                                    ></international-phone-number>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="50">
+                                    <international-phone-number
+                                        fxLayoutAlign="start
+                                        start"
+                                        class="input-field"
+                                        [(ngModel)]="phone_number"
+                                        (change)="validatePhone()"
+                                        placeholder="Enter Phone Number *"
+                                        [maxlength]="20"
+                                        [required]="true"
+                                        #phoneNumber="ngModel"
+                                        name="phone_number"
+                                        [ngModelOptions]="{ standalone: true }"
+                                    ></international-phone-number>
+                                </div>
+                            </div>
+                            <div fxLayoutGap="12px">
+                                <mat-form-field
+                                    fxFlex="60"
+                                    fxFlex.lt-md="100"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Date of birth</mat-label>
+                                    <input
+                                        (click)="picker.open()"
+                                        #input
+                                        required
+                                        matInput
+                                        [max]="maxDate"
+                                        [matDatepicker]="picker"
+                                        placeholder="Date of birth"
+                                        formControlName="DOB"
+                                        (click)="picker.open()"
+                                    />
+                                    <mat-datepicker-toggle
+                                        matSuffix
+                                        [for]="picker"
+                                    ></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                                <mat-form-field
+                                    fxFlex="50"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Employment status</mat-label>
+                                    <mat-select
+                                        required
+                                        formControlName="EmploymentStatusId"
+                                        placeholder="Employment status"
+                                    >
+                                        <mat-option
+                                            *ngFor="let add of epmStatus"
+                                            [value]="add.Id"
+                                        >
+                                            {{ add.Value }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayoutGap="12px">
+                                <mat-form-field
+                                    fxFlex="50"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Residential status</mat-label>
+                                    <mat-select
+                                        required
+                                        formControlName="ResidentalStatusId"
+                                        placeholder="Residential status"
+                                    >
+                                        <mat-option
+                                            *ngFor="let add of resStatusL"
+                                            [value]="add.Id"
+                                        >
+                                            {{ add.Value }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field
+                                    fxFlex="50"
+                                    appearance="outline"
+                                >
+                                    <mat-label
+                                        >Time at current address</mat-label
+                                    >
+                                    <mat-select
+                                        required
+                                        formControlName="TimeOfCurrentAddress"
+                                        placeholder="Time at current
+                                        address"
+                                    >
+                                        <mat-option
+                                            *ngFor="let add of timeOfCurAdd"
+                                            [value]="add.Id"
+                                        >
+                                            {{ add.Value }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayoutGap="12px">
+                                <mat-form-field
+                                    fxFlex="50"
+                                    appearance="outline"
+                                >
+                                    <mat-label
+                                        >Where did you hear about us?</mat-label
+                                    >
+                                    <mat-select
+                                        required
+                                        formControlName="WhereDidYouhearaboutUs"
+                                        placeholder="No of rooms"
+                                    >
+                                        <mat-option
+                                            *ngFor="let add of hearAbout"
+                                            [value]="add.Id"
+                                        >
+                                            {{ add.Value }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field
+                                    fxFlex="50"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Referral Code</mat-label>
+                                    <input
+                                        matInput
+                                        formControlName="ReferralCode"
+                                        [(ngModel)]="referralcode"
+                                        placeholder="Referral Code"
+                                    />
+                                </mat-form-field>
+                            </div>
+                            <div fxLayoutGap="12px">
+                                <mat-form-field
+                                    fxFlex="50"
+                                    appearance="outline"
+                                >
+                                    <mat-label>Password</mat-label>
+                                    <input
+                                        required
+                                        type="password"
+                                        formControlName="Password"
+                                        matInput
+                                        placeholder="Password"
+                                        required
+                                        (input)="confirmPassword()"
+                                    />
+                                    <mat-error
+                                        *ngIf="
+                                            !sixthFormGroup
+                                                .get('Password')
+                                                .hasError('required') &&
+                                            sixthFormGroup
+                                                .get('Password')
+                                                .hasError('pattern')
+                                        "
+                                    >
+                                        Passwords must contain at least six
+                                        characters, including uppercase,
+                                        lowercase letters and numbers.
+                                    </mat-error>
+                                </mat-form-field>
+                                <div fxFlex="50" class="error-wrapper">
+                                    <mat-form-field
+                                        class="w-100-p"
+                                        appearance="outline"
+                                    >
+                                        <mat-label>Confirm password</mat-label>
+                                        <input
+                                            [ngStyle]="{
+                                                'caret-color': '#f44336'
+                                            }"
+                                            required
+                                            type="password"
+                                            formControlName="confirmPassword"
+                                            matInput
+                                            placeholder="Confirm password"
+                                            required
+                                            (input)="confirmPassword()"
+                                        />
+                                    </mat-form-field>
+                                    <mat-error
+                                        *ngIf="isPasswordNotMatch == true"
+                                        class="errror-position"
+                                    >
+                                        Passwords must match
+                                    </mat-error>
+                                </div>
+                            </div>
+                            <div fxLayoutGap="12px">
+                                <mat-checkbox
+                                    fxFlex="50"
+                                    appearance="outline"
+                                    class="example-margin"
+                                >
+                                    <mat-label
+                                        >I would like to receive my invoices by
+                                        e-mail</mat-label
+                                    >
+                                </mat-checkbox>
+                            </div>
+                            <div fxLayoutGap="12px">
+                                <mat-checkbox
+                                    fxFlex="50"
+                                    appearance="outline"
+                                    class="example-margin"
+                                >
+                                    <mat-label
+                                        >I do not want to receive any commercial
+                                        emails,letters,telephone or other
+                                        messages from ENGIE</mat-label
+                                    >
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="end center">
+                            <button
+                                mat-flat-button
+                                color="accent"
+                                matStepperPrevious
+                            >
+                                Back
+                            </button>
+                            &nbsp;
+                            <button
+                                mat-flat-button
+                                type="button"
+                                color="accent"
+                                (click)="submitCustomer(stepper)"
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </form>
+                </mat-step>
+            </mat-vertical-stepper>
+        </div>
+    </div>
+</div>

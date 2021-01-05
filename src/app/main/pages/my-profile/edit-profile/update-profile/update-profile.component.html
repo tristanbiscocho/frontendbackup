@@ -1,0 +1,144 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            Setup a
+                Direct
+                Debit
+           
+            <!-- <button mat-button class="mat-icon-button"
+                (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button> -->
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0">
+        <div class="udate-profile p-16" fxLayout="column" fxLayoutGap="10px">
+            <div>
+                <div class="info" fxFlex="60">
+                    <div class="icon-text" fxLayoutAlign="start center">
+                        <!-- <div> -->
+                        <mat-icon class="m-0">
+                            lock
+                        </mat-icon>
+                        <!-- </div>
+                        <div> -->
+                        <h1 class="m-0"> Setup a Direct Debit</h1>
+                        <!-- </div> -->
+                    </div>
+                    <p>Enter your account details so Lowest Tariff can set up your Direct
+                        Debit payments.</p>
+                    <div>
+                        <!-- <h3>Full name of the main account holder</h3> -->
+                        <mat-form-field appearance="outline" class="w-95-p">
+                            <mat-label>Full name of the main account holder</mat-label>
+                            <input matInput placeholder="Full name of the main
+                                account holder" readonly [(ngModel)]="User_name" disabled required>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayoutGap="12px">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sort Code (6 Digits) *</mat-label>
+                            <input matInput readonly disabled  [textMask]="{mask: datemask}" [(ngModel)]="Sort_code" placeholder="Sort Code (6 Digits) *">
+                        </mat-form-field> 
+                         <!-- <div fxLayoutAlign="start start" fxFlex="50">
+                                <p-inputMask readonly disabled class="input-field sort-code" mask="99-99-99" [(ngModel)]="Sort_code" placeholder="Sort Code (6 Digits)"></p-inputMask>
+                            </div> -->
+                             <!-- <mat-form-field appearance="outline">
+                                <mat-label>Sort Code (6 Digits)</mat-label>
+                                 <input matInput readonly disabled [textMask]="{mask: datemask}" [(ngModel)]="myModel" placeholder="Sort Code (6 Digits) *" >
+                               </mat-form-field>  -->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Account Number (8 Digits) *</mat-label>
+                            <input matInput readonly disabled [(ngModel)]="accountNumber" placeholder="Account Number"
+                                required>
+                        </mat-form-field>
+
+
+                    </div>
+                    <div fxLayoutAlign="center center">
+                        <button id="InvoiceButton"  mat-flat-button (click)="printDialog()">Print</button> &nbsp;&nbsp;
+                        <button id="InvoiceButton1" mat-flat-button (click)="dialogRef.close()">Close</button>
+                    </div>
+                </div>
+
+                <div class="info1" fxFlex="40">
+                    <h2>What is Direct Debit?</h2>
+                    <p> Direct Debit is the simplest and most convenient way for you to pay regular and occasional bills.​​​
+                    </p>
+
+                    <h2>Is it safe to switch online?</h2>
+                    <p>Our site is protected by encryption so you can be sure
+                        that
+                        your details are 100%
+                        protected.
+                    </p>
+
+                    <h2>Why choose Direct Debit?</h2>
+                    <p>It's quick, safe and almost always cheaper.</p>
+
+                    <a href="https://www.directdebit.co.uk/DirectDebitExplained/pages/directdebitguarantee.aspx" target="_blank" download>"You’re protected by the Direct Debit Guarantee"</a>
+                </div>
+            </div>
+
+
+            <div fxLayout="row" class="onfo-bottom">
+                <ul>
+                    <li class="onfo-bottom">The Guarantee is offered by all banks and building societies that accept instructions to pay via direct debits.
+                    </li>
+                    <li class="onfo-bottom">
+                        If there are any changes to amount, date or frequency of your Direct Debit <span>Lowest Tariff</span> will notify you within <span>3</span> working days in advance of your account being debited or as otherwise agreed. If you request <span>Lowest Tariff</span> to collect a payment, confirmation of the amount and date will be given to you at the time of the request.
+                    </li>
+
+                    <li class="onfo-bottom">
+                        If an error is made in the payment of your Direct Debit, by  <span>Lowest Tariff</span>  or your bank or building society, you are entitled to a full and immediate refund of the amount paid from your bank or building society.
+                        <br> 
+                        If you receive a refund you are not entitled to, you must pay it back when  <span>Lowest Tariff</span> asks you to.</li>
+                    <li class="onfo-bottom">
+                        You can cancel a Direct Debit at any time by simply contacting your bank or building society. Written confirmation may be required. Please also notify us.</li>
+                </ul>
+            </div>
+        </div>
+        <!-- <div fxFlex=100>
+            <ul>
+                <li>The Guarentee is offered by all banks and building
+                    societies
+                    that accept instructionto
+                    pay Direct Debites
+                </li>
+                <li>If there are any changes to the amount, date or
+                    frequency of
+                    your Direct Debite (<span>insert your organisation name</span>)
+                    will notify you(<span>insert number of</span>) working
+                    days
+                    in advance of your account being debited or otherwise
+                    agreed. If your request (<span>insert your organization
+                        name</span>)
+                    to collect a payment, confirmation of the amount
+                    and date will be given to you at the time of the
+                    request.
+                </li>
+
+                <li>if an error is made in the payment of your Direct
+                    Debite, by
+                    ( <span>insert your organisation name</span> )
+                    or oyur bank or building society, you are entitled to a
+                    full
+                    and immediate refund of the amount paid form your bank
+                    or
+                    building society
+                    <br> -If you receive a refund you are not entitled to,
+                    you
+                    must pay it back when ( <span>insert your organisation
+                        name</span>
+                    )
+                    ask you to.</li>
+                <li>you can cancel a Direct Debite at any time by simply
+                    contacting your bank or building society. Written
+                    confirmation may be required. please also notify us.</li>
+            </ul>
+        </div> -->
+    </div>
+
+
+</div>

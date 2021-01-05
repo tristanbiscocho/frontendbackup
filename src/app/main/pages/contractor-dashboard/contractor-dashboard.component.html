@@ -1,0 +1,307 @@
+<div id="dashboard" class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="detail">
+        <div
+            class="mb-24"
+            fxLayout.lt-sm="column"
+            fxLayoutAlign="space-between start"
+        >
+            <div class="header-title">
+                <h1 class="mt-0">
+                    Welcome back, {{ this.currentUser.FirstName }}
+                    {{ this.currentUser.LastName }}!
+                </h1>
+                <h2>Dashboard</h2>
+            </div>
+
+            <!-- <mat-card  fxFlex="30"  class="credit-card p-20">
+                <mat-card class="image-card" >
+                    <div class="detail-img">
+                    <img width="40"
+                        src="assets/images/logos/profile.png"
+                        />
+                </div>
+                </mat-card>
+                <div fxLayoutAlign="start end" fxLayout="column">
+                    <h2 class="m-12" *ngIf="!!currentUser"></h2>
+                </div>
+            </mat-card> -->
+        </div>
+    </div>
+    <div class="content" style="min-height: 70%" fxLayoutAlign="center center">
+        <div class="detail">
+            <div fxLayoutGap="24px" fxLayout="column" fxLayout.lt-sm="column">
+                <div
+                    fxLayout.lt-sm="column"
+                    fxLayout.lt-md="column"
+                    fxLayoutGap="24px"
+                >
+                    <mat-card
+                        fxFlex="50"
+                        class="credit-card p-20"
+                        [routerLink]="
+                            '/pending-customers/' +
+                            0 +
+                            '/' +
+                            currentUser.Id +
+                            '/' +
+                            1 +
+                            '/' +
+                            0 +
+                            '/' +
+                            currentUser.FirstName +
+                            '/' +
+                            'partner'
+                        "
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/pending.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div fxLayoutAlign="start end" fxLayout="column">
+                            <h3 class="m-0">Pending</h3>
+                            <p
+                                *ngIf="!!counts"
+                                fxLayoutAlign="center center"
+                                class="count m-0"
+                            >
+                                {{ counts[0].PendingReferralCount }}
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        class="credit-card p-20"
+                        [routerLink]="
+                            '/pending-customers/' +
+                            0 +
+                            '/' +
+                            currentUser.Id +
+                            '/' +
+                            4 +
+                            '/' +
+                            0 +
+                            '/' +
+                            currentUser.FirstName +
+                            '/' +
+                            'partner'
+                        "
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/active.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div fxLayoutAlign="start end" fxLayout="column">
+                            <h3 class="m-0">Completed</h3>
+                            <!-- <h1 class="m-0" fxLayoutAlign="center">
+                                dsdf
+                            </h1> -->
+                            <p
+                                *ngIf="!!counts"
+                                fxLayoutAlign="center center"
+                                class="count m-0"
+                            >
+                                {{ counts[0].CompleteReferralCount }}
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        class="credit-card p-20"
+                        [routerLink]="
+                            '/pending-customers/' +
+                            0 +
+                            '/' +
+                            currentUser.Id +
+                            '/' +
+                            2 +
+                            '/' +
+                            0 +
+                            '/' +
+                            currentUser.FirstName +
+                            '/' +
+                            'partner'
+                        "
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/not-active.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div fxLayoutAlign="start end" fxLayout="column">
+                            <h3 class="m-0">Failed</h3>
+                            <p
+                                *ngIf="!!counts"
+                                fxLayoutAlign="center center"
+                                class="count m-0"
+                            >
+                                {{ counts[0].FailCount }}
+                            </p>
+                        </div>
+                    </mat-card>
+                </div>
+
+                <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/admin-commission/' + 0"
+                        style="cursor: pointer"
+                        class="credit-card p-20"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/total-payments.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div fxLayoutAlign="start end" fxLayout="column">
+                            <h3 class="m-0">My Commission</h3>
+                            <!-- <h1 class="m-0" fxLayoutAlign="center">
+                                £15000</h1> -->
+                            <p
+                                fxLayoutAlign="center center"
+                                class="count m-0"
+                                *ngIf="!!counts"
+                            >
+                                £ {{ counts[0].ReferralCredit }}
+                            </p>
+                        </div>
+                    </mat-card>
+                    <mat-card
+                        fxFlex="50"
+                        [routerLink]="'/my-profile'"
+                        style="cursor: pointer"
+                        class="credit-card p-20"
+                    >
+                        <mat-card class="image-card">
+                            <div class="detail-img">
+                                <img
+                                    width="40"
+                                    src="assets/images/logos/profile.png"
+                                />
+                            </div>
+                        </mat-card>
+                        <div fxLayoutAlign="start end" fxLayout="column">
+                            <h3 class="m-0">My Profile</h3>
+                            <p fxLayoutAlign="center center" class="count m-0">
+                                {{ currentUser.ReferralCode }}
+                            </p>
+                        </div>
+                    </mat-card>
+                    <!-- <mat-card  fxFlex="50"
+                        class="credit-card p-20" 
+                       >
+                        <mat-card class="image-card">
+                        <div class="detail-img">
+                            <img width="40"
+                                src="assets/images/logos/active-user-white.png" />
+                        </div>
+                        </mat-card>
+                        <div fxLayoutAlign="start end" fxLayout="column">
+                            <h3 class="m-0">
+                                Connect To Dialler
+                            </h3>
+                           
+                        </div>
+                    </mat-card> -->
+                    <a
+                        fxFlex="50"
+                        style="text-decoration: none"
+                        [href]="url"
+                        target="blank"
+                    >
+                        <mat-card
+                            fxFlex
+                            style="cursor: pointer"
+                            class="credit-card p-20"
+                        >
+                            <mat-card class="image-card">
+                                <div class="detail-img">
+                                    <img
+                                        width="40"
+                                        src="assets/images/logos/profile.png"
+                                    />
+                                </div>
+                            </mat-card>
+                            <div fxLayoutAlign="start end" fxLayout="column">
+                                <h3 class="m-0">Connect to Dialler</h3>
+                            </div>
+                        </mat-card>
+                    </a>
+                </div>
+
+                <!-- <div fxLayout.lt-sm="column" fxLayoutGap="24px">
+                    <mat-card fxFlex="50" [routerLink]="'/callback-customerlist/' " style="cursor: pointer;"
+                        class="credit-card p-20" >
+                        <mat-card class="image-card">
+                        <div class="detail-img">
+                            <img width="40"
+                                src="assets/images/logos/customer.png"
+                                />
+                        </div>
+                        </mat-card>
+                        <div fxLayoutAlign="start end" fxLayout="column">
+                            <h3 class="m-0">
+                                Call Back Customer List
+                            </h3>
+                            <p  *ngIf="!!counts"  fxLayoutAlign="center center" class="count m-0">
+                                {{counts[0].CustomerCallbackCount}}
+                            </p>
+                           
+                                
+                        </div>
+                    </mat-card>
+                  
+                    <mat-card fxFlex="50" [routerLink]="'/not-interested-customers/' " style="cursor: pointer;"
+                    class="credit-card p-20" >
+                    <mat-card class="image-card">
+                    <div class="detail-img">
+                        <img width="40"
+                            src="assets/images/logos/customer.png"
+                            />
+                    </div>
+                    </mat-card>
+                    <div fxLayoutAlign="start end" fxLayout="column">
+                        <h3 class="m-0">
+                            Not Interested Customer
+                        </h3>
+                        <p *ngIf="!!counts" fxLayoutAlign="center center" class="count m-0">
+                        {{counts[0].NotInterestedCount}}
+                        </p>
+                      
+                           
+                    </div>
+                </mat-card>
+                <mat-card fxFlex="50"
+                class="credit-card p-20"
+                [routerLink]="'/partner-add-customer'">
+                <mat-card class="image-card">
+                <div class="detail-img">
+                <img width="40"
+                src="assets/images/logos/not-active.png" />
+                </div>
+                </mat-card>
+                <div fxLayoutAlign="start end" fxLayout="column">
+                <h3 class="m-0">
+                Add New Customer
+                </h3>
+                
+                </div>
+                </mat-card>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
